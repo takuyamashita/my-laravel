@@ -105,7 +105,6 @@ export default class Calender extends React.Component{
                 const x = (n) => ( Math.floor((reservationFrom.getTime() - this.props.selectDate.getTime()) / 86400000 ) + n) * this.dayWidth + 0.6;
                 const y = this.headHeight + (reservationFrom.getHours() / 24 + reservationFrom.getMinutes() / (60 * 24)) * (this.hourHeight * 24);
                 const height = ((reservationEnd.getTime() - reservationFrom.getTime()) / (1000 * 60 * 60)) * this.hourHeight;
-                console.log(reservationEnd.getMinutes());
                 const dateCount = reservationEnd.getDate() - reservationFrom.getDate();
                 const reservationElemts = [];
                 for(let k = 0;k <= dateCount;k ++){
