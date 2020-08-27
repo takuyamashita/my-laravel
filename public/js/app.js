@@ -74637,7 +74637,6 @@ var Calender = /*#__PURE__*/function (_React$Component) {
 
           var height = (reservationEnd.getTime() - reservationFrom.getTime()) / (1000 * 60 * 60) * _this2.hourHeight;
 
-          console.log(reservationEnd.getMinutes());
           var dateCount = reservationEnd.getDate() - reservationFrom.getDate();
           var reservationElemts = [];
 
