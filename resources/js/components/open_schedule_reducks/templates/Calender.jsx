@@ -104,7 +104,8 @@ export default class Calender extends React.Component{
             if(reservationEnd.getTime() > fromDate.getTime() && reservationFrom.getTime() < endTime){
                 const x = (n) => ( Math.floor((reservationFrom.getTime() - this.props.selectDate.getTime()) / 86400000 ) + n) * this.dayWidth + 0.6;
                 const y = this.headHeight + (reservationFrom.getHours() / 24 + reservationFrom.getMinutes() / (60 * 24)) * (this.hourHeight * 24);
-                const height = (reservationEnd.getHours() - reservationFrom.getHours() + reservationEnd.getMinutes() / 60) * this.hourHeight;
+                const height = ((reservationEnd.getTime() - reservationFrom.getTime()) / (1000 * 60 * 60)) * this.hourHeight;
+                console.log(reservationEnd.getMinutes());
                 const dateCount = reservationEnd.getDate() - reservationFrom.getDate();
                 const reservationElemts = [];
                 for(let k = 0;k <= dateCount;k ++){
@@ -117,7 +118,7 @@ export default class Calender extends React.Component{
                     }else if(k === dateCount){
                         reservationElemts.push(
                             <rect key={`${i}-${k}`} x={x(k)} y={this.headHeight} width={this.dayWidth - 1.2} className='reservation-hover' onClick={this.reservationClick.bind(this)}
-                                height={reservationEnd.getHours() * this.hourHeight} rx="1" ry="1" strokeWidth="0" fill={reservation.color.background_color}
+                                height={reservationEnd.getHours() * this.hourHeight + reservationEnd.getMinutes() / 60 * this.headHeight} rx="1" ry="1" strokeWidth="0" fill={reservation.color.background_color}
                             />
                         );
                     }else{

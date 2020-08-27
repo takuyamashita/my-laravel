@@ -50,6 +50,8 @@ export const sendReservation = () => {
                 const errors = {};
                 for(const error in res.errors){errors[error] = res.errors[error][0]};
                 dispatch(setReservationError(errors));
+                
+                document.getElementById('open-form-button').click();
 
                 if(state.schedule.permitRequired) return;
 

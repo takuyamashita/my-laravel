@@ -35,5 +35,29 @@ class ReservationTableSeeder extends Seeder
             $currentTime = $end;
             ++ $id;
         }
+
+        $currentTime = time() - 60 * 60 * 24 * 100;
+        $endTime = time() + 60 * 60 * 24 * 90;
+        $id = 1;
+        while($currentTime < $endTime){
+
+            $end = $currentTime + 60 * 20 * mt_rand(3,18);
+
+            $reservation = new \App\Models\Reservation([
+                'owner_name' => 'テスト',
+                'from' => date("Y-m-d H:i:s",$currentTime),
+                'end' => date("Y-m-d H:i:s",$end),
+                'status' => 0,
+                'schedule_digest' => Schedule::find(2)->hash_digest,
+                'schedule_id' => Schedule::find(2)->id,
+                'color_id' => mt_rand(1,15),
+            ]);
+            
+            $reservation->save();
+
+            $end += 60 * 20 * mt_rand(3,5);
+            $currentTime = $end;
+            ++ $id;
+        }
     }
 }

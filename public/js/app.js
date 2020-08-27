@@ -74009,6 +74009,7 @@ var sendReservation = function sendReservation() {
 
       ;
       dispatch(Object(_forms_actions__WEBPACK_IMPORTED_MODULE_1__["setReservationError"])(errors));
+      document.getElementById('open-form-button').click();
       if (state.schedule.permitRequired) return;
 
       var newReservations = _toConsumableArray(state.reservations.filter(function (reservation) {
@@ -74634,8 +74635,9 @@ var Calender = /*#__PURE__*/function (_React$Component) {
 
           var y = _this2.headHeight + (reservationFrom.getHours() / 24 + reservationFrom.getMinutes() / (60 * 24)) * (_this2.hourHeight * 24);
 
-          var height = (reservationEnd.getHours() - reservationFrom.getHours() + reservationEnd.getMinutes() / 60) * _this2.hourHeight;
+          var height = (reservationEnd.getTime() - reservationFrom.getTime()) / (1000 * 60 * 60) * _this2.hourHeight;
 
+          console.log(reservationEnd.getMinutes());
           var dateCount = reservationEnd.getDate() - reservationFrom.getDate();
           var reservationElemts = [];
 
@@ -74662,7 +74664,7 @@ var Calender = /*#__PURE__*/function (_React$Component) {
                 width: _this2.dayWidth - 1.2,
                 className: "reservation-hover",
                 onClick: _this2.reservationClick.bind(_this2),
-                height: reservationEnd.getHours() * _this2.hourHeight,
+                height: reservationEnd.getHours() * _this2.hourHeight + reservationEnd.getMinutes() / 60 * _this2.headHeight,
                 rx: "1",
                 ry: "1",
                 strokeWidth: "0",
@@ -75691,7 +75693,10 @@ var ScheduleDetailCard = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "display-5"
       }, "\u78BA\u8A8D")), this.props.schedule.not_permit_reservations.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "mt-3 table-responsive"
+        className: "mt-3 table-responsive overflow-auto",
+        style: {
+          maxHeight: '60vh'
+        }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
         className: "text-center"
       }, "\u627F\u8A8D\u5F85\u3061\u4E88\u7D04\u4E00\u89A7"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

@@ -58,7 +58,7 @@ class ScheduleDetailCard extends React.Component{
                     </Link>
                     */}
                     {this.props.schedule.not_permit_reservations.length > 0 && (
-                        <div className="mt-3 table-responsive">
+                        <div className="mt-3 table-responsive overflow-auto" style={{maxHeight:'60vh'}}>
                             <h5 className="text-center">承認待ち予約一覧</h5>
                             <div className="text-right"><span className="badge badge-danger">承認と同時に、重複してる予約は削除されます</span></div>
                             <table className="table table-hover">
