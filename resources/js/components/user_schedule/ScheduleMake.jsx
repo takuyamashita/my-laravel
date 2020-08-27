@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch ,withRouter} from 'react-router-dom';
 
+import {fetchFromLaravel} from '../FetchUtil';
 
 let csrf = '';
 
@@ -26,26 +27,10 @@ class ScheduleMake extends React.Component{
         },{once:false});
     }
     sendSchedule(){
+        const csrf = document.querySelector('meta[name="csrf_token"]').content;
         const endPoint = this.props.editTarget.length > 0 ? `/schedules/${this.props.editTarget}`:'/schedules';
         const method = this.props.editTarget.length > 0 ? `PUT`:'POST';
-        fetch(endPoint,{
-            headers:{
-                'Content-Type':"application/json",
-                "Accept": "application/json",
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token": document.querySelector('meta[name="csrf_token"]').content
-            },
-            method: method,
-            credentials: "same-origin",
-            body: JSON.stringify(this.props.state)
-        }).then(res=>{
-            if(res.status !== 200){
-                throw Error('error');
-            }
-            return res.json();
-        }).then(json=>{
-            this.props.addCallback(json);
-        }).catch(e => this.props.addErrorCallback(e))
+        fetchFromLaravel(csrf,method,endPoint,this.props.state,this.props.addCallback,this.props.addErrorCallback);
     }
     buttonStyle(i,color){
         return this.props.state.schedule_passwords[i].colors.indexOf(Number(color.id)) < 0 ? {color:color.text_color,background:color.background_color,opacity:'0.2'}:{color:color.text_color,background:color.background_color,opacity:'1'}
@@ -56,11 +41,15 @@ class ScheduleMake extends React.Component{
             passwordForms.push(
                 <div className="form-group"  key={i}>
                     <label htmlFor="schedule_password">パスワード</label><a className="text-danger ml-4" style={{cursor: "pointer"}} onClick={this.props.removeSchedulePassword} data-index={i}>グループを削除</a>
-                    <input type="text" className="form-control" value={this.props.state.schedule_passwords[i].schedule_password} data-index={i} id="schedule_password" placeholder="Password" aria-describedby="schedule_passwordHelp" disabled={!this.props.state.password_required} onChange={ev=>this.props.formMethod(['schedule_password',ev])}/>
+                    <input type="text" className="form-control" 
+                        value={this.props.state.schedule_passwords[i].schedule_password} data-index={i} id="schedule_password" 
+                        placeholder="Password" aria-describedby="schedule_passwordHelp" disabled={!this.props.state.password_required} 
+                        onChange={ev=>this.props.formMethod(['schedule_password',ev])} pattern="^[0-9A-Za-z]+$"
+                    />
                     <small id="schedule_passwordHelp" className="form-text text-muted">閲覧に必要なパスワードを入力</small>
-                    <div className="d-flex justify-content-around">
+                    <div className="d-flex overflow-auto my-3">
                         {this.props.reservationColors.map(color=>
-                            <button key={`${i}-${color.id}`} data-id={color.id} data-index={i} type="button" className='btn mt-3' style={this.buttonStyle(i,color)} onClick={this.props.schedulePasswordButtonEvent} >Text</button>
+                            <button key={`${i}-${color.id}`} data-id={color.id} data-index={i} type="button" className='btn my-1 ml-1' style={this.buttonStyle(i,color)} onClick={this.props.schedulePasswordButtonEvent} >Text</button>
                         )}
                     </div>
                     <small id="schedule_passwordHelp" className="form-text text-muted">パスワードを予約で使用可能な色を紐づけます</small>

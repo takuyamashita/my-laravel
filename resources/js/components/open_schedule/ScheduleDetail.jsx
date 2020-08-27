@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch ,withRouter} from 'react-router-dom';
+import {useDispatch,useSelector} from 'react-redux';
 
 import CarenderSelectHeader from './CalenderSelectHeader';
 import ReserveForm from './ReserveForm';
@@ -53,16 +54,16 @@ class ScheduleDetail extends React.Component{
         let verticalCounter = 1;
         for(let i = 0;i <= 24*this.hourHeight + this.headHeight;i += this.lineInterval){
             backHorizenLines.push(
-                <line x1={0} y1={i} x2={this.state.visibleDayNum*this.dayWidth} y2={i} stroke="#878787" strokeWidth="0.03"/>
+                <line key={i} x1={0} y1={i} x2={this.state.visibleDayNum*this.dayWidth} y2={i} stroke="#878787" strokeWidth="0.03"/>
             );
             if(i >= this.headHeight + this.hourHeight && i % this.hourHeight === 0){
                 if(verticalCounter % 2 === 0 && verticalCounter < 24){
                     for(let k = 2;k < this.state.visibleDayNum;k += 3){
                         timeRects.push(
-                            <rect x={k * this.dayWidth - this.timeRectLong/2} y={i - this.timeRectLong/2} width={this.timeRectLong} height={this.timeRectLong} stroke="none" strokeWidth="0.05" fill="#615f6f"/>
+                            <rect key={`${i}-${k}`} x={k * this.dayWidth - this.timeRectLong/2} y={i - this.timeRectLong/2} width={this.timeRectLong} height={this.timeRectLong} stroke="none" strokeWidth="0.05" fill="#615f6f"/>
                         );
                         timeTexts.push(
-                            <text x={k * this.dayWidth} y={i} fontSize="0.7" fill="#ffffff" textAnchor="middle" dominantBaseline="central">
+                            <text key={`${i}-${k}`} x={k * this.dayWidth} y={i} fontSize="0.7" fill="#ffffff" textAnchor="middle" dominantBaseline="central">
                                 {verticalCounter}
                             </text>
                         );
@@ -73,7 +74,7 @@ class ScheduleDetail extends React.Component{
         }
         for(let i = 0;i <= this.state.visibleDayNum*this.dayWidth;i += this.lineInterval){
             backVerticalLines.push(
-                <line x1={i} y1={this.lineInterval} x2={i} y2={this.lineInterval*2 + 24*this.hourHeight} stroke="#878787" strokeWidth={i % this.dayWidth == 0 ? '0.07':'0.03'}/>
+                <line key={i} x1={i} y1={this.lineInterval} x2={i} y2={this.lineInterval*2 + 24*this.hourHeight} stroke="#878787" strokeWidth={i % this.dayWidth == 0 ? '0.07':'0.03'}/>
             );
         }
         this.backHorizenLines = backHorizenLines;
@@ -86,41 +87,41 @@ class ScheduleDetail extends React.Component{
         this.reservations = [];
         const lenth = this.props.reservations.length;
         const fromDate = new Date(this.state.year,this.state.month,this.state.date);
-        const endDate = new Date();
+        const endDate = new Date(this.state.year,this.state.month,this.state.date);
         endDate.setDate(fromDate.getDate() + this.state.visibleDayNum);
         for(let i = 0;i < lenth;i ++){
             const reservation = this.props.reservations[i];
             const reservationFrom = this.parseToDateFromReservation(reservation.from.split(/-|\s|:/));
             const reservationEnd = this.parseToDateFromReservation(reservation.end.split(/-|\s|:/));
-            if(reservationFrom.getTime() > fromDate.getTime() && reservationFrom.getTime() < endDate.getTime()){
+            if(reservationEnd.getTime() > fromDate.getTime() && reservationFrom.getTime() < endDate.getTime()){
                 const x = (i) => (reservationFrom.getDate() - this.state.date + i) * this.dayWidth + 0.6;
                 const y = this.headHeight + (reservationFrom.getHours() / 24 + reservationFrom.getMinutes() / (60 * 24)) * (this.hourHeight * 24);
                 const height = (reservationEnd.getHours() - reservationFrom.getHours()) * this.hourHeight;
                 const dateCount = reservationEnd.getDate() - reservationFrom.getDate();
                 const reservationElemts = [];
-                for(let i = 0;i <= dateCount;i ++){
-                    if(i === 0){
+                for(let k = 0;k <= dateCount;k ++){
+                    if(k === 0){
                         reservationElemts.push(
-                            <rect x={x(i)} y={y} width={this.dayWidth - 1.2}
+                            <rect key={`${i}-${k}`} x={x(k)} y={y} width={this.dayWidth - 1.2}
                                 height={dateCount === 0 ? height:this.hourHeight * 24 + this.headHeight - y} rx="1" ry="1" strokeWidth="0" fill={reservation.color.background_color}
                             />
                         );
-                    }else if(i === dateCount){
+                    }else if(k === dateCount){
                         reservationElemts.push(
-                            <rect x={x(i)} y={this.headHeight} width={this.dayWidth - 1.2}
+                            <rect key={`${i}-${k}`} x={x(k)} y={this.headHeight} width={this.dayWidth - 1.2}
                                 height={reservationEnd.getHours() * this.hourHeight} rx="1" ry="1" strokeWidth="0" fill={reservation.color.background_color}
                             />
                         );
                     }else{
                         reservationElemts.push(
-                            <rect x={x(i)} y={this.headHeight} width={this.dayWidth - 1.2}
+                            <rect key={`${i}-${k}`} x={x(k)} y={this.headHeight} width={this.dayWidth - 1.2}
                                 height={this.hourHeight * 24} rx="1" ry="1" strokeWidth="0" fill={reservation.color.background_color}
                             />
                         );
                     }
                 }
                 this.reservations.push(
-                    <g>
+                    <g key={i} style={'dummyId' in reservation ? {opacity:0.3}:{opacity:0.8}}>
                         {reservationElemts}
                     </g>
                 );
@@ -154,15 +155,15 @@ class ScheduleDetail extends React.Component{
         const headText = [];
         for(let i = 0;i < this.state.visibleDayNum;i ++){
             daysHead.push(
-                <rect x={i*this.dayWidth} y="0" width={this.dayWidth} height={this.headHeight} stroke="none" strokeWidth="1" fill={this.dayColor[date.getDay() + i < 7 ? date.getDay() + i : (date.getDay() + i) % 7]}/>
+                <rect key={i} x={i*this.dayWidth} y="0" width={this.dayWidth} height={this.headHeight} stroke="none" strokeWidth="1" fill={this.dayColor[date.getDay() + i < 7 ? date.getDay() + i : (date.getDay() + i) % 7]}/>
             );
             headText.push(
-                <text x={i*this.dayWidth + 1.5} y={this.headHeight/2} fontSize="0.8" fill="#797979" textAnchor="middle" dominantBaseline="central">
+                <text key={i} x={i*this.dayWidth + 1.5} y={this.headHeight/2} fontSize="0.8" fill="#797979" textAnchor="middle" dominantBaseline="central">
                     {startDay + i <= lastDayOfMonth ? startDay + i : startDay + i - lastDayOfMonth}
                 </text>
             );
             dayscontent.push(
-                <path d={`M${i*this.dayWidth},${this.headHeight} h${this.dayWidth} v${24*this.hourHeight} h${-this.dayWidth}z`} stroke="#767474" strokeWidth="0" fill="#fbfbfb66"/>
+                <path key={i} d={`M${i*this.dayWidth},${this.headHeight} h${this.dayWidth} v${24*this.hourHeight} h${-this.dayWidth}z`} stroke="#767474" strokeWidth="0" fill="#fbfbfb66"/>
             );
         }
         return (
@@ -213,18 +214,6 @@ class ScheduleDetail extends React.Component{
         });
     }
 
-    formMethod(key,value){
-        const target = this.state.reserveForm;
-        target[key] = value;
-        this.setState({reserveForm:target});
-    }
-
-    errorMethod(key,value){
-        const target = this.state.reserveFormError;
-        target[key] = value;
-        this.setState({reserveFormError:target});
-    }
-
     getVisibleDayNum(){
         if(window.innerWidth > 1200){
             return 13;
@@ -248,16 +237,20 @@ class ScheduleDetail extends React.Component{
                                 <div className="card-header">{this.props.schedule_name}</div>
                                 <div className="card-body">
                                     <h5 className="card-title">
-                                        {this.props.schedule_description !== null && this.props.schedule_description.split('\n').map(line=><p>{line}</p>)}
+                                        {this.props.schedule_description !== null && this.props.schedule_description.split('\n').map((line,i)=><p key={i}>{line}</p>)}
                                     </h5>
                                     <ReserveForm
                                         reservations={this.props.reservations}
-                                        reserveForm={this.state.reserveForm}
-                                        reserveFormError={this.state.reserveFormError} 
+                                        reserveForm={this.props.reserveForm}
+                                        reserveFormError={this.props.reserveFormError} 
                                         createReservation={this.props.createReservation} 
-                                        formMethod={this.formMethod.bind(this)} 
-                                        errorMethod={this.errorMethod.bind(this)}
+                                        formMethod={this.props.formMethod} 
+                                        errorMethod={this.props.errorMethod}
+                                        setFromForm={this.props.setFromForm}
+                                        setEndForm={this.props.setEndForm}
                                         colors={this.props.colors} 
+                                        from={this.props.from}
+                                        end={this.props.end}
                                     />
                                     <CarenderSelectHeader year={this.state.year} month={this.state.month} date={this.state.date} selectDate={this.selectDate.bind(this)}/>
                                     {this.calender()}

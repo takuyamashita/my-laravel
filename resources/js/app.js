@@ -14,4 +14,5 @@ require('./bootstrap');
 
 require('./components/Example');
 require('./components/user_schedule/ScheduleRoot');
-require('./components/open_schedule/ScheduleRoot');
+//require('./components/open_schedule/ScheduleRoot');
+require('./components/open_schedule_reducks/index');

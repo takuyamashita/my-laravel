@@ -6,6 +6,7 @@
 
         <title>Reser View</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
         @yield('head')
     </head>
     <body>
@@ -18,7 +19,11 @@
                         <a class="nav-link" href="{{ route('schedule.top') }}">マイ予約テーブル</a>
                     </div>
                     <div class="rv-item">
-                        <a class="nav-link" href="#">ログアウト</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">ログアウト</a>
                     </div>
                 @else
                     <div class="rv-item">

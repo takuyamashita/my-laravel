@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Schedule;
 use App\Models\ReservationColor;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
@@ -25,17 +26,21 @@ class ScheduleController extends Controller
 
     public function getOpenSchedule(Schedule $schedule,Request $request){
 
+        $userId = Auth::guard('web')->id();
+
         if($schedule->password_required){
             $schedulePassword = $schedule->schedulePasswords()->where('password',$request->input('schedule_password'))->with('colors')->first();
             
-            if($schedulePassword === null) return response()->json(['error'=>'パスワードが違います']);
+            if($schedulePassword === null) return response()->json(['error'=>'パスワードが違います'],422);
 
             return response()->json([
                 'color_root' => $schedulePassword->getRelations('colors'),
                 'name' => $schedule->name,
                 'description' => $schedule->description,
                 'hash_digest' => $schedule->hash_digest,
-                'reservations' => $schedule->reservations()->with('color')->get(),
+                'permit_required' => $schedule->permit_required,
+                'reservations' => $schedule->permitReservations()->with('color')->get(),
+                'owner' => $userId !== null && $userId === $schedule->owner_id,
             ]); 
         }else{
             return response()->json([
@@ -43,7 +48,9 @@ class ScheduleController extends Controller
                 'name' => $schedule->name,
                 'description' => $schedule->description,
                 'hash_digest' => $schedule->hash_digest,
-                'reservations' => $schedule->reservations()->with('color')->get(),
+                'permit_required' => $schedule->permit_required,
+                'reservations' => $schedule->permitReservations()->with('color')->get(),
+                'owner' => $userId !== null && $userId === $schedule->owner_id,
             ]); 
         }
 

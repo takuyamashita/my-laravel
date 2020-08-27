@@ -37,7 +37,7 @@ class ScheduleService{
                 }
             }
 
-            return Schedule::where('id',$schedule->id)->with(['schedulePasswords.colors'])->get()->toJson();
+            return Schedule::where('id',$schedule->id)->with(['schedulePasswords.colors','notPermitReservations'])->get()->toJson();
         });
     }
 

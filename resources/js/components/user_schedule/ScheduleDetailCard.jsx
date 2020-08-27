@@ -2,11 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch ,withRouter} from 'react-router-dom';
+import {parseToDateFromReservation} from '../DateUtil';
+import {fetchFromLaravel} from '../FetchUtil';
 
 
 class ScheduleDetailCard extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            selectedReservationFrom:'',
+            selectedReservationEnd:'',
+            selectedReservationId:-1,
+            loadings:[],
+        }
     }
     render(){
         return (
@@ -49,9 +57,79 @@ class ScheduleDetailCard extends React.Component{
                         <span className="display-5">編集</span>
                     </Link>
                     */}
+                    {this.props.schedule.not_permit_reservations.length > 0 && (
+                        <div className="mt-3 table-responsive">
+                            <h5 className="text-center">承認待ち予約一覧</h5>
+                            <div className="text-right"><span className="badge badge-danger">承認と同時に、重複してる予約は削除されます</span></div>
+                            <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">予約オーナー</th>
+                                    <th scope="col">開始日時</th>
+                                    <th scope="col">終了日時</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.props.schedule.not_permit_reservations.map((reservation,i)=>
+                                    <tr key={i} className={
+                                        this.state.selectedReservationFrom.length > 0 &&
+                                        parseToDateFromReservation(reservation.from.split(/-|\s|:/)).getTime() < parseToDateFromReservation(this.state.selectedReservationEnd.split(/-|\s|:/)).getTime() &&  
+                                        parseToDateFromReservation(reservation.end.split(/-|\s|:/)).getTime() > parseToDateFromReservation(this.state.selectedReservationFrom.split(/-|\s|:/)).getTime() ?
+                                        'table-success':''
+                                    }
+                                        data-from={reservation.from} data-end={reservation.end} onClick={this.selectReservation.bind(this)} data-id={reservation.id}
+                                    >
+                                        <td scope="row">{reservation.owner_name}</td>
+                                        <td>{reservation.from}</td>
+                                        <td>{reservation.end}</td>
+                                        <td>
+                                            {!this.state.loadings.includes(Number(reservation.id)) && (
+                                                <button type="button" className="btn btn-success btn-sm" onClick={this.permitReservation.bind(this)}>承認</button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
             </div>
         );
+    }
+
+    selectReservation(ev){
+        this.setState({
+            selectedReservationFrom:ev.currentTarget.dataset.from,
+            selectedReservationEnd:ev.currentTarget.dataset.end,
+            selectedReservationId:Number(ev.currentTarget.dataset.id),
+        });
+    }
+
+    permitReservation(ev){
+        const dataset = ev.currentTarget.parentElement.parentElement.dataset;
+        const loadingsArray = [];
+        this.props.schedule.not_permit_reservations.forEach(reservation=>{
+            if(
+                parseToDateFromReservation(reservation.from.split(/-|\s|:/)).getTime() < parseToDateFromReservation(dataset.end.split(/-|\s|:/)).getTime() &&  
+                parseToDateFromReservation(reservation.end.split(/-|\s|:/)).getTime() > parseToDateFromReservation(dataset.from.split(/-|\s|:/)).getTime()
+            ){
+                loadingsArray.push(Number(reservation.id));
+            }
+        })
+        this.setState({loadings:[...this.state.loadings,...loadingsArray]});
+        fetchFromLaravel(
+            document.querySelector('meta[name="csrf_token"]').content,
+            'PUT',
+            `/reservations/${ev.currentTarget.parentElement.parentElement.dataset.id}`,
+            {
+                hash_digest:this.props.schedule.hash_digest
+            },
+            res => {
+                this.props.permitCallBack(res);
+            }
+        )
     }
 }
 

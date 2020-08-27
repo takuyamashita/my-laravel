@@ -12,11 +12,15 @@ class Reservation extends Model
     ];
 
     protected $hidden = [
-        'id', 'schedule_id', 'schedule_digest','created_at','updated_at'
+        'schedule_id', 'schedule_digest','created_at','updated_at'
     ];
 
     public function color(){
         return $this->belongsTo('App\Models\ReservationColor');
+    }
+
+    public function schedule(){
+        return $this->belongsTo('App\Models\Schedule');
     }
 
 }

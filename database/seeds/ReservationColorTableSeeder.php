@@ -7,36 +7,72 @@ class ReservationColorTableSeeder extends Seeder
 
     private $colors = [
         [
-            'background_color' => '#007bff',
+            'background_color' => '#fc6a6a',
             'text_color' => '#ffffff',
         ],
         [
-            'background_color' => '#6c757d',
+            'background_color' => '#fc6a96',
             'text_color' => '#ffffff',
         ],
         [
-            'background_color' => '#28a745',
+            'background_color' => '#fc6ac7',
             'text_color' => '#ffffff',
         ],
         [
-            'background_color' => '#dc3545',
+            'background_color' => '#eb6afc',
             'text_color' => '#ffffff',
         ],
         [
-            'background_color' => '#ffc107',
-            'text_color' => '#343a40',
-        ],
-        [
-            'background_color' => '#17a2b8',
+            'background_color' => '#b56afc',
             'text_color' => '#ffffff',
         ],
         [
-            'background_color' => '#f8f9fa',
-            'text_color' => '#343a40',
+            'background_color' => '#8d6afc',
+            'text_color' => '#ffffff',
         ],
         [
-            'background_color' => '#343a40',
+            'background_color' => '#6a6afc',
             'text_color' => '#ffffff',
+        ],
+        [
+            'background_color' => '#6ab1fc',
+            'text_color' => '#ffffff',
+        ],
+        [
+            'background_color' => '#6ae2fc',
+            'text_color' => '#ffffff',
+        ],
+        [
+            'background_color' => '#6afce2',
+            'text_color' => '#1e4a79',
+        ],
+        [
+            'background_color' => '#6afcc7',
+            'text_color' => '#1e4a79',
+        ],
+        [
+            'background_color' => '#6afc77',
+            'text_color' => '#1e4a79',
+        ],
+        [
+            'background_color' => '#a8fc6a',
+            'text_color' => '#1e4a79',
+        ],
+        [
+            'background_color' => '#d9fc6a',
+            'text_color' => '#1e4a79',
+        ],
+        [
+            'background_color' => '#f8fc6a',
+            'text_color' => '#1e4a79',
+        ],
+        [
+            'background_color' => '#fceb6a',
+            'text_color' => '#1e4a79',
+        ],
+        [
+            'background_color' => '#fcd06a',
+            'text_color' => '#1e4a79',
         ],
     ];
 

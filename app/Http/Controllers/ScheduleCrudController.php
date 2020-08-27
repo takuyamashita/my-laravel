@@ -25,7 +25,7 @@ class ScheduleCrudController extends Controller
      */
     public function index()
     {
-        return Schedule::where('owner_id',Auth::guard('web')->id())->with(['schedulePasswords.colors'])->get()->toJson();
+        return Schedule::where('owner_id',Auth::guard('web')->id())->with(['schedulePasswords.colors','notPermitReservations'])->get()->toJson();
     }
 
     /**

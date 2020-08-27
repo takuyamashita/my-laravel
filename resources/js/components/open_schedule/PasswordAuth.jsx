@@ -28,7 +28,7 @@ class PasswordAuth extends React.Component{
                                     <input type="password" className="form-control" value={this.props.schedule_password} id="schedule_password" placeholder="Password" aria-describedby="schedule_passwordHelp"onChange={this.props.changePassword}/>
                                     {this.props.schedule_password_error.length > 0 && (<span style={this.errorStyle} role="alert"><strong>{this.props.schedule_password_error}</strong></span>)}
                                     <small id="schedule_passwordHelp" className="form-text text-muted">閲覧に必要なパスワードを入力</small>
-                                    <button id="sendScheduleButton" className="btn btn-primary center-block mx-auto d-block" onClick={this.props.sendPassword}>送信</button>
+                                    <button id="sendScheduleButton" className="btn btn-primary center-block mx-auto d-block" onClick={this.props.sendPassword} disabled={this.props.auth_button_disable}>送信</button>
                                 </div>
                             </div>
                         </div>

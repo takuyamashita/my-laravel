@@ -13,10 +13,10 @@ class CalenderSelectHeader extends React.Component{
         const dateItems = [];
         const lastDayOfMonth = new Date(this.props.year,this.props.month,0).getDate();
         for(let i = 0;i < 12;i ++){
-            monthItems.push(<a className="dropdown-item" data-key="month" data-value={i}>{`${i+1} 月`}</a>);
+            monthItems.push(<a key={i} className="dropdown-item" data-key="month" data-value={i}>{`${i+1} 月`}</a>);
         }
         for(let i = 1;i <= lastDayOfMonth; i ++){
-            dateItems.push(<a className="dropdown-item" data-key="date" data-value={i}>{`${i} 日`}</a>);
+            dateItems.push(<a key={i} className="dropdown-item" data-key="date" data-value={i}>{`${i} 日`}</a>);
         }
         return (
             <div onClick={this.props.selectDate} className="mb-3 d-flex justify-content-around" style={{minWidth:'60%'}}>

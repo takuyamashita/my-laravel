@@ -45,7 +45,7 @@ class ScheduleRoot extends React.Component{
         if(object[0] === 'password_required' && this.state.scheduleForm.schedule_passwords.length < 1){
             target['schedule_passwords'].push({
                 schedule_password:'',
-                colors:[1,2,3,4,5,6,7,8]
+                colors:[]
             });
             target[object[0]] = object[1];
         }else if(object[0] === 'schedule_password'){
@@ -165,25 +165,27 @@ class ScheduleRoot extends React.Component{
     }
 
     addCallback(json){
-        if((json[0].hash_digest)){
-            //成功
-            this.setState({creatings:this.state.creatings.filter(scheduleName=>scheduleName !== json[0].name)});
-            if(this.state.editTarget.length > 0){
+        this.setState({creatings:this.state.creatings.filter(scheduleName=>scheduleName !== json[0].name)});
+        if(this.state.editTarget.length > 0){
 
-            }else{
-                const target = this.state.schedules.map(schedule=>{
-                    if(schedule.name === json[0].name) return json[0];
-                    return schedule;
-                });
-                this.setState({schedules:target});
-            }
         }else{
-
+            const target = this.state.schedules.map(schedule=>{
+                if(schedule.name === json[0].name) return json[0];
+                return schedule;
+            });
+            this.setState({schedules:target});
         }
     }
 
-    addErrorCallBack(error){
+    addErrorCallback(error){ //validation error callback
         location.href = '/myschedule';
+    }
+
+    permitCallBack(newSchedule){
+        this.setState({schedules:[...this.state.schedules].map(schedule=>{
+            if(schedule.hash_digest === newSchedule.hash_digest)return newSchedule;
+            return schedule;
+        })})
     }
 
     getSchedules(){
@@ -280,6 +282,7 @@ class ScheduleRoot extends React.Component{
                                 targetName={this.state.targetName}
                                 targetSelect={this.targetSelect.bind(this)}
                                 editClick={this.editClick.bind(this)}
+                                permitCallBack={this.permitCallBack.bind(this)}
                                 {...props}
                             /> }
                     />
@@ -291,7 +294,7 @@ class ScheduleRoot extends React.Component{
                                 formMethod={this.changeFormValues.bind(this)} 
                                 validate={this.validate.bind(this)} 
                                 addCallback={this.addCallback.bind(this)}
-                                addErrorCallBack={this.addErrorCallBack.bind(this)}
+                                addErrorCallback={this.addErrorCallback.bind(this)}
                                 schedulePasswordButtonEvent={this.schedulePasswordButtonEvent.bind(this)}
                                 addSchedulePassword={this.addSchedulePassword.bind(this)}
                                 removeSchedulePassword={this.removeSchedulePassword.bind(this)}

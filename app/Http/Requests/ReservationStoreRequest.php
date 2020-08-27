@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Reservation;
 use App\Models\Schedule;
 use App\Http\Services\ReservationService;
+use Illuminate\Contracts\Validation\Validator;
 
 class ReservationStoreRequest extends FormRequest
 {
@@ -42,12 +43,20 @@ class ReservationStoreRequest extends FormRequest
         ];
     }
 
+    public function messages(){
+        return [
+            'owner_name.*' => '1文字以上を入力',
+            'from.*' => '予約は現在より先に設定してください',
+            'end.*' => '予約は開始日時より先に設定してください',
+        ];
+    }
+
     public function withValidator($validator){
         $validator->after(function ($validator){
             
             $colors = $this->reservationService->getAvailableColor();
             
-            $reservations = $this->reservationService->getSchedule()->reservations();
+            $reservations = $this->reservationService->getSchedule()->permitReservations();
             
             $isIdInclude = false;
             
@@ -63,8 +72,16 @@ class ReservationStoreRequest extends FormRequest
                     ->where('end','>',$this->input('from'));
                 });
 
-            if(!$isIdInclude) $validator->errors()->add('color', 'Out Of Color You can Choose');
-            if($overReservations->exists()) $validator->errors()->add('date','重複しています');
+            if(!$isIdInclude) $validator->errors()->add('color', '色を選択して下さい');
+            if($overReservations->exists()){
+                $validator->errors()->add('over','重複している予約があります');
+                $validator->errors()->add('date_over',$overReservations->with('color')->get());
+            }
         });
+    }
+
+    protected function failedValidation(Validator $validator){
+        $validator->errors()->add('dummyId',$this->input('dummyId'));
+        parent::failedValidation($validator);
     }
 }

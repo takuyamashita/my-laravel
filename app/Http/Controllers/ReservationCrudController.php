@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationStoreRequest;
 use App\Http\Services\ReservationService;
 use App\Models\Reservation;
+use App\Models\Schedule;
 
 class ReservationCrudController extends Controller
 {
@@ -39,7 +41,7 @@ class ReservationCrudController extends Controller
     {
         $validatedRequest = $request->validated();
         
-        return $reservationService->storeReservation($validatedRequest);
+        return ['reservation'=>$reservationService->storeReservation($validatedRequest),'dummyId'=>$request->input('dummyId')];
         
     }
 
@@ -72,9 +74,10 @@ class ReservationCrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ReservationService $reservationService,Reservation $reservation)
     {
-        //
+        $scheduleId = $reservationService->permitReservation($reservation)->id;
+        return Schedule::with(['notPermitReservations','schedulePasswords.colors'])->find($scheduleId)->toJson();
     }
 
     /**
@@ -83,8 +86,8 @@ class ReservationCrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ReservationService $reservationService,$id)
     {
-        //
+        return $reservationService->destroyReservation();
     }
 }

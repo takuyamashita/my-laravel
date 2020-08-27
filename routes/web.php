@@ -26,7 +26,7 @@ Route::get('/reservation/color',function(){
 
 Route::resource('schedules','ScheduleCrudController')->only(['store','update','index']);
 
-Route::resource('reservations','ReservationCrudController')->only(['store']);
+Route::resource('reservations','ReservationCrudController')->only(['store','destroy','update']);
 
 Auth::routes();
 

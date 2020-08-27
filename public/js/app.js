@@ -161,6 +161,18 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -64681,6 +64693,1661 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-redux/es/components/Context.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-redux/es/components/Context.js ***!
+  \***********************************************************/
+/*! exports provided: ReactReduxContext, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReactReduxContext", function() { return ReactReduxContext; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+var ReactReduxContext =
+/*#__PURE__*/
+react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext(null);
+
+if (true) {
+  ReactReduxContext.displayName = 'ReactRedux';
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (ReactReduxContext);
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/components/Provider.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-redux/es/components/Provider.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Context */ "./node_modules/react-redux/es/components/Context.js");
+/* harmony import */ var _utils_Subscription__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/Subscription */ "./node_modules/react-redux/es/utils/Subscription.js");
+
+
+
+
+
+function Provider(_ref) {
+  var store = _ref.store,
+      context = _ref.context,
+      children = _ref.children;
+  var contextValue = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+    var subscription = new _utils_Subscription__WEBPACK_IMPORTED_MODULE_3__["default"](store);
+    subscription.onStateChange = subscription.notifyNestedSubs;
+    return {
+      store: store,
+      subscription: subscription
+    };
+  }, [store]);
+  var previousState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+    return store.getState();
+  }, [store]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    var subscription = contextValue.subscription;
+    subscription.trySubscribe();
+
+    if (previousState !== store.getState()) {
+      subscription.notifyNestedSubs();
+    }
+
+    return function () {
+      subscription.tryUnsubscribe();
+      subscription.onStateChange = null;
+    };
+  }, [contextValue, previousState]);
+  var Context = context || _Context__WEBPACK_IMPORTED_MODULE_2__["ReactReduxContext"];
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Context.Provider, {
+    value: contextValue
+  }, children);
+}
+
+if (true) {
+  Provider.propTypes = {
+    store: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
+      subscribe: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
+      dispatch: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
+      getState: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
+    }),
+    context: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
+    children: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.any
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Provider);
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/components/connectAdvanced.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-redux/es/components/connectAdvanced.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return connectAdvanced; });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
+/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_is__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_Subscription__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/Subscription */ "./node_modules/react-redux/es/utils/Subscription.js");
+/* harmony import */ var _utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/useIsomorphicLayoutEffect */ "./node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js");
+/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Context */ "./node_modules/react-redux/es/components/Context.js");
+
+
+
+
+
+
+
+ // Define some constant arrays just to avoid re-creating these
+
+var EMPTY_ARRAY = [];
+var NO_SUBSCRIPTION_ARRAY = [null, null];
+
+var stringifyComponent = function stringifyComponent(Comp) {
+  try {
+    return JSON.stringify(Comp);
+  } catch (err) {
+    return String(Comp);
+  }
+};
+
+function storeStateUpdatesReducer(state, action) {
+  var updateCount = state[1];
+  return [action.payload, updateCount + 1];
+}
+
+function useIsomorphicLayoutEffectWithArgs(effectFunc, effectArgs, dependencies) {
+  Object(_utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_6__["useIsomorphicLayoutEffect"])(function () {
+    return effectFunc.apply(void 0, effectArgs);
+  }, dependencies);
+}
+
+function captureWrapperProps(lastWrapperProps, lastChildProps, renderIsScheduled, wrapperProps, actualChildProps, childPropsFromStoreUpdate, notifyNestedSubs) {
+  // We want to capture the wrapper props and child props we used for later comparisons
+  lastWrapperProps.current = wrapperProps;
+  lastChildProps.current = actualChildProps;
+  renderIsScheduled.current = false; // If the render was from a store update, clear out that reference and cascade the subscriber update
+
+  if (childPropsFromStoreUpdate.current) {
+    childPropsFromStoreUpdate.current = null;
+    notifyNestedSubs();
+  }
+}
+
+function subscribeUpdates(shouldHandleStateChanges, store, subscription, childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, childPropsFromStoreUpdate, notifyNestedSubs, forceComponentUpdateDispatch) {
+  // If we're not subscribed to the store, nothing to do here
+  if (!shouldHandleStateChanges) return; // Capture values for checking if and when this component unmounts
+
+  var didUnsubscribe = false;
+  var lastThrownError = null; // We'll run this callback every time a store subscription update propagates to this component
+
+  var checkForUpdates = function checkForUpdates() {
+    if (didUnsubscribe) {
+      // Don't run stale listeners.
+      // Redux doesn't guarantee unsubscriptions happen until next dispatch.
+      return;
+    }
+
+    var latestStoreState = store.getState();
+    var newChildProps, error;
+
+    try {
+      // Actually run the selector with the most recent store state and wrapper props
+      // to determine what the child props should be
+      newChildProps = childPropsSelector(latestStoreState, lastWrapperProps.current);
+    } catch (e) {
+      error = e;
+      lastThrownError = e;
+    }
+
+    if (!error) {
+      lastThrownError = null;
+    } // If the child props haven't changed, nothing to do here - cascade the subscription update
+
+
+    if (newChildProps === lastChildProps.current) {
+      if (!renderIsScheduled.current) {
+        notifyNestedSubs();
+      }
+    } else {
+      // Save references to the new child props.  Note that we track the "child props from store update"
+      // as a ref instead of a useState/useReducer because we need a way to determine if that value has
+      // been processed.  If this went into useState/useReducer, we couldn't clear out the value without
+      // forcing another re-render, which we don't want.
+      lastChildProps.current = newChildProps;
+      childPropsFromStoreUpdate.current = newChildProps;
+      renderIsScheduled.current = true; // If the child props _did_ change (or we caught an error), this wrapper component needs to re-render
+
+      forceComponentUpdateDispatch({
+        type: 'STORE_UPDATED',
+        payload: {
+          error: error
+        }
+      });
+    }
+  }; // Actually subscribe to the nearest connected ancestor (or store)
+
+
+  subscription.onStateChange = checkForUpdates;
+  subscription.trySubscribe(); // Pull data from the store after first render in case the store has
+  // changed since we began.
+
+  checkForUpdates();
+
+  var unsubscribeWrapper = function unsubscribeWrapper() {
+    didUnsubscribe = true;
+    subscription.tryUnsubscribe();
+    subscription.onStateChange = null;
+
+    if (lastThrownError) {
+      // It's possible that we caught an error due to a bad mapState function, but the
+      // parent re-rendered without this component and we're about to unmount.
+      // This shouldn't happen as long as we do top-down subscriptions correctly, but
+      // if we ever do those wrong, this throw will surface the error in our tests.
+      // In that case, throw the error from here so it doesn't get lost.
+      throw lastThrownError;
+    }
+  };
+
+  return unsubscribeWrapper;
+}
+
+var initStateUpdates = function initStateUpdates() {
+  return [null, 0];
+};
+
+function connectAdvanced(
+/*
+  selectorFactory is a func that is responsible for returning the selector function used to
+  compute new props from state, props, and dispatch. For example:
+      export default connectAdvanced((dispatch, options) => (state, props) => ({
+      thing: state.things[props.thingId],
+      saveThing: fields => dispatch(actionCreators.saveThing(props.thingId, fields)),
+    }))(YourComponent)
+    Access to dispatch is provided to the factory so selectorFactories can bind actionCreators
+  outside of their selector as an optimization. Options passed to connectAdvanced are passed to
+  the selectorFactory, along with displayName and WrappedComponent, as the second argument.
+    Note that selectorFactory is responsible for all caching/memoization of inbound and outbound
+  props. Do not use connectAdvanced directly without memoizing results between calls to your
+  selector, otherwise the Connect component will re-render on every state or props change.
+*/
+selectorFactory, // options object:
+_ref) {
+  if (_ref === void 0) {
+    _ref = {};
+  }
+
+  var _ref2 = _ref,
+      _ref2$getDisplayName = _ref2.getDisplayName,
+      getDisplayName = _ref2$getDisplayName === void 0 ? function (name) {
+    return "ConnectAdvanced(" + name + ")";
+  } : _ref2$getDisplayName,
+      _ref2$methodName = _ref2.methodName,
+      methodName = _ref2$methodName === void 0 ? 'connectAdvanced' : _ref2$methodName,
+      _ref2$renderCountProp = _ref2.renderCountProp,
+      renderCountProp = _ref2$renderCountProp === void 0 ? undefined : _ref2$renderCountProp,
+      _ref2$shouldHandleSta = _ref2.shouldHandleStateChanges,
+      shouldHandleStateChanges = _ref2$shouldHandleSta === void 0 ? true : _ref2$shouldHandleSta,
+      _ref2$storeKey = _ref2.storeKey,
+      storeKey = _ref2$storeKey === void 0 ? 'store' : _ref2$storeKey,
+      _ref2$withRef = _ref2.withRef,
+      withRef = _ref2$withRef === void 0 ? false : _ref2$withRef,
+      _ref2$forwardRef = _ref2.forwardRef,
+      forwardRef = _ref2$forwardRef === void 0 ? false : _ref2$forwardRef,
+      _ref2$context = _ref2.context,
+      context = _ref2$context === void 0 ? _Context__WEBPACK_IMPORTED_MODULE_7__["ReactReduxContext"] : _ref2$context,
+      connectOptions = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref2, ["getDisplayName", "methodName", "renderCountProp", "shouldHandleStateChanges", "storeKey", "withRef", "forwardRef", "context"]);
+
+  if (true) {
+    if (renderCountProp !== undefined) {
+      throw new Error("renderCountProp is removed. render counting is built into the latest React Dev Tools profiling extension");
+    }
+
+    if (withRef) {
+      throw new Error('withRef is removed. To access the wrapped instance, use a ref on the connected component');
+    }
+
+    var customStoreWarningMessage = 'To use a custom Redux store for specific components, create a custom React context with ' + "React.createContext(), and pass the context object to React Redux's Provider and specific components" + ' like: <Provider context={MyContext}><ConnectedComponent context={MyContext} /></Provider>. ' + 'You may also pass a {context : MyContext} option to connect';
+
+    if (storeKey !== 'store') {
+      throw new Error('storeKey has been removed and does not do anything. ' + customStoreWarningMessage);
+    }
+  }
+
+  var Context = context;
+  return function wrapWithConnect(WrappedComponent) {
+    if ( true && !Object(react_is__WEBPACK_IMPORTED_MODULE_4__["isValidElementType"])(WrappedComponent)) {
+      throw new Error("You must pass a component to the function returned by " + (methodName + ". Instead received " + stringifyComponent(WrappedComponent)));
+    }
+
+    var wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+    var displayName = getDisplayName(wrappedComponentName);
+
+    var selectorFactoryOptions = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, connectOptions, {
+      getDisplayName: getDisplayName,
+      methodName: methodName,
+      renderCountProp: renderCountProp,
+      shouldHandleStateChanges: shouldHandleStateChanges,
+      storeKey: storeKey,
+      displayName: displayName,
+      wrappedComponentName: wrappedComponentName,
+      WrappedComponent: WrappedComponent
+    });
+
+    var pure = connectOptions.pure;
+
+    function createChildSelector(store) {
+      return selectorFactory(store.dispatch, selectorFactoryOptions);
+    } // If we aren't running in "pure" mode, we don't want to memoize values.
+    // To avoid conditionally calling hooks, we fall back to a tiny wrapper
+    // that just executes the given callback immediately.
+
+
+    var usePureOnlyMemo = pure ? react__WEBPACK_IMPORTED_MODULE_3__["useMemo"] : function (callback) {
+      return callback();
+    };
+
+    function ConnectFunction(props) {
+      var _useMemo = Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
+        // Distinguish between actual "data" props that were passed to the wrapper component,
+        // and values needed to control behavior (forwarded refs, alternate context instances).
+        // To maintain the wrapperProps object reference, memoize this destructuring.
+        var reactReduxForwardedRef = props.reactReduxForwardedRef,
+            wrapperProps = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["reactReduxForwardedRef"]);
+
+        return [props.context, reactReduxForwardedRef, wrapperProps];
+      }, [props]),
+          propsContext = _useMemo[0],
+          reactReduxForwardedRef = _useMemo[1],
+          wrapperProps = _useMemo[2];
+
+      var ContextToUse = Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
+        // Users may optionally pass in a custom context instance to use instead of our ReactReduxContext.
+        // Memoize the check that determines which context instance we should use.
+        return propsContext && propsContext.Consumer && Object(react_is__WEBPACK_IMPORTED_MODULE_4__["isContextConsumer"])(react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(propsContext.Consumer, null)) ? propsContext : Context;
+      }, [propsContext, Context]); // Retrieve the store and ancestor subscription via context, if available
+
+      var contextValue = Object(react__WEBPACK_IMPORTED_MODULE_3__["useContext"])(ContextToUse); // The store _must_ exist as either a prop or in context.
+      // We'll check to see if it _looks_ like a Redux store first.
+      // This allows us to pass through a `store` prop that is just a plain value.
+
+      var didStoreComeFromProps = Boolean(props.store) && Boolean(props.store.getState) && Boolean(props.store.dispatch);
+      var didStoreComeFromContext = Boolean(contextValue) && Boolean(contextValue.store);
+
+      if ( true && !didStoreComeFromProps && !didStoreComeFromContext) {
+        throw new Error("Could not find \"store\" in the context of " + ("\"" + displayName + "\". Either wrap the root component in a <Provider>, ") + "or pass a custom React context provider to <Provider> and the corresponding " + ("React context consumer to " + displayName + " in connect options."));
+      } // Based on the previous check, one of these must be true
+
+
+      var store = didStoreComeFromProps ? props.store : contextValue.store;
+      var childPropsSelector = Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
+        // The child props selector needs the store reference as an input.
+        // Re-create this selector whenever the store changes.
+        return createChildSelector(store);
+      }, [store]);
+
+      var _useMemo2 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
+        if (!shouldHandleStateChanges) return NO_SUBSCRIPTION_ARRAY; // This Subscription's source should match where store came from: props vs. context. A component
+        // connected to the store via props shouldn't use subscription from context, or vice versa.
+
+        var subscription = new _utils_Subscription__WEBPACK_IMPORTED_MODULE_5__["default"](store, didStoreComeFromProps ? null : contextValue.subscription); // `notifyNestedSubs` is duplicated to handle the case where the component is unmounted in
+        // the middle of the notification loop, where `subscription` will then be null. This can
+        // probably be avoided if Subscription's listeners logic is changed to not call listeners
+        // that have been unsubscribed in the  middle of the notification loop.
+
+        var notifyNestedSubs = subscription.notifyNestedSubs.bind(subscription);
+        return [subscription, notifyNestedSubs];
+      }, [store, didStoreComeFromProps, contextValue]),
+          subscription = _useMemo2[0],
+          notifyNestedSubs = _useMemo2[1]; // Determine what {store, subscription} value should be put into nested context, if necessary,
+      // and memoize that value to avoid unnecessary context updates.
+
+
+      var overriddenContextValue = Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
+        if (didStoreComeFromProps) {
+          // This component is directly subscribed to a store from props.
+          // We don't want descendants reading from this store - pass down whatever
+          // the existing context value is from the nearest connected ancestor.
+          return contextValue;
+        } // Otherwise, put this component's subscription instance into context, so that
+        // connected descendants won't update until after this component is done
+
+
+        return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, contextValue, {
+          subscription: subscription
+        });
+      }, [didStoreComeFromProps, contextValue, subscription]); // We need to force this wrapper component to re-render whenever a Redux store update
+      // causes a change to the calculated child component props (or we caught an error in mapState)
+
+      var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_3__["useReducer"])(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates),
+          _useReducer$ = _useReducer[0],
+          previousStateUpdateResult = _useReducer$[0],
+          forceComponentUpdateDispatch = _useReducer[1]; // Propagate any mapState/mapDispatch errors upwards
+
+
+      if (previousStateUpdateResult && previousStateUpdateResult.error) {
+        throw previousStateUpdateResult.error;
+      } // Set up refs to coordinate values between the subscription effect and the render logic
+
+
+      var lastChildProps = Object(react__WEBPACK_IMPORTED_MODULE_3__["useRef"])();
+      var lastWrapperProps = Object(react__WEBPACK_IMPORTED_MODULE_3__["useRef"])(wrapperProps);
+      var childPropsFromStoreUpdate = Object(react__WEBPACK_IMPORTED_MODULE_3__["useRef"])();
+      var renderIsScheduled = Object(react__WEBPACK_IMPORTED_MODULE_3__["useRef"])(false);
+      var actualChildProps = usePureOnlyMemo(function () {
+        // Tricky logic here:
+        // - This render may have been triggered by a Redux store update that produced new child props
+        // - However, we may have gotten new wrapper props after that
+        // If we have new child props, and the same wrapper props, we know we should use the new child props as-is.
+        // But, if we have new wrapper props, those might change the child props, so we have to recalculate things.
+        // So, we'll use the child props from store update only if the wrapper props are the same as last time.
+        if (childPropsFromStoreUpdate.current && wrapperProps === lastWrapperProps.current) {
+          return childPropsFromStoreUpdate.current;
+        } // TODO We're reading the store directly in render() here. Bad idea?
+        // This will likely cause Bad Things (TM) to happen in Concurrent Mode.
+        // Note that we do this because on renders _not_ caused by store updates, we need the latest store state
+        // to determine what the child props should be.
+
+
+        return childPropsSelector(store.getState(), wrapperProps);
+      }, [store, previousStateUpdateResult, wrapperProps]); // We need this to execute synchronously every time we re-render. However, React warns
+      // about useLayoutEffect in SSR, so we try to detect environment and fall back to
+      // just useEffect instead to avoid the warning, since neither will run anyway.
+
+      useIsomorphicLayoutEffectWithArgs(captureWrapperProps, [lastWrapperProps, lastChildProps, renderIsScheduled, wrapperProps, actualChildProps, childPropsFromStoreUpdate, notifyNestedSubs]); // Our re-subscribe logic only runs when the store/subscription setup changes
+
+      useIsomorphicLayoutEffectWithArgs(subscribeUpdates, [shouldHandleStateChanges, store, subscription, childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, childPropsFromStoreUpdate, notifyNestedSubs, forceComponentUpdateDispatch], [store, subscription, childPropsSelector]); // Now that all that's done, we can finally try to actually render the child component.
+      // We memoize the elements for the rendered child component as an optimization.
+
+      var renderedWrappedComponent = Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
+        return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(WrappedComponent, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, actualChildProps, {
+          ref: reactReduxForwardedRef
+        }));
+      }, [reactReduxForwardedRef, WrappedComponent, actualChildProps]); // If React sees the exact same element reference as last time, it bails out of re-rendering
+      // that child, same as if it was wrapped in React.memo() or returned false from shouldComponentUpdate.
+
+      var renderedChild = Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
+        if (shouldHandleStateChanges) {
+          // If this component is subscribed to store updates, we need to pass its own
+          // subscription instance down to our descendants. That means rendering the same
+          // Context instance, and putting a different value into the context.
+          return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(ContextToUse.Provider, {
+            value: overriddenContextValue
+          }, renderedWrappedComponent);
+        }
+
+        return renderedWrappedComponent;
+      }, [ContextToUse, renderedWrappedComponent, overriddenContextValue]);
+      return renderedChild;
+    } // If we're in "pure" mode, ensure our wrapper component only re-renders when incoming props have changed.
+
+
+    var Connect = pure ? react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(ConnectFunction) : ConnectFunction;
+    Connect.WrappedComponent = WrappedComponent;
+    Connect.displayName = displayName;
+
+    if (forwardRef) {
+      var forwarded = react__WEBPACK_IMPORTED_MODULE_3___default.a.forwardRef(function forwardConnectRef(props, ref) {
+        return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Connect, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+          reactReduxForwardedRef: ref
+        }));
+      });
+      forwarded.displayName = displayName;
+      forwarded.WrappedComponent = WrappedComponent;
+      return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default()(forwarded, WrappedComponent);
+    }
+
+    return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default()(Connect, WrappedComponent);
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/connect/connect.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/connect.js ***!
+  \********************************************************/
+/*! exports provided: createConnect, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createConnect", function() { return createConnect; });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/connectAdvanced */ "./node_modules/react-redux/es/components/connectAdvanced.js");
+/* harmony import */ var _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/shallowEqual */ "./node_modules/react-redux/es/utils/shallowEqual.js");
+/* harmony import */ var _mapDispatchToProps__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mapDispatchToProps */ "./node_modules/react-redux/es/connect/mapDispatchToProps.js");
+/* harmony import */ var _mapStateToProps__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mapStateToProps */ "./node_modules/react-redux/es/connect/mapStateToProps.js");
+/* harmony import */ var _mergeProps__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mergeProps */ "./node_modules/react-redux/es/connect/mergeProps.js");
+/* harmony import */ var _selectorFactory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./selectorFactory */ "./node_modules/react-redux/es/connect/selectorFactory.js");
+
+
+
+
+
+
+
+
+/*
+  connect is a facade over connectAdvanced. It turns its args into a compatible
+  selectorFactory, which has the signature:
+
+    (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
+  
+  connect passes its args to connectAdvanced as options, which will in turn pass them to
+  selectorFactory each time a Connect component instance is instantiated or hot reloaded.
+
+  selectorFactory returns a final props selector from its mapStateToProps,
+  mapStateToPropsFactories, mapDispatchToProps, mapDispatchToPropsFactories, mergeProps,
+  mergePropsFactories, and pure args.
+
+  The resulting final props selector is called by the Connect component instance whenever
+  it receives new props or store state.
+ */
+
+function match(arg, factories, name) {
+  for (var i = factories.length - 1; i >= 0; i--) {
+    var result = factories[i](arg);
+    if (result) return result;
+  }
+
+  return function (dispatch, options) {
+    throw new Error("Invalid value of type " + typeof arg + " for " + name + " argument when connecting component " + options.wrappedComponentName + ".");
+  };
+}
+
+function strictEqual(a, b) {
+  return a === b;
+} // createConnect with default args builds the 'official' connect behavior. Calling it with
+// different options opens up some testing and extensibility scenarios
+
+
+function createConnect(_temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      _ref$connectHOC = _ref.connectHOC,
+      connectHOC = _ref$connectHOC === void 0 ? _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_2__["default"] : _ref$connectHOC,
+      _ref$mapStateToPropsF = _ref.mapStateToPropsFactories,
+      mapStateToPropsFactories = _ref$mapStateToPropsF === void 0 ? _mapStateToProps__WEBPACK_IMPORTED_MODULE_5__["default"] : _ref$mapStateToPropsF,
+      _ref$mapDispatchToPro = _ref.mapDispatchToPropsFactories,
+      mapDispatchToPropsFactories = _ref$mapDispatchToPro === void 0 ? _mapDispatchToProps__WEBPACK_IMPORTED_MODULE_4__["default"] : _ref$mapDispatchToPro,
+      _ref$mergePropsFactor = _ref.mergePropsFactories,
+      mergePropsFactories = _ref$mergePropsFactor === void 0 ? _mergeProps__WEBPACK_IMPORTED_MODULE_6__["default"] : _ref$mergePropsFactor,
+      _ref$selectorFactory = _ref.selectorFactory,
+      selectorFactory = _ref$selectorFactory === void 0 ? _selectorFactory__WEBPACK_IMPORTED_MODULE_7__["default"] : _ref$selectorFactory;
+
+  return function connect(mapStateToProps, mapDispatchToProps, mergeProps, _ref2) {
+    if (_ref2 === void 0) {
+      _ref2 = {};
+    }
+
+    var _ref3 = _ref2,
+        _ref3$pure = _ref3.pure,
+        pure = _ref3$pure === void 0 ? true : _ref3$pure,
+        _ref3$areStatesEqual = _ref3.areStatesEqual,
+        areStatesEqual = _ref3$areStatesEqual === void 0 ? strictEqual : _ref3$areStatesEqual,
+        _ref3$areOwnPropsEqua = _ref3.areOwnPropsEqual,
+        areOwnPropsEqual = _ref3$areOwnPropsEqua === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_3__["default"] : _ref3$areOwnPropsEqua,
+        _ref3$areStatePropsEq = _ref3.areStatePropsEqual,
+        areStatePropsEqual = _ref3$areStatePropsEq === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_3__["default"] : _ref3$areStatePropsEq,
+        _ref3$areMergedPropsE = _ref3.areMergedPropsEqual,
+        areMergedPropsEqual = _ref3$areMergedPropsE === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_3__["default"] : _ref3$areMergedPropsE,
+        extraOptions = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref3, ["pure", "areStatesEqual", "areOwnPropsEqual", "areStatePropsEqual", "areMergedPropsEqual"]);
+
+    var initMapStateToProps = match(mapStateToProps, mapStateToPropsFactories, 'mapStateToProps');
+    var initMapDispatchToProps = match(mapDispatchToProps, mapDispatchToPropsFactories, 'mapDispatchToProps');
+    var initMergeProps = match(mergeProps, mergePropsFactories, 'mergeProps');
+    return connectHOC(selectorFactory, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      // used in error messages
+      methodName: 'connect',
+      // used to compute Connect's displayName from the wrapped component's displayName.
+      getDisplayName: function getDisplayName(name) {
+        return "Connect(" + name + ")";
+      },
+      // if mapStateToProps is falsy, the Connect component doesn't subscribe to store state changes
+      shouldHandleStateChanges: Boolean(mapStateToProps),
+      // passed through to selectorFactory
+      initMapStateToProps: initMapStateToProps,
+      initMapDispatchToProps: initMapDispatchToProps,
+      initMergeProps: initMergeProps,
+      pure: pure,
+      areStatesEqual: areStatesEqual,
+      areOwnPropsEqual: areOwnPropsEqual,
+      areStatePropsEqual: areStatePropsEqual,
+      areMergedPropsEqual: areMergedPropsEqual
+    }, extraOptions));
+  };
+}
+/* harmony default export */ __webpack_exports__["default"] = (/*#__PURE__*/createConnect());
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/connect/mapDispatchToProps.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/mapDispatchToProps.js ***!
+  \*******************************************************************/
+/*! exports provided: whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whenMapDispatchToPropsIsFunction", function() { return whenMapDispatchToPropsIsFunction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whenMapDispatchToPropsIsMissing", function() { return whenMapDispatchToPropsIsMissing; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whenMapDispatchToPropsIsObject", function() { return whenMapDispatchToPropsIsObject; });
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./wrapMapToProps */ "./node_modules/react-redux/es/connect/wrapMapToProps.js");
+
+
+function whenMapDispatchToPropsIsFunction(mapDispatchToProps) {
+  return typeof mapDispatchToProps === 'function' ? Object(_wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__["wrapMapToPropsFunc"])(mapDispatchToProps, 'mapDispatchToProps') : undefined;
+}
+function whenMapDispatchToPropsIsMissing(mapDispatchToProps) {
+  return !mapDispatchToProps ? Object(_wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__["wrapMapToPropsConstant"])(function (dispatch) {
+    return {
+      dispatch: dispatch
+    };
+  }) : undefined;
+}
+function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
+  return mapDispatchToProps && typeof mapDispatchToProps === 'object' ? Object(_wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__["wrapMapToPropsConstant"])(function (dispatch) {
+    return Object(redux__WEBPACK_IMPORTED_MODULE_0__["bindActionCreators"])(mapDispatchToProps, dispatch);
+  }) : undefined;
+}
+/* harmony default export */ __webpack_exports__["default"] = ([whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject]);
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/connect/mapStateToProps.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/mapStateToProps.js ***!
+  \****************************************************************/
+/*! exports provided: whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whenMapStateToPropsIsFunction", function() { return whenMapStateToPropsIsFunction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whenMapStateToPropsIsMissing", function() { return whenMapStateToPropsIsMissing; });
+/* harmony import */ var _wrapMapToProps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./wrapMapToProps */ "./node_modules/react-redux/es/connect/wrapMapToProps.js");
+
+function whenMapStateToPropsIsFunction(mapStateToProps) {
+  return typeof mapStateToProps === 'function' ? Object(_wrapMapToProps__WEBPACK_IMPORTED_MODULE_0__["wrapMapToPropsFunc"])(mapStateToProps, 'mapStateToProps') : undefined;
+}
+function whenMapStateToPropsIsMissing(mapStateToProps) {
+  return !mapStateToProps ? Object(_wrapMapToProps__WEBPACK_IMPORTED_MODULE_0__["wrapMapToPropsConstant"])(function () {
+    return {};
+  }) : undefined;
+}
+/* harmony default export */ __webpack_exports__["default"] = ([whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing]);
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/connect/mergeProps.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/mergeProps.js ***!
+  \***********************************************************/
+/*! exports provided: defaultMergeProps, wrapMergePropsFunc, whenMergePropsIsFunction, whenMergePropsIsOmitted, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultMergeProps", function() { return defaultMergeProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wrapMergePropsFunc", function() { return wrapMergePropsFunc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whenMergePropsIsFunction", function() { return whenMergePropsIsFunction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whenMergePropsIsOmitted", function() { return whenMergePropsIsOmitted; });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/verifyPlainObject */ "./node_modules/react-redux/es/utils/verifyPlainObject.js");
+
+
+function defaultMergeProps(stateProps, dispatchProps, ownProps) {
+  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, ownProps, {}, stateProps, {}, dispatchProps);
+}
+function wrapMergePropsFunc(mergeProps) {
+  return function initMergePropsProxy(dispatch, _ref) {
+    var displayName = _ref.displayName,
+        pure = _ref.pure,
+        areMergedPropsEqual = _ref.areMergedPropsEqual;
+    var hasRunOnce = false;
+    var mergedProps;
+    return function mergePropsProxy(stateProps, dispatchProps, ownProps) {
+      var nextMergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+
+      if (hasRunOnce) {
+        if (!pure || !areMergedPropsEqual(nextMergedProps, mergedProps)) mergedProps = nextMergedProps;
+      } else {
+        hasRunOnce = true;
+        mergedProps = nextMergedProps;
+        if (true) Object(_utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_1__["default"])(mergedProps, displayName, 'mergeProps');
+      }
+
+      return mergedProps;
+    };
+  };
+}
+function whenMergePropsIsFunction(mergeProps) {
+  return typeof mergeProps === 'function' ? wrapMergePropsFunc(mergeProps) : undefined;
+}
+function whenMergePropsIsOmitted(mergeProps) {
+  return !mergeProps ? function () {
+    return defaultMergeProps;
+  } : undefined;
+}
+/* harmony default export */ __webpack_exports__["default"] = ([whenMergePropsIsFunction, whenMergePropsIsOmitted]);
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/connect/selectorFactory.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/selectorFactory.js ***!
+  \****************************************************************/
+/*! exports provided: impureFinalPropsSelectorFactory, pureFinalPropsSelectorFactory, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "impureFinalPropsSelectorFactory", function() { return impureFinalPropsSelectorFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pureFinalPropsSelectorFactory", function() { return pureFinalPropsSelectorFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return finalPropsSelectorFactory; });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _verifySubselectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./verifySubselectors */ "./node_modules/react-redux/es/connect/verifySubselectors.js");
+
+
+function impureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch) {
+  return function impureFinalPropsSelector(state, ownProps) {
+    return mergeProps(mapStateToProps(state, ownProps), mapDispatchToProps(dispatch, ownProps), ownProps);
+  };
+}
+function pureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, _ref) {
+  var areStatesEqual = _ref.areStatesEqual,
+      areOwnPropsEqual = _ref.areOwnPropsEqual,
+      areStatePropsEqual = _ref.areStatePropsEqual;
+  var hasRunAtLeastOnce = false;
+  var state;
+  var ownProps;
+  var stateProps;
+  var dispatchProps;
+  var mergedProps;
+
+  function handleFirstCall(firstState, firstOwnProps) {
+    state = firstState;
+    ownProps = firstOwnProps;
+    stateProps = mapStateToProps(state, ownProps);
+    dispatchProps = mapDispatchToProps(dispatch, ownProps);
+    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+    hasRunAtLeastOnce = true;
+    return mergedProps;
+  }
+
+  function handleNewPropsAndNewState() {
+    stateProps = mapStateToProps(state, ownProps);
+    if (mapDispatchToProps.dependsOnOwnProps) dispatchProps = mapDispatchToProps(dispatch, ownProps);
+    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+    return mergedProps;
+  }
+
+  function handleNewProps() {
+    if (mapStateToProps.dependsOnOwnProps) stateProps = mapStateToProps(state, ownProps);
+    if (mapDispatchToProps.dependsOnOwnProps) dispatchProps = mapDispatchToProps(dispatch, ownProps);
+    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+    return mergedProps;
+  }
+
+  function handleNewState() {
+    var nextStateProps = mapStateToProps(state, ownProps);
+    var statePropsChanged = !areStatePropsEqual(nextStateProps, stateProps);
+    stateProps = nextStateProps;
+    if (statePropsChanged) mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+    return mergedProps;
+  }
+
+  function handleSubsequentCalls(nextState, nextOwnProps) {
+    var propsChanged = !areOwnPropsEqual(nextOwnProps, ownProps);
+    var stateChanged = !areStatesEqual(nextState, state);
+    state = nextState;
+    ownProps = nextOwnProps;
+    if (propsChanged && stateChanged) return handleNewPropsAndNewState();
+    if (propsChanged) return handleNewProps();
+    if (stateChanged) return handleNewState();
+    return mergedProps;
+  }
+
+  return function pureFinalPropsSelector(nextState, nextOwnProps) {
+    return hasRunAtLeastOnce ? handleSubsequentCalls(nextState, nextOwnProps) : handleFirstCall(nextState, nextOwnProps);
+  };
+} // TODO: Add more comments
+// If pure is true, the selector returned by selectorFactory will memoize its results,
+// allowing connectAdvanced's shouldComponentUpdate to return false if final
+// props have not changed. If false, the selector will always return a new
+// object and shouldComponentUpdate will always return true.
+
+function finalPropsSelectorFactory(dispatch, _ref2) {
+  var initMapStateToProps = _ref2.initMapStateToProps,
+      initMapDispatchToProps = _ref2.initMapDispatchToProps,
+      initMergeProps = _ref2.initMergeProps,
+      options = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref2, ["initMapStateToProps", "initMapDispatchToProps", "initMergeProps"]);
+
+  var mapStateToProps = initMapStateToProps(dispatch, options);
+  var mapDispatchToProps = initMapDispatchToProps(dispatch, options);
+  var mergeProps = initMergeProps(dispatch, options);
+
+  if (true) {
+    Object(_verifySubselectors__WEBPACK_IMPORTED_MODULE_1__["default"])(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
+  }
+
+  var selectorFactory = options.pure ? pureFinalPropsSelectorFactory : impureFinalPropsSelectorFactory;
+  return selectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, options);
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/connect/verifySubselectors.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/verifySubselectors.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return verifySubselectors; });
+/* harmony import */ var _utils_warning__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/warning */ "./node_modules/react-redux/es/utils/warning.js");
+
+
+function verify(selector, methodName, displayName) {
+  if (!selector) {
+    throw new Error("Unexpected value for " + methodName + " in " + displayName + ".");
+  } else if (methodName === 'mapStateToProps' || methodName === 'mapDispatchToProps') {
+    if (!Object.prototype.hasOwnProperty.call(selector, 'dependsOnOwnProps')) {
+      Object(_utils_warning__WEBPACK_IMPORTED_MODULE_0__["default"])("The selector for " + methodName + " of " + displayName + " did not specify a value for dependsOnOwnProps.");
+    }
+  }
+}
+
+function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, displayName) {
+  verify(mapStateToProps, 'mapStateToProps', displayName);
+  verify(mapDispatchToProps, 'mapDispatchToProps', displayName);
+  verify(mergeProps, 'mergeProps', displayName);
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/connect/wrapMapToProps.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/wrapMapToProps.js ***!
+  \***************************************************************/
+/*! exports provided: wrapMapToPropsConstant, getDependsOnOwnProps, wrapMapToPropsFunc */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wrapMapToPropsConstant", function() { return wrapMapToPropsConstant; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDependsOnOwnProps", function() { return getDependsOnOwnProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wrapMapToPropsFunc", function() { return wrapMapToPropsFunc; });
+/* harmony import */ var _utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/verifyPlainObject */ "./node_modules/react-redux/es/utils/verifyPlainObject.js");
+
+function wrapMapToPropsConstant(getConstant) {
+  return function initConstantSelector(dispatch, options) {
+    var constant = getConstant(dispatch, options);
+
+    function constantSelector() {
+      return constant;
+    }
+
+    constantSelector.dependsOnOwnProps = false;
+    return constantSelector;
+  };
+} // dependsOnOwnProps is used by createMapToPropsProxy to determine whether to pass props as args
+// to the mapToProps function being wrapped. It is also used by makePurePropsSelector to determine
+// whether mapToProps needs to be invoked when props have changed.
+//
+// A length of one signals that mapToProps does not depend on props from the parent component.
+// A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
+// therefore not reporting its length accurately..
+
+function getDependsOnOwnProps(mapToProps) {
+  return mapToProps.dependsOnOwnProps !== null && mapToProps.dependsOnOwnProps !== undefined ? Boolean(mapToProps.dependsOnOwnProps) : mapToProps.length !== 1;
+} // Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
+// this function wraps mapToProps in a proxy function which does several things:
+//
+//  * Detects whether the mapToProps function being called depends on props, which
+//    is used by selectorFactory to decide if it should reinvoke on props changes.
+//
+//  * On first call, handles mapToProps if returns another function, and treats that
+//    new function as the true mapToProps for subsequent calls.
+//
+//  * On first call, verifies the first result is a plain object, in order to warn
+//    the developer that their mapToProps function is not returning a valid result.
+//
+
+function wrapMapToPropsFunc(mapToProps, methodName) {
+  return function initProxySelector(dispatch, _ref) {
+    var displayName = _ref.displayName;
+
+    var proxy = function mapToPropsProxy(stateOrDispatch, ownProps) {
+      return proxy.dependsOnOwnProps ? proxy.mapToProps(stateOrDispatch, ownProps) : proxy.mapToProps(stateOrDispatch);
+    }; // allow detectFactoryAndVerify to get ownProps
+
+
+    proxy.dependsOnOwnProps = true;
+
+    proxy.mapToProps = function detectFactoryAndVerify(stateOrDispatch, ownProps) {
+      proxy.mapToProps = mapToProps;
+      proxy.dependsOnOwnProps = getDependsOnOwnProps(mapToProps);
+      var props = proxy(stateOrDispatch, ownProps);
+
+      if (typeof props === 'function') {
+        proxy.mapToProps = props;
+        proxy.dependsOnOwnProps = getDependsOnOwnProps(props);
+        props = proxy(stateOrDispatch, ownProps);
+      }
+
+      if (true) Object(_utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_0__["default"])(props, displayName, methodName);
+      return props;
+    };
+
+    return proxy;
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/hooks/useDispatch.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-redux/es/hooks/useDispatch.js ***!
+  \**********************************************************/
+/*! exports provided: createDispatchHook, useDispatch */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createDispatchHook", function() { return createDispatchHook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useDispatch", function() { return useDispatch; });
+/* harmony import */ var _components_Context__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Context */ "./node_modules/react-redux/es/components/Context.js");
+/* harmony import */ var _useStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useStore */ "./node_modules/react-redux/es/hooks/useStore.js");
+
+
+/**
+ * Hook factory, which creates a `useDispatch` hook bound to a given context.
+ *
+ * @param {React.Context} [context=ReactReduxContext] Context passed to your `<Provider>`.
+ * @returns {Function} A `useDispatch` hook bound to the specified context.
+ */
+
+function createDispatchHook(context) {
+  if (context === void 0) {
+    context = _components_Context__WEBPACK_IMPORTED_MODULE_0__["ReactReduxContext"];
+  }
+
+  var useStore = context === _components_Context__WEBPACK_IMPORTED_MODULE_0__["ReactReduxContext"] ? _useStore__WEBPACK_IMPORTED_MODULE_1__["useStore"] : Object(_useStore__WEBPACK_IMPORTED_MODULE_1__["createStoreHook"])(context);
+  return function useDispatch() {
+    var store = useStore();
+    return store.dispatch;
+  };
+}
+/**
+ * A hook to access the redux `dispatch` function.
+ *
+ * @returns {any|function} redux store's `dispatch` function
+ *
+ * @example
+ *
+ * import React, { useCallback } from 'react'
+ * import { useDispatch } from 'react-redux'
+ *
+ * export const CounterComponent = ({ value }) => {
+ *   const dispatch = useDispatch()
+ *   const increaseCounter = useCallback(() => dispatch({ type: 'increase-counter' }), [])
+ *   return (
+ *     <div>
+ *       <span>{value}</span>
+ *       <button onClick={increaseCounter}>Increase counter</button>
+ *     </div>
+ *   )
+ * }
+ */
+
+var useDispatch =
+/*#__PURE__*/
+createDispatchHook();
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/hooks/useReduxContext.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-redux/es/hooks/useReduxContext.js ***!
+  \**************************************************************/
+/*! exports provided: useReduxContext */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useReduxContext", function() { return useReduxContext; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Context */ "./node_modules/react-redux/es/components/Context.js");
+
+
+/**
+ * A hook to access the value of the `ReactReduxContext`. This is a low-level
+ * hook that you should usually not need to call directly.
+ *
+ * @returns {any} the value of the `ReactReduxContext`
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useReduxContext } from 'react-redux'
+ *
+ * export const CounterComponent = ({ value }) => {
+ *   const { store } = useReduxContext()
+ *   return <div>{store.getState()}</div>
+ * }
+ */
+
+function useReduxContext() {
+  var contextValue = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_components_Context__WEBPACK_IMPORTED_MODULE_1__["ReactReduxContext"]);
+
+  if ( true && !contextValue) {
+    throw new Error('could not find react-redux context value; please ensure the component is wrapped in a <Provider>');
+  }
+
+  return contextValue;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/hooks/useSelector.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-redux/es/hooks/useSelector.js ***!
+  \**********************************************************/
+/*! exports provided: createSelectorHook, useSelector */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSelectorHook", function() { return createSelectorHook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useSelector", function() { return useSelector; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _useReduxContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useReduxContext */ "./node_modules/react-redux/es/hooks/useReduxContext.js");
+/* harmony import */ var _utils_Subscription__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/Subscription */ "./node_modules/react-redux/es/utils/Subscription.js");
+/* harmony import */ var _utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/useIsomorphicLayoutEffect */ "./node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js");
+/* harmony import */ var _components_Context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Context */ "./node_modules/react-redux/es/components/Context.js");
+
+
+
+
+
+
+var refEquality = function refEquality(a, b) {
+  return a === b;
+};
+
+function useSelectorWithStoreAndSubscription(selector, equalityFn, store, contextSub) {
+  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(function (s) {
+    return s + 1;
+  }, 0),
+      forceRender = _useReducer[1];
+
+  var subscription = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+    return new _utils_Subscription__WEBPACK_IMPORTED_MODULE_2__["default"](store, contextSub);
+  }, [store, contextSub]);
+  var latestSubscriptionCallbackError = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var latestSelector = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var latestStoreState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var latestSelectedState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var storeState = store.getState();
+  var selectedState;
+
+  try {
+    if (selector !== latestSelector.current || storeState !== latestStoreState.current || latestSubscriptionCallbackError.current) {
+      selectedState = selector(storeState);
+    } else {
+      selectedState = latestSelectedState.current;
+    }
+  } catch (err) {
+    if (latestSubscriptionCallbackError.current) {
+      err.message += "\nThe error may be correlated with this previous error:\n" + latestSubscriptionCallbackError.current.stack + "\n\n";
+    }
+
+    throw err;
+  }
+
+  Object(_utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_3__["useIsomorphicLayoutEffect"])(function () {
+    latestSelector.current = selector;
+    latestStoreState.current = storeState;
+    latestSelectedState.current = selectedState;
+    latestSubscriptionCallbackError.current = undefined;
+  });
+  Object(_utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_3__["useIsomorphicLayoutEffect"])(function () {
+    function checkForUpdates() {
+      try {
+        var newSelectedState = latestSelector.current(store.getState());
+
+        if (equalityFn(newSelectedState, latestSelectedState.current)) {
+          return;
+        }
+
+        latestSelectedState.current = newSelectedState;
+      } catch (err) {
+        // we ignore all errors here, since when the component
+        // is re-rendered, the selectors are called again, and
+        // will throw again, if neither props nor store state
+        // changed
+        latestSubscriptionCallbackError.current = err;
+      }
+
+      forceRender();
+    }
+
+    subscription.onStateChange = checkForUpdates;
+    subscription.trySubscribe();
+    checkForUpdates();
+    return function () {
+      return subscription.tryUnsubscribe();
+    };
+  }, [store, subscription]);
+  return selectedState;
+}
+/**
+ * Hook factory, which creates a `useSelector` hook bound to a given context.
+ *
+ * @param {React.Context} [context=ReactReduxContext] Context passed to your `<Provider>`.
+ * @returns {Function} A `useSelector` hook bound to the specified context.
+ */
+
+
+function createSelectorHook(context) {
+  if (context === void 0) {
+    context = _components_Context__WEBPACK_IMPORTED_MODULE_4__["ReactReduxContext"];
+  }
+
+  var useReduxContext = context === _components_Context__WEBPACK_IMPORTED_MODULE_4__["ReactReduxContext"] ? _useReduxContext__WEBPACK_IMPORTED_MODULE_1__["useReduxContext"] : function () {
+    return Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(context);
+  };
+  return function useSelector(selector, equalityFn) {
+    if (equalityFn === void 0) {
+      equalityFn = refEquality;
+    }
+
+    if ( true && !selector) {
+      throw new Error("You must pass a selector to useSelector");
+    }
+
+    var _useReduxContext = useReduxContext(),
+        store = _useReduxContext.store,
+        contextSub = _useReduxContext.subscription;
+
+    var selectedState = useSelectorWithStoreAndSubscription(selector, equalityFn, store, contextSub);
+    Object(react__WEBPACK_IMPORTED_MODULE_0__["useDebugValue"])(selectedState);
+    return selectedState;
+  };
+}
+/**
+ * A hook to access the redux store's state. This hook takes a selector function
+ * as an argument. The selector is called with the store state.
+ *
+ * This hook takes an optional equality comparison function as the second parameter
+ * that allows you to customize the way the selected state is compared to determine
+ * whether the component needs to be re-rendered.
+ *
+ * @param {Function} selector the selector function
+ * @param {Function=} equalityFn the function that will be used to determine equality
+ *
+ * @returns {any} the selected state
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useSelector } from 'react-redux'
+ *
+ * export const CounterComponent = () => {
+ *   const counter = useSelector(state => state.counter)
+ *   return <div>{counter}</div>
+ * }
+ */
+
+var useSelector =
+/*#__PURE__*/
+createSelectorHook();
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/hooks/useStore.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-redux/es/hooks/useStore.js ***!
+  \*******************************************************/
+/*! exports provided: createStoreHook, useStore */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStoreHook", function() { return createStoreHook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useStore", function() { return useStore; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Context */ "./node_modules/react-redux/es/components/Context.js");
+/* harmony import */ var _useReduxContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useReduxContext */ "./node_modules/react-redux/es/hooks/useReduxContext.js");
+
+
+
+/**
+ * Hook factory, which creates a `useStore` hook bound to a given context.
+ *
+ * @param {React.Context} [context=ReactReduxContext] Context passed to your `<Provider>`.
+ * @returns {Function} A `useStore` hook bound to the specified context.
+ */
+
+function createStoreHook(context) {
+  if (context === void 0) {
+    context = _components_Context__WEBPACK_IMPORTED_MODULE_1__["ReactReduxContext"];
+  }
+
+  var useReduxContext = context === _components_Context__WEBPACK_IMPORTED_MODULE_1__["ReactReduxContext"] ? _useReduxContext__WEBPACK_IMPORTED_MODULE_2__["useReduxContext"] : function () {
+    return Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(context);
+  };
+  return function useStore() {
+    var _useReduxContext = useReduxContext(),
+        store = _useReduxContext.store;
+
+    return store;
+  };
+}
+/**
+ * A hook to access the redux store.
+ *
+ * @returns {any} the redux store
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useStore } from 'react-redux'
+ *
+ * export const ExampleComponent = () => {
+ *   const store = useStore()
+ *   return <div>{store.getState()}</div>
+ * }
+ */
+
+var useStore =
+/*#__PURE__*/
+createStoreHook();
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/react-redux/es/index.js ***!
+  \**********************************************/
+/*! exports provided: Provider, connectAdvanced, ReactReduxContext, connect, batch, useDispatch, createDispatchHook, useSelector, createSelectorHook, useStore, createStoreHook, shallowEqual */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Provider */ "./node_modules/react-redux/es/components/Provider.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return _components_Provider__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/connectAdvanced */ "./node_modules/react-redux/es/components/connectAdvanced.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _components_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Context */ "./node_modules/react-redux/es/components/Context.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReactReduxContext", function() { return _components_Context__WEBPACK_IMPORTED_MODULE_2__["ReactReduxContext"]; });
+
+/* harmony import */ var _connect_connect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./connect/connect */ "./node_modules/react-redux/es/connect/connect.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return _connect_connect__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./hooks/useDispatch */ "./node_modules/react-redux/es/hooks/useDispatch.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useDispatch", function() { return _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__["useDispatch"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createDispatchHook", function() { return _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__["createDispatchHook"]; });
+
+/* harmony import */ var _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hooks/useSelector */ "./node_modules/react-redux/es/hooks/useSelector.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useSelector", function() { return _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__["useSelector"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createSelectorHook", function() { return _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__["createSelectorHook"]; });
+
+/* harmony import */ var _hooks_useStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./hooks/useStore */ "./node_modules/react-redux/es/hooks/useStore.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useStore", function() { return _hooks_useStore__WEBPACK_IMPORTED_MODULE_6__["useStore"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createStoreHook", function() { return _hooks_useStore__WEBPACK_IMPORTED_MODULE_6__["createStoreHook"]; });
+
+/* harmony import */ var _utils_batch__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/batch */ "./node_modules/react-redux/es/utils/batch.js");
+/* harmony import */ var _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/reactBatchedUpdates */ "./node_modules/react-redux/es/utils/reactBatchedUpdates.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "batch", function() { return _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_8__["unstable_batchedUpdates"]; });
+
+/* harmony import */ var _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/shallowEqual */ "./node_modules/react-redux/es/utils/shallowEqual.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "shallowEqual", function() { return _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+
+
+
+
+
+
+
+
+
+
+
+Object(_utils_batch__WEBPACK_IMPORTED_MODULE_7__["setBatch"])(_utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_8__["unstable_batchedUpdates"]);
+
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/utils/Subscription.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/Subscription.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Subscription; });
+/* harmony import */ var _batch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./batch */ "./node_modules/react-redux/es/utils/batch.js");
+ // encapsulates the subscription logic for connecting a component to the redux store, as
+// well as nesting subscriptions of descendant components, so that we can ensure the
+// ancestor components re-render before descendants
+
+var nullListeners = {
+  notify: function notify() {}
+};
+
+function createListenerCollection() {
+  var batch = Object(_batch__WEBPACK_IMPORTED_MODULE_0__["getBatch"])();
+  var first = null;
+  var last = null;
+  return {
+    clear: function clear() {
+      first = null;
+      last = null;
+    },
+    notify: function notify() {
+      batch(function () {
+        var listener = first;
+
+        while (listener) {
+          listener.callback();
+          listener = listener.next;
+        }
+      });
+    },
+    get: function get() {
+      var listeners = [];
+      var listener = first;
+
+      while (listener) {
+        listeners.push(listener);
+        listener = listener.next;
+      }
+
+      return listeners;
+    },
+    subscribe: function subscribe(callback) {
+      var isSubscribed = true;
+      var listener = last = {
+        callback: callback,
+        next: null,
+        prev: last
+      };
+
+      if (listener.prev) {
+        listener.prev.next = listener;
+      } else {
+        first = listener;
+      }
+
+      return function unsubscribe() {
+        if (!isSubscribed || first === null) return;
+        isSubscribed = false;
+
+        if (listener.next) {
+          listener.next.prev = listener.prev;
+        } else {
+          last = listener.prev;
+        }
+
+        if (listener.prev) {
+          listener.prev.next = listener.next;
+        } else {
+          first = listener.next;
+        }
+      };
+    }
+  };
+}
+
+var Subscription =
+/*#__PURE__*/
+function () {
+  function Subscription(store, parentSub) {
+    this.store = store;
+    this.parentSub = parentSub;
+    this.unsubscribe = null;
+    this.listeners = nullListeners;
+    this.handleChangeWrapper = this.handleChangeWrapper.bind(this);
+  }
+
+  var _proto = Subscription.prototype;
+
+  _proto.addNestedSub = function addNestedSub(listener) {
+    this.trySubscribe();
+    return this.listeners.subscribe(listener);
+  };
+
+  _proto.notifyNestedSubs = function notifyNestedSubs() {
+    this.listeners.notify();
+  };
+
+  _proto.handleChangeWrapper = function handleChangeWrapper() {
+    if (this.onStateChange) {
+      this.onStateChange();
+    }
+  };
+
+  _proto.isSubscribed = function isSubscribed() {
+    return Boolean(this.unsubscribe);
+  };
+
+  _proto.trySubscribe = function trySubscribe() {
+    if (!this.unsubscribe) {
+      this.unsubscribe = this.parentSub ? this.parentSub.addNestedSub(this.handleChangeWrapper) : this.store.subscribe(this.handleChangeWrapper);
+      this.listeners = createListenerCollection();
+    }
+  };
+
+  _proto.tryUnsubscribe = function tryUnsubscribe() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+      this.unsubscribe = null;
+      this.listeners.clear();
+      this.listeners = nullListeners;
+    }
+  };
+
+  return Subscription;
+}();
+
+
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/utils/batch.js":
+/*!****************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/batch.js ***!
+  \****************************************************/
+/*! exports provided: setBatch, getBatch */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBatch", function() { return setBatch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBatch", function() { return getBatch; });
+// Default to a dummy "batch" implementation that just runs the callback
+function defaultNoopBatch(callback) {
+  callback();
+}
+
+var batch = defaultNoopBatch; // Allow injecting another batching function later
+
+var setBatch = function setBatch(newBatch) {
+  return batch = newBatch;
+}; // Supply a getter just to skip dealing with ESM bindings
+
+var getBatch = function getBatch() {
+  return batch;
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/utils/isPlainObject.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/isPlainObject.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return isPlainObject; });
+/**
+ * @param {any} obj The object to inspect.
+ * @returns {boolean} True if the argument appears to be a plain object.
+ */
+function isPlainObject(obj) {
+  if (typeof obj !== 'object' || obj === null) return false;
+  var proto = Object.getPrototypeOf(obj);
+  if (proto === null) return true;
+  var baseProto = proto;
+
+  while (Object.getPrototypeOf(baseProto) !== null) {
+    baseProto = Object.getPrototypeOf(baseProto);
+  }
+
+  return proto === baseProto;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/utils/reactBatchedUpdates.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/reactBatchedUpdates.js ***!
+  \******************************************************************/
+/*! exports provided: unstable_batchedUpdates */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "unstable_batchedUpdates", function() { return react_dom__WEBPACK_IMPORTED_MODULE_0__["unstable_batchedUpdates"]; });
+
+/* eslint-disable import/no-unresolved */
+
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/utils/shallowEqual.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/shallowEqual.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return shallowEqual; });
+function is(x, y) {
+  if (x === y) {
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    return x !== x && y !== y;
+  }
+}
+
+function shallowEqual(objA, objB) {
+  if (is(objA, objB)) return true;
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+  if (keysA.length !== keysB.length) return false;
+
+  for (var i = 0; i < keysA.length; i++) {
+    if (!Object.prototype.hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js ***!
+  \************************************************************************/
+/*! exports provided: useIsomorphicLayoutEffect */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useIsomorphicLayoutEffect", function() { return useIsomorphicLayoutEffect; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+ // React currently throws a warning when using useLayoutEffect on the server.
+// To get around it, we can conditionally useEffect on the server (no-op) and
+// useLayoutEffect in the browser. We need useLayoutEffect to ensure the store
+// subscription callback always has the selector from the latest render commit
+// available, otherwise a store update may happen between render and the effect,
+// which may cause missed updates; we also must ensure the store subscription
+// is created synchronously, otherwise a store update may occur before the
+// subscription is created and an inconsistent state may be observed
+
+var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"] : react__WEBPACK_IMPORTED_MODULE_0__["useEffect"];
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/utils/verifyPlainObject.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/verifyPlainObject.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return verifyPlainObject; });
+/* harmony import */ var _isPlainObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isPlainObject */ "./node_modules/react-redux/es/utils/isPlainObject.js");
+/* harmony import */ var _warning__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./warning */ "./node_modules/react-redux/es/utils/warning.js");
+
+
+function verifyPlainObject(value, displayName, methodName) {
+  if (!Object(_isPlainObject__WEBPACK_IMPORTED_MODULE_0__["default"])(value)) {
+    Object(_warning__WEBPACK_IMPORTED_MODULE_1__["default"])(methodName + "() in " + displayName + " must return a plain object. Instead received " + value + ".");
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/es/utils/warning.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/warning.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return warning; });
+/**
+ * Prints a warning in the console if it exists.
+ *
+ * @param {String} message The warning message.
+ * @returns {void}
+ */
+function warning(message) {
+  /* eslint-disable no-console */
+  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+    console.error(message);
+  }
+  /* eslint-enable no-console */
+
+
+  try {
+    // This error was thrown as a convenience so that if you enable
+    // "break on all exceptions" in your console,
+    // it would pause the execution at this line.
+    throw new Error(message);
+    /* eslint-disable no-empty */
+  } catch (e) {}
+  /* eslint-enable no-empty */
+
+}
+
+/***/ }),
+
 /***/ "./node_modules/react-router-dom/esm/react-router-dom.js":
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
@@ -68262,6 +69929,1480 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/redux-thunk/es/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/redux-thunk/es/index.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+/* harmony default export */ __webpack_exports__["default"] = (thunk);
+
+/***/ }),
+
+/***/ "./node_modules/redux/es/redux.js":
+/*!****************************************!*\
+  !*** ./node_modules/redux/es/redux.js ***!
+  \****************************************/
+/*! exports provided: __DO_NOT_USE__ActionTypes, applyMiddleware, bindActionCreators, combineReducers, compose, createStore */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__DO_NOT_USE__ActionTypes", function() { return ActionTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyMiddleware", function() { return applyMiddleware; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return bindActionCreators; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return combineReducers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return compose; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return createStore; });
+/* harmony import */ var symbol_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! symbol-observable */ "./node_modules/symbol-observable/es/index.js");
+
+
+/**
+ * These are private action types reserved by Redux.
+ * For any unknown actions, you must return the current state.
+ * If the current state is undefined, you must return the initial state.
+ * Do not reference these action types directly in your code.
+ */
+var randomString = function randomString() {
+  return Math.random().toString(36).substring(7).split('').join('.');
+};
+
+var ActionTypes = {
+  INIT: "@@redux/INIT" + randomString(),
+  REPLACE: "@@redux/REPLACE" + randomString(),
+  PROBE_UNKNOWN_ACTION: function PROBE_UNKNOWN_ACTION() {
+    return "@@redux/PROBE_UNKNOWN_ACTION" + randomString();
+  }
+};
+
+/**
+ * @param {any} obj The object to inspect.
+ * @returns {boolean} True if the argument appears to be a plain object.
+ */
+function isPlainObject(obj) {
+  if (typeof obj !== 'object' || obj === null) return false;
+  var proto = obj;
+
+  while (Object.getPrototypeOf(proto) !== null) {
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  return Object.getPrototypeOf(obj) === proto;
+}
+
+/**
+ * Creates a Redux store that holds the state tree.
+ * The only way to change the data in the store is to call `dispatch()` on it.
+ *
+ * There should only be a single store in your app. To specify how different
+ * parts of the state tree respond to actions, you may combine several reducers
+ * into a single reducer function by using `combineReducers`.
+ *
+ * @param {Function} reducer A function that returns the next state tree, given
+ * the current state tree and the action to handle.
+ *
+ * @param {any} [preloadedState] The initial state. You may optionally specify it
+ * to hydrate the state from the server in universal apps, or to restore a
+ * previously serialized user session.
+ * If you use `combineReducers` to produce the root reducer function, this must be
+ * an object with the same shape as `combineReducers` keys.
+ *
+ * @param {Function} [enhancer] The store enhancer. You may optionally specify it
+ * to enhance the store with third-party capabilities such as middleware,
+ * time travel, persistence, etc. The only store enhancer that ships with Redux
+ * is `applyMiddleware()`.
+ *
+ * @returns {Store} A Redux store that lets you read the state, dispatch actions
+ * and subscribe to changes.
+ */
+
+function createStore(reducer, preloadedState, enhancer) {
+  var _ref2;
+
+  if (typeof preloadedState === 'function' && typeof enhancer === 'function' || typeof enhancer === 'function' && typeof arguments[3] === 'function') {
+    throw new Error('It looks like you are passing several store enhancers to ' + 'createStore(). This is not supported. Instead, compose them ' + 'together to a single function.');
+  }
+
+  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+    enhancer = preloadedState;
+    preloadedState = undefined;
+  }
+
+  if (typeof enhancer !== 'undefined') {
+    if (typeof enhancer !== 'function') {
+      throw new Error('Expected the enhancer to be a function.');
+    }
+
+    return enhancer(createStore)(reducer, preloadedState);
+  }
+
+  if (typeof reducer !== 'function') {
+    throw new Error('Expected the reducer to be a function.');
+  }
+
+  var currentReducer = reducer;
+  var currentState = preloadedState;
+  var currentListeners = [];
+  var nextListeners = currentListeners;
+  var isDispatching = false;
+  /**
+   * This makes a shallow copy of currentListeners so we can use
+   * nextListeners as a temporary list while dispatching.
+   *
+   * This prevents any bugs around consumers calling
+   * subscribe/unsubscribe in the middle of a dispatch.
+   */
+
+  function ensureCanMutateNextListeners() {
+    if (nextListeners === currentListeners) {
+      nextListeners = currentListeners.slice();
+    }
+  }
+  /**
+   * Reads the state tree managed by the store.
+   *
+   * @returns {any} The current state tree of your application.
+   */
+
+
+  function getState() {
+    if (isDispatching) {
+      throw new Error('You may not call store.getState() while the reducer is executing. ' + 'The reducer has already received the state as an argument. ' + 'Pass it down from the top reducer instead of reading it from the store.');
+    }
+
+    return currentState;
+  }
+  /**
+   * Adds a change listener. It will be called any time an action is dispatched,
+   * and some part of the state tree may potentially have changed. You may then
+   * call `getState()` to read the current state tree inside the callback.
+   *
+   * You may call `dispatch()` from a change listener, with the following
+   * caveats:
+   *
+   * 1. The subscriptions are snapshotted just before every `dispatch()` call.
+   * If you subscribe or unsubscribe while the listeners are being invoked, this
+   * will not have any effect on the `dispatch()` that is currently in progress.
+   * However, the next `dispatch()` call, whether nested or not, will use a more
+   * recent snapshot of the subscription list.
+   *
+   * 2. The listener should not expect to see all state changes, as the state
+   * might have been updated multiple times during a nested `dispatch()` before
+   * the listener is called. It is, however, guaranteed that all subscribers
+   * registered before the `dispatch()` started will be called with the latest
+   * state by the time it exits.
+   *
+   * @param {Function} listener A callback to be invoked on every dispatch.
+   * @returns {Function} A function to remove this change listener.
+   */
+
+
+  function subscribe(listener) {
+    if (typeof listener !== 'function') {
+      throw new Error('Expected the listener to be a function.');
+    }
+
+    if (isDispatching) {
+      throw new Error('You may not call store.subscribe() while the reducer is executing. ' + 'If you would like to be notified after the store has been updated, subscribe from a ' + 'component and invoke store.getState() in the callback to access the latest state. ' + 'See https://redux.js.org/api-reference/store#subscribelistener for more details.');
+    }
+
+    var isSubscribed = true;
+    ensureCanMutateNextListeners();
+    nextListeners.push(listener);
+    return function unsubscribe() {
+      if (!isSubscribed) {
+        return;
+      }
+
+      if (isDispatching) {
+        throw new Error('You may not unsubscribe from a store listener while the reducer is executing. ' + 'See https://redux.js.org/api-reference/store#subscribelistener for more details.');
+      }
+
+      isSubscribed = false;
+      ensureCanMutateNextListeners();
+      var index = nextListeners.indexOf(listener);
+      nextListeners.splice(index, 1);
+      currentListeners = null;
+    };
+  }
+  /**
+   * Dispatches an action. It is the only way to trigger a state change.
+   *
+   * The `reducer` function, used to create the store, will be called with the
+   * current state tree and the given `action`. Its return value will
+   * be considered the **next** state of the tree, and the change listeners
+   * will be notified.
+   *
+   * The base implementation only supports plain object actions. If you want to
+   * dispatch a Promise, an Observable, a thunk, or something else, you need to
+   * wrap your store creating function into the corresponding middleware. For
+   * example, see the documentation for the `redux-thunk` package. Even the
+   * middleware will eventually dispatch plain object actions using this method.
+   *
+   * @param {Object} action A plain object representing “what changed”. It is
+   * a good idea to keep actions serializable so you can record and replay user
+   * sessions, or use the time travelling `redux-devtools`. An action must have
+   * a `type` property which may not be `undefined`. It is a good idea to use
+   * string constants for action types.
+   *
+   * @returns {Object} For convenience, the same action object you dispatched.
+   *
+   * Note that, if you use a custom middleware, it may wrap `dispatch()` to
+   * return something else (for example, a Promise you can await).
+   */
+
+
+  function dispatch(action) {
+    if (!isPlainObject(action)) {
+      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
+    }
+
+    if (typeof action.type === 'undefined') {
+      throw new Error('Actions may not have an undefined "type" property. ' + 'Have you misspelled a constant?');
+    }
+
+    if (isDispatching) {
+      throw new Error('Reducers may not dispatch actions.');
+    }
+
+    try {
+      isDispatching = true;
+      currentState = currentReducer(currentState, action);
+    } finally {
+      isDispatching = false;
+    }
+
+    var listeners = currentListeners = nextListeners;
+
+    for (var i = 0; i < listeners.length; i++) {
+      var listener = listeners[i];
+      listener();
+    }
+
+    return action;
+  }
+  /**
+   * Replaces the reducer currently used by the store to calculate the state.
+   *
+   * You might need this if your app implements code splitting and you want to
+   * load some of the reducers dynamically. You might also need this if you
+   * implement a hot reloading mechanism for Redux.
+   *
+   * @param {Function} nextReducer The reducer for the store to use instead.
+   * @returns {void}
+   */
+
+
+  function replaceReducer(nextReducer) {
+    if (typeof nextReducer !== 'function') {
+      throw new Error('Expected the nextReducer to be a function.');
+    }
+
+    currentReducer = nextReducer; // This action has a similiar effect to ActionTypes.INIT.
+    // Any reducers that existed in both the new and old rootReducer
+    // will receive the previous state. This effectively populates
+    // the new state tree with any relevant data from the old one.
+
+    dispatch({
+      type: ActionTypes.REPLACE
+    });
+  }
+  /**
+   * Interoperability point for observable/reactive libraries.
+   * @returns {observable} A minimal observable of state changes.
+   * For more information, see the observable proposal:
+   * https://github.com/tc39/proposal-observable
+   */
+
+
+  function observable() {
+    var _ref;
+
+    var outerSubscribe = subscribe;
+    return _ref = {
+      /**
+       * The minimal observable subscription method.
+       * @param {Object} observer Any object that can be used as an observer.
+       * The observer object should have a `next` method.
+       * @returns {subscription} An object with an `unsubscribe` method that can
+       * be used to unsubscribe the observable from the store, and prevent further
+       * emission of values from the observable.
+       */
+      subscribe: function subscribe(observer) {
+        if (typeof observer !== 'object' || observer === null) {
+          throw new TypeError('Expected the observer to be an object.');
+        }
+
+        function observeState() {
+          if (observer.next) {
+            observer.next(getState());
+          }
+        }
+
+        observeState();
+        var unsubscribe = outerSubscribe(observeState);
+        return {
+          unsubscribe: unsubscribe
+        };
+      }
+    }, _ref[symbol_observable__WEBPACK_IMPORTED_MODULE_0__["default"]] = function () {
+      return this;
+    }, _ref;
+  } // When a store is created, an "INIT" action is dispatched so that every
+  // reducer returns their initial state. This effectively populates
+  // the initial state tree.
+
+
+  dispatch({
+    type: ActionTypes.INIT
+  });
+  return _ref2 = {
+    dispatch: dispatch,
+    subscribe: subscribe,
+    getState: getState,
+    replaceReducer: replaceReducer
+  }, _ref2[symbol_observable__WEBPACK_IMPORTED_MODULE_0__["default"]] = observable, _ref2;
+}
+
+/**
+ * Prints a warning in the console if it exists.
+ *
+ * @param {String} message The warning message.
+ * @returns {void}
+ */
+function warning(message) {
+  /* eslint-disable no-console */
+  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+    console.error(message);
+  }
+  /* eslint-enable no-console */
+
+
+  try {
+    // This error was thrown as a convenience so that if you enable
+    // "break on all exceptions" in your console,
+    // it would pause the execution at this line.
+    throw new Error(message);
+  } catch (e) {} // eslint-disable-line no-empty
+
+}
+
+function getUndefinedStateErrorMessage(key, action) {
+  var actionType = action && action.type;
+  var actionDescription = actionType && "action \"" + String(actionType) + "\"" || 'an action';
+  return "Given " + actionDescription + ", reducer \"" + key + "\" returned undefined. " + "To ignore an action, you must explicitly return the previous state. " + "If you want this reducer to hold no value, you can return null instead of undefined.";
+}
+
+function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
+  var reducerKeys = Object.keys(reducers);
+  var argumentName = action && action.type === ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
+
+  if (reducerKeys.length === 0) {
+    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
+  }
+
+  if (!isPlainObject(inputState)) {
+    return "The " + argumentName + " has unexpected type of \"" + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + "\". Expected argument to be an object with the following " + ("keys: \"" + reducerKeys.join('", "') + "\"");
+  }
+
+  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
+    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
+  });
+  unexpectedKeys.forEach(function (key) {
+    unexpectedKeyCache[key] = true;
+  });
+  if (action && action.type === ActionTypes.REPLACE) return;
+
+  if (unexpectedKeys.length > 0) {
+    return "Unexpected " + (unexpectedKeys.length > 1 ? 'keys' : 'key') + " " + ("\"" + unexpectedKeys.join('", "') + "\" found in " + argumentName + ". ") + "Expected to find one of the known reducer keys instead: " + ("\"" + reducerKeys.join('", "') + "\". Unexpected keys will be ignored.");
+  }
+}
+
+function assertReducerShape(reducers) {
+  Object.keys(reducers).forEach(function (key) {
+    var reducer = reducers[key];
+    var initialState = reducer(undefined, {
+      type: ActionTypes.INIT
+    });
+
+    if (typeof initialState === 'undefined') {
+      throw new Error("Reducer \"" + key + "\" returned undefined during initialization. " + "If the state passed to the reducer is undefined, you must " + "explicitly return the initial state. The initial state may " + "not be undefined. If you don't want to set a value for this reducer, " + "you can use null instead of undefined.");
+    }
+
+    if (typeof reducer(undefined, {
+      type: ActionTypes.PROBE_UNKNOWN_ACTION()
+    }) === 'undefined') {
+      throw new Error("Reducer \"" + key + "\" returned undefined when probed with a random type. " + ("Don't try to handle " + ActionTypes.INIT + " or other actions in \"redux/*\" ") + "namespace. They are considered private. Instead, you must return the " + "current state for any unknown actions, unless it is undefined, " + "in which case you must return the initial state, regardless of the " + "action type. The initial state may not be undefined, but can be null.");
+    }
+  });
+}
+/**
+ * Turns an object whose values are different reducer functions, into a single
+ * reducer function. It will call every child reducer, and gather their results
+ * into a single state object, whose keys correspond to the keys of the passed
+ * reducer functions.
+ *
+ * @param {Object} reducers An object whose values correspond to different
+ * reducer functions that need to be combined into one. One handy way to obtain
+ * it is to use ES6 `import * as reducers` syntax. The reducers may never return
+ * undefined for any action. Instead, they should return their initial state
+ * if the state passed to them was undefined, and the current state for any
+ * unrecognized action.
+ *
+ * @returns {Function} A reducer function that invokes every reducer inside the
+ * passed object, and builds a state object with the same shape.
+ */
+
+
+function combineReducers(reducers) {
+  var reducerKeys = Object.keys(reducers);
+  var finalReducers = {};
+
+  for (var i = 0; i < reducerKeys.length; i++) {
+    var key = reducerKeys[i];
+
+    if (true) {
+      if (typeof reducers[key] === 'undefined') {
+        warning("No reducer provided for key \"" + key + "\"");
+      }
+    }
+
+    if (typeof reducers[key] === 'function') {
+      finalReducers[key] = reducers[key];
+    }
+  }
+
+  var finalReducerKeys = Object.keys(finalReducers); // This is used to make sure we don't warn about the same
+  // keys multiple times.
+
+  var unexpectedKeyCache;
+
+  if (true) {
+    unexpectedKeyCache = {};
+  }
+
+  var shapeAssertionError;
+
+  try {
+    assertReducerShape(finalReducers);
+  } catch (e) {
+    shapeAssertionError = e;
+  }
+
+  return function combination(state, action) {
+    if (state === void 0) {
+      state = {};
+    }
+
+    if (shapeAssertionError) {
+      throw shapeAssertionError;
+    }
+
+    if (true) {
+      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
+
+      if (warningMessage) {
+        warning(warningMessage);
+      }
+    }
+
+    var hasChanged = false;
+    var nextState = {};
+
+    for (var _i = 0; _i < finalReducerKeys.length; _i++) {
+      var _key = finalReducerKeys[_i];
+      var reducer = finalReducers[_key];
+      var previousStateForKey = state[_key];
+      var nextStateForKey = reducer(previousStateForKey, action);
+
+      if (typeof nextStateForKey === 'undefined') {
+        var errorMessage = getUndefinedStateErrorMessage(_key, action);
+        throw new Error(errorMessage);
+      }
+
+      nextState[_key] = nextStateForKey;
+      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
+    }
+
+    hasChanged = hasChanged || finalReducerKeys.length !== Object.keys(state).length;
+    return hasChanged ? nextState : state;
+  };
+}
+
+function bindActionCreator(actionCreator, dispatch) {
+  return function () {
+    return dispatch(actionCreator.apply(this, arguments));
+  };
+}
+/**
+ * Turns an object whose values are action creators, into an object with the
+ * same keys, but with every function wrapped into a `dispatch` call so they
+ * may be invoked directly. This is just a convenience method, as you can call
+ * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
+ *
+ * For convenience, you can also pass an action creator as the first argument,
+ * and get a dispatch wrapped function in return.
+ *
+ * @param {Function|Object} actionCreators An object whose values are action
+ * creator functions. One handy way to obtain it is to use ES6 `import * as`
+ * syntax. You may also pass a single function.
+ *
+ * @param {Function} dispatch The `dispatch` function available on your Redux
+ * store.
+ *
+ * @returns {Function|Object} The object mimicking the original object, but with
+ * every action creator wrapped into the `dispatch` call. If you passed a
+ * function as `actionCreators`, the return value will also be a single
+ * function.
+ */
+
+
+function bindActionCreators(actionCreators, dispatch) {
+  if (typeof actionCreators === 'function') {
+    return bindActionCreator(actionCreators, dispatch);
+  }
+
+  if (typeof actionCreators !== 'object' || actionCreators === null) {
+    throw new Error("bindActionCreators expected an object or a function, instead received " + (actionCreators === null ? 'null' : typeof actionCreators) + ". " + "Did you write \"import ActionCreators from\" instead of \"import * as ActionCreators from\"?");
+  }
+
+  var boundActionCreators = {};
+
+  for (var key in actionCreators) {
+    var actionCreator = actionCreators[key];
+
+    if (typeof actionCreator === 'function') {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+    }
+  }
+
+  return boundActionCreators;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    keys.push.apply(keys, Object.getOwnPropertySymbols(object));
+  }
+
+  if (enumerableOnly) keys = keys.filter(function (sym) {
+    return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+  });
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+/**
+ * Composes single-argument functions from right to left. The rightmost
+ * function can take multiple arguments as it provides the signature for
+ * the resulting composite function.
+ *
+ * @param {...Function} funcs The functions to compose.
+ * @returns {Function} A function obtained by composing the argument functions
+ * from right to left. For example, compose(f, g, h) is identical to doing
+ * (...args) => f(g(h(...args))).
+ */
+function compose() {
+  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+    funcs[_key] = arguments[_key];
+  }
+
+  if (funcs.length === 0) {
+    return function (arg) {
+      return arg;
+    };
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce(function (a, b) {
+    return function () {
+      return a(b.apply(void 0, arguments));
+    };
+  });
+}
+
+/**
+ * Creates a store enhancer that applies middleware to the dispatch method
+ * of the Redux store. This is handy for a variety of tasks, such as expressing
+ * asynchronous actions in a concise manner, or logging every action payload.
+ *
+ * See `redux-thunk` package as an example of the Redux middleware.
+ *
+ * Because middleware is potentially asynchronous, this should be the first
+ * store enhancer in the composition chain.
+ *
+ * Note that each middleware will be given the `dispatch` and `getState` functions
+ * as named arguments.
+ *
+ * @param {...Function} middlewares The middleware chain to be applied.
+ * @returns {Function} A store enhancer applying the middleware.
+ */
+
+function applyMiddleware() {
+  for (var _len = arguments.length, middlewares = new Array(_len), _key = 0; _key < _len; _key++) {
+    middlewares[_key] = arguments[_key];
+  }
+
+  return function (createStore) {
+    return function () {
+      var store = createStore.apply(void 0, arguments);
+
+      var _dispatch = function dispatch() {
+        throw new Error('Dispatching while constructing your middleware is not allowed. ' + 'Other middleware would not be applied to this dispatch.');
+      };
+
+      var middlewareAPI = {
+        getState: store.getState,
+        dispatch: function dispatch() {
+          return _dispatch.apply(void 0, arguments);
+        }
+      };
+      var chain = middlewares.map(function (middleware) {
+        return middleware(middlewareAPI);
+      });
+      _dispatch = compose.apply(void 0, chain)(store.dispatch);
+      return _objectSpread2({}, store, {
+        dispatch: _dispatch
+      });
+    };
+  };
+}
+
+/*
+ * This is a dummy function to check if the function name has been altered by minification.
+ * If the function has been minified and NODE_ENV !== 'production', warn the user.
+ */
+
+function isCrushed() {}
+
+if ( true && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
+  warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function define(obj, key, value) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+    return obj[key];
+  }
+  try {
+    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+    define({}, "");
+  } catch (err) {
+    define = function(obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunction.displayName = define(
+    GeneratorFunctionPrototype,
+    toStringTagSymbol,
+    "GeneratorFunction"
+  );
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      define(prototype, method, function(arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      define(genFun, toStringTagSymbol, "GeneratorFunction");
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return PromiseImpl.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return PromiseImpl.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new PromiseImpl(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList),
+      PromiseImpl
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  define(Gp, toStringTagSymbol, "Generator");
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : undefined
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/resolve-pathname/esm/resolve-pathname.js":
 /*!***************************************************************!*\
   !*** ./node_modules/resolve-pathname/esm/resolve-pathname.js ***!
@@ -69615,6 +72756,69 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/symbol-observable/es/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/symbol-observable/es/index.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var _ponyfill_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ponyfill.js */ "./node_modules/symbol-observable/es/ponyfill.js");
+/* global window */
+
+
+var root;
+
+if (typeof self !== 'undefined') {
+  root = self;
+} else if (typeof window !== 'undefined') {
+  root = window;
+} else if (typeof global !== 'undefined') {
+  root = global;
+} else if (true) {
+  root = module;
+} else {}
+
+var result = Object(_ponyfill_js__WEBPACK_IMPORTED_MODULE_0__["default"])(root);
+/* harmony default export */ __webpack_exports__["default"] = (result);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/symbol-observable/es/ponyfill.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/symbol-observable/es/ponyfill.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return symbolObservablePonyfill; });
+function symbolObservablePonyfill(root) {
+	var result;
+	var Symbol = root.Symbol;
+
+	if (typeof Symbol === 'function') {
+		if (Symbol.observable) {
+			result = Symbol.observable;
+		} else {
+			result = Symbol('observable');
+			Symbol.observable = result;
+		}
+	} else {
+		result = '@@observable';
+	}
+
+	return result;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/tiny-invariant/dist/tiny-invariant.esm.js":
 /*!****************************************************************!*\
   !*** ./node_modules/tiny-invariant/dist/tiny-invariant.esm.js ***!
@@ -69754,6 +72958,41 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./node_modules/webpack/buildin/harmony-module.js":
+/*!*******************************************!*\
+  !*** (webpack)/buildin/harmony-module.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(originalModule) {
+	if (!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/module.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
@@ -69809,9 +73048,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js");
 
-__webpack_require__(/*! ./components/user_schedule/ScheduleRoot */ "./resources/js/components/user_schedule/ScheduleRoot.jsx");
+__webpack_require__(/*! ./components/user_schedule/ScheduleRoot */ "./resources/js/components/user_schedule/ScheduleRoot.jsx"); //require('./components/open_schedule/ScheduleRoot');
 
-__webpack_require__(/*! ./components/open_schedule/ScheduleRoot */ "./resources/js/components/open_schedule/ScheduleRoot.jsx");
+
+__webpack_require__(/*! ./components/open_schedule_reducks/index */ "./resources/js/components/open_schedule_reducks/index.js");
 
 /***/ }),
 
@@ -69864,12 +73104,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*********************************************!*\
   !*** ./resources/js/components/DateUtil.js ***!
   \*********************************************/
-/*! exports provided: formatDate */
+/*! exports provided: formatDate, parseToDateFromReservation, getMonthOptions, getDateOptions, getHourOptions, getMinuteOptions */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatDate", function() { return formatDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseToDateFromReservation", function() { return parseToDateFromReservation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMonthOptions", function() { return getMonthOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDateOptions", function() { return getDateOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHourOptions", function() { return getHourOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMinuteOptions", function() { return getMinuteOptions; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
 function formatDate(date, formatString) {
   var addZero = function addZero(num) {
     return String(num).length === 1 ? "0".concat(num) : num;
@@ -69881,6 +73129,63 @@ function formatDate(date, formatString) {
   formatString = formatString.replace(/HH/, addZero(date.getHours()));
   formatString = formatString.replace(/mm/, addZero(date.getMinutes()));
   return formatString;
+}
+function parseToDateFromReservation(array) {
+  var dateArray = array; //2020-08-05 07:25:00
+
+  var reservationDate = new Date(Number(dateArray[0]), dateArray[1][0] === '0' ? Number(dateArray[1][1]) - 1 : Number(dateArray[1]) - 1, dateArray[2][0] === '0' ? Number(dateArray[2][1]) : Number(dateArray[2]), dateArray[3][0] === '0' ? Number(dateArray[3][1]) : Number(dateArray[3]), dateArray[4][0] === '0' ? Number(dateArray[4][1]) : Number(dateArray[4]));
+  return reservationDate;
+}
+function getMonthOptions(year) {
+  var options = [];
+  var month = year > new Date().getFullYear() ? 0 : new Date().getMonth();
+
+  while (month < 12) {
+    options.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: month,
+      value: month
+    }, month + 1));
+    month++;
+  }
+
+  return options;
+}
+function getDateOptions(year, month) {
+  var options = [];
+  var dates = new Date(year, month + 1, 0).getDate();
+
+  for (var i = 1; i <= dates; i++) {
+    options.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: i,
+      value: i
+    }, i));
+  }
+
+  return options;
+}
+function getHourOptions() {
+  var options = [];
+
+  for (var i = 0; i < 24; i++) {
+    options.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: i,
+      value: i
+    }, i));
+  }
+
+  return options;
+}
+function getMinuteOptions() {
+  var options = [];
+
+  for (var i = 0; i < 60; i += 5) {
+    options.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: i,
+      value: i
+    }, i));
+  }
+
+  return options;
 }
 
 /***/ }),
@@ -69925,21 +73230,1215 @@ if (document.getElementById('example')) {
 
 /***/ }),
 
-/***/ "./resources/js/components/open_schedule/CalenderSelectHeader.jsx":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/open_schedule/CalenderSelectHeader.jsx ***!
-  \************************************************************************/
+/***/ "./resources/js/components/FetchUtil.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/FetchUtil.js ***!
+  \**********************************************/
+/*! exports provided: fetchFromLaravel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFromLaravel", function() { return fetchFromLaravel; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function fetchFromLaravel(csrf, method, endPoint, body, callback, validateErrorCallback) {
+  fetch(endPoint, {
+    headers: {
+      'Content-Type': "application/json",
+      "Accept": "application/json",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-CSRF-Token": csrf
+    },
+    method: method,
+    credentials: "same-origin",
+    body: JSON.stringify(body)
+  })["catch"](function (error) {
+    location.reload();
+  }).then(responseErrorSwitch.bind(null, validateErrorCallback)).then(function (response) {
+    return response.json();
+  }).then(function (response) {
+    callback(response);
+  });
+}
+
+var responseErrorSwitch = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(validateErrorCallback, response) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!response.ok) {
+              _context.next = 2;
+              break;
+            }
+
+            return _context.abrupt("return", response);
+
+          case 2:
+            _context.t0 = response.status;
+            _context.next = _context.t0 === 400 ? 5 : _context.t0 === 401 ? 6 : _context.t0 === 419 ? 7 : _context.t0 === 422 ? 8 : _context.t0 === 500 ? 16 : _context.t0 === 502 ? 17 : _context.t0 === 404 ? 18 : 19;
+            break;
+
+          case 5:
+            throw Error('INVALID_TOKEN');
+
+          case 6:
+            throw Error('UNAUTHORIZED');
+
+          case 7:
+            location.reload();
+
+          case 8:
+            if (validateErrorCallback) {
+              _context.next = 10;
+              break;
+            }
+
+            return _context.abrupt("return", response);
+
+          case 10:
+            _context.t1 = validateErrorCallback;
+            _context.next = 13;
+            return response.json();
+
+          case 13:
+            _context.t2 = _context.sent;
+            (0, _context.t1)(_context.t2);
+            throw Error('VALIDATE_FAIL');
+
+          case 16:
+            throw Error('INTERNAL_SERVER_ERROR');
+
+          case 17:
+            throw Error('BAD_GATEWAY');
+
+          case 18:
+            throw Error('NOT_FOUND');
+
+          case 19:
+            throw Error('UNHANDLED_ERROR');
+
+          case 20:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function responseErrorSwitch(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/calenders/actions.js":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/calenders/actions.js ***!
+  \****************************************************************************/
+/*! exports provided: SET_CALENDER_FROM, setCalenderFrom, SET_VISIBLEDAY_COUNT, setVisibleDayCount */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CALENDER_FROM", function() { return SET_CALENDER_FROM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCalenderFrom", function() { return setCalenderFrom; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISIBLEDAY_COUNT", function() { return SET_VISIBLEDAY_COUNT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setVisibleDayCount", function() { return setVisibleDayCount; });
+/* harmony import */ var _store_initialState__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/initialState */ "./resources/js/components/open_schedule_reducks/store/initialState.js");
+var SET_CALENDER_FROM = 'SET_CALENDER_FROM';
+var setCalenderFrom = function setCalenderFrom(from) {
+  return {
+    type: 'SET_CALENDER_FROM',
+    payload: {
+      from: from
+    }
+  };
+};
+
+var SET_VISIBLEDAY_COUNT = 'SET_VISIBLEDAY_COUNT';
+var setVisibleDayCount = function setVisibleDayCount() {
+  var count = Object(_store_initialState__WEBPACK_IMPORTED_MODULE_0__["getVisibleDayCount"])();
+  return {
+    type: 'SET_VISIBLEDAY_COUNT',
+    payload: {
+      visibleDayCount: count
+    }
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/calenders/reducers.js":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/calenders/reducers.js ***!
+  \*****************************************************************************/
+/*! exports provided: CalenderReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CalenderReducer", function() { return CalenderReducer; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/components/open_schedule_reducks/calenders/actions.js");
+/* harmony import */ var _store_initialState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/initialState */ "./resources/js/components/open_schedule_reducks/store/initialState.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var CalenderReducer = function CalenderReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store_initialState__WEBPACK_IMPORTED_MODULE_1__["default"].calender;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_CALENDER_FROM"]:
+      return _objectSpread(_objectSpread({}, state), action.payload);
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_VISIBLEDAY_COUNT"]:
+      return _objectSpread(_objectSpread({}, state), action.payload);
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/containers/Calender.js":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/containers/Calender.js ***!
+  \******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _templates_Calender__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../templates/Calender */ "./resources/js/components/open_schedule_reducks/templates/Calender.jsx");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _calenders_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../calenders/actions */ "./resources/js/components/open_schedule_reducks/calenders/actions.js");
+/* harmony import */ var _reservations_operations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reservations/operations */ "./resources/js/components/open_schedule_reducks/reservations/operations.js");
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    reservations: state.reservations,
+    visibleDayCount: state.calender.visibleDayCount,
+    selectDate: state.calender.from,
+    owner: state.schedule.owner
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      setVibibleDayCount: function setVibibleDayCount() {
+        dispatch(_calenders_actions__WEBPACK_IMPORTED_MODULE_3__["setVisibleDayCount"]());
+      },
+      deleteReservation: function deleteReservation(from, end) {
+        dispatch(Object(_reservations_operations__WEBPACK_IMPORTED_MODULE_4__["deleteReservation"])(from, end));
+      }
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps))(_templates_Calender__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/containers/CalenderSelect.js":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/containers/CalenderSelect.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _templates_CalenderSelect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../templates/CalenderSelect */ "./resources/js/components/open_schedule_reducks/templates/CalenderSelect.jsx");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _calenders_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../calenders/actions */ "./resources/js/components/open_schedule_reducks/calenders/actions.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    selectedDate: state.calender.from
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      setCalenderFrom: function setCalenderFrom(from) {
+        dispatch(_calenders_actions__WEBPACK_IMPORTED_MODULE_3__["setCalenderFrom"](from));
+      }
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps))(_templates_CalenderSelect__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/containers/PasswordForm.js":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/containers/PasswordForm.js ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _templates_PasswordForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../templates/PasswordForm */ "./resources/js/components/open_schedule_reducks/templates/PasswordForm.jsx");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _schedule_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../schedule/actions */ "./resources/js/components/open_schedule_reducks/schedule/actions.js");
+/* harmony import */ var _schedule_operations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../schedule/operations */ "./resources/js/components/open_schedule_reducks/schedule/operations.js");
+/* harmony import */ var _loading_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../loading/actions */ "./resources/js/components/open_schedule_reducks/loading/actions.js");
+
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    schedule: state.schedule,
+    loading: state.loadings.password
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      setPassword: function setPassword(ev) {
+        dispatch(_schedule_actions__WEBPACK_IMPORTED_MODULE_3__["setPasswordAction"](ev.target.value));
+      },
+      sendPassword: function sendPassword() {
+        dispatch(_schedule_operations__WEBPACK_IMPORTED_MODULE_4__["setSchedule"]());
+      },
+      setLoading: function setLoading(bool) {
+        dispatch(_loading_actions__WEBPACK_IMPORTED_MODULE_5__["setPasswordLoading"](bool));
+      }
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps))(_templates_PasswordForm__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/containers/ReservationForm.js":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/containers/ReservationForm.js ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _templates_ReservaionForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../templates/ReservaionForm */ "./resources/js/components/open_schedule_reducks/templates/ReservaionForm.jsx");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _forms_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../forms/actions */ "./resources/js/components/open_schedule_reducks/forms/actions.js");
+/* harmony import */ var _reservations_operations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reservations/operations */ "./resources/js/components/open_schedule_reducks/reservations/operations.js");
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    permitRequired: state.schedule.permitRequired,
+    reserveForm: state.reservationForm.reserveForm,
+    reserveFormError: state.reservationForm.reserveFormError,
+    colors: state.schedule.colors
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      setOwnerName: function setOwnerName(name) {
+        dispatch(_forms_actions__WEBPACK_IMPORTED_MODULE_3__["setReservationOwnerName"](name));
+      },
+      setFromForm: function setFromForm(from) {
+        dispatch(_forms_actions__WEBPACK_IMPORTED_MODULE_3__["setReservationFrom"](from));
+      },
+      setEndForm: function setEndForm(end) {
+        dispatch(_forms_actions__WEBPACK_IMPORTED_MODULE_3__["setReservationEnd"](end));
+      },
+      setColorForm: function setColorForm(color) {
+        dispatch(_forms_actions__WEBPACK_IMPORTED_MODULE_3__["setReservationColor"](color));
+      },
+      sendReservation: function sendReservation() {
+        dispatch(_reservations_operations__WEBPACK_IMPORTED_MODULE_4__["sendReservation"]());
+      }
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps))(_templates_ReservaionForm__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/containers/Root.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/containers/Root.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _templates_Root__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../templates/Root */ "./resources/js/components/open_schedule_reducks/templates/Root.jsx");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _schedule_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../schedule/actions */ "./resources/js/components/open_schedule_reducks/schedule/actions.js");
+/* harmony import */ var _schedule_operations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../schedule/operations */ "./resources/js/components/open_schedule_reducks/schedule/operations.js");
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    schedule: state.schedule
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      setScheduleContext: function setScheduleContext(hashDigest, passwordRequired) {
+        dispatch(_schedule_actions__WEBPACK_IMPORTED_MODULE_3__["setScheduleContext"](hashDigest, passwordRequired));
+      },
+      setSchedule: function setSchedule() {
+        dispatch(Object(_schedule_operations__WEBPACK_IMPORTED_MODULE_4__["setSchedule"])());
+      }
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps))(_templates_Root__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/containers/Schedule.js":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/containers/Schedule.js ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _templates_Schedule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../templates/Schedule */ "./resources/js/components/open_schedule_reducks/templates/Schedule.jsx");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _schedule_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../schedule/actions */ "./resources/js/components/open_schedule_reducks/schedule/actions.js");
+/* harmony import */ var _schedule_operations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../schedule/operations */ "./resources/js/components/open_schedule_reducks/schedule/operations.js");
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    schedule: state.schedule
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    actions: {}
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps))(_templates_Schedule__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/forms/actions.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/forms/actions.js ***!
+  \************************************************************************/
+/*! exports provided: SET_RESERVATION_OWNER_NAME, setReservationOwnerName, SET_RESERVATION_FROM, setReservationFrom, SET_RESERVATION_END, setReservationEnd, SET_RESERVATION_COLOR, setReservationColor, SET_RESERVATION_ERROR, setReservationError */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_RESERVATION_OWNER_NAME", function() { return SET_RESERVATION_OWNER_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReservationOwnerName", function() { return setReservationOwnerName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_RESERVATION_FROM", function() { return SET_RESERVATION_FROM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReservationFrom", function() { return setReservationFrom; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_RESERVATION_END", function() { return SET_RESERVATION_END; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReservationEnd", function() { return setReservationEnd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_RESERVATION_COLOR", function() { return SET_RESERVATION_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReservationColor", function() { return setReservationColor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_RESERVATION_ERROR", function() { return SET_RESERVATION_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReservationError", function() { return setReservationError; });
+var SET_RESERVATION_OWNER_NAME = 'SET_RESERVATION_OWNER_NAME';
+var setReservationOwnerName = function setReservationOwnerName(name) {
+  return {
+    type: 'SET_RESERVATION_OWNER_NAME',
+    payload: {
+      owner_name: name
+    }
+  };
+};
+var SET_RESERVATION_FROM = 'SET_RESERVATION_FROM';
+var setReservationFrom = function setReservationFrom(from) {
+  return {
+    type: 'SET_RESERVATION_FROM',
+    payload: {
+      from: from
+    }
+  };
+};
+var SET_RESERVATION_END = 'SET_RESERVATION_END';
+var setReservationEnd = function setReservationEnd(end) {
+  return {
+    type: 'SET_RESERVATION_END',
+    payload: {
+      end: end
+    }
+  };
+};
+var SET_RESERVATION_COLOR = 'SET_RESERVATION_COLOR';
+var setReservationColor = function setReservationColor(color) {
+  return {
+    type: 'SET_RESERVATION_COLOR',
+    payload: {
+      color: color
+    }
+  };
+};
+var SET_RESERVATION_ERROR = 'SET_RESERVATION_ERROR';
+var setReservationError = function setReservationError(error) {
+  return {
+    type: 'SET_RESERVATION_ERROR',
+    payload: error
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/forms/reducers.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/forms/reducers.js ***!
+  \*************************************************************************/
+/*! exports provided: ReservationFormReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReservationFormReducer", function() { return ReservationFormReducer; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/components/open_schedule_reducks/forms/actions.js");
+/* harmony import */ var _store_initialState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/initialState */ "./resources/js/components/open_schedule_reducks/store/initialState.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var ReservationFormReducer = function ReservationFormReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store_initialState__WEBPACK_IMPORTED_MODULE_1__["default"].reservationForm;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_RESERVATION_OWNER_NAME"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        reserveForm: _objectSpread(_objectSpread({}, state.reserveForm), action.payload)
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_RESERVATION_FROM"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        reserveForm: _objectSpread(_objectSpread({}, state.reserveForm), action.payload)
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_RESERVATION_END"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        reserveForm: _objectSpread(_objectSpread({}, state.reserveForm), action.payload)
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_RESERVATION_COLOR"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        reserveForm: _objectSpread(_objectSpread({}, state.reserveForm), action.payload)
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_RESERVATION_ERROR"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        reserveFormError: _objectSpread(_objectSpread({}, state.reserveFormError), action.payload)
+      });
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/index.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/index.js ***!
+  \****************************************************************/
+/*! exports provided: store */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/store */ "./resources/js/components/open_schedule_reducks/store/store.js");
+/* harmony import */ var _containers_Root__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./containers/Root */ "./resources/js/components/open_schedule_reducks/containers/Root.js");
+
+
+
+
+
+
+var store = Object(_store_store__WEBPACK_IMPORTED_MODULE_4__["default"])();
+
+if (document.getElementById('open-schedule-root')) {
+  var element = document.getElementById('open-schedule-root-redux');
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
+    store: store
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_Root__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    passwordRequired: element.dataset.passwordRequired === '1' ? true : false,
+    hashDigest: element.dataset.hashDigest
+  })), document.getElementById('open-schedule-root-redux'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/loading/actions.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/loading/actions.js ***!
+  \**************************************************************************/
+/*! exports provided: SET_PASSEORD_LOADING, setPasswordLoading */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PASSEORD_LOADING", function() { return SET_PASSEORD_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setPasswordLoading", function() { return setPasswordLoading; });
+var SET_PASSEORD_LOADING = 'SET_PASSEORD_LOADING';
+var setPasswordLoading = function setPasswordLoading(bool) {
+  return {
+    type: 'SET_PASSEORD_LOADING',
+    payload: {
+      password: bool
+    }
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/loading/reducers.js":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/loading/reducers.js ***!
+  \***************************************************************************/
+/*! exports provided: LoadingReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadingReducer", function() { return LoadingReducer; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/components/open_schedule_reducks/loading/actions.js");
+/* harmony import */ var _store_initialState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/initialState */ "./resources/js/components/open_schedule_reducks/store/initialState.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var LoadingReducer = function LoadingReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store_initialState__WEBPACK_IMPORTED_MODULE_1__["default"].loadings;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_PASSEORD_LOADING"]:
+      return _objectSpread(_objectSpread({}, state), action.payload);
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/reservations/actions.js":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/reservations/actions.js ***!
+  \*******************************************************************************/
+/*! exports provided: SET_RESERVATIONS, setReservations, ALL_RESERVATIONS, allReservations */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_RESERVATIONS", function() { return SET_RESERVATIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReservations", function() { return setReservations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALL_RESERVATIONS", function() { return ALL_RESERVATIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "allReservations", function() { return allReservations; });
+var SET_RESERVATIONS = 'SET_RESERVATIONS';
+var setReservations = function setReservations(reservations) {
+  return {
+    type: 'SET_RESERVATIONS',
+    reservations: reservations
+  };
+};
+var ALL_RESERVATIONS = 'ALL_RESERVATIONS';
+var allReservations = function allReservations(reservations) {
+  return {
+    type: 'ALL_RESERVATIONS',
+    reservations: reservations
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/reservations/operations.js":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/reservations/operations.js ***!
+  \**********************************************************************************/
+/*! exports provided: sendReservation, deleteReservation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendReservation", function() { return sendReservation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteReservation", function() { return deleteReservation; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/components/open_schedule_reducks/reservations/actions.js");
+/* harmony import */ var _forms_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../forms/actions */ "./resources/js/components/open_schedule_reducks/forms/actions.js");
+/* harmony import */ var _FetchUtil__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../FetchUtil */ "./resources/js/components/FetchUtil.js");
+/* harmony import */ var _DateUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../DateUtil */ "./resources/js/components/DateUtil.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var sendReservation = function sendReservation() {
+  return function (dispatch, getState) {
+    var state = getState();
+    if (!validate(dispatch, state.reservationForm.reserveForm, state.reservations)) return;
+    document.getElementById('open-form-button').click();
+    var csrf = document.querySelector('meta[name="csrf_token"]').content;
+    var color = state.schedule.colors.filter(function (color) {
+      return Number(color.id) === Number(state.reservationForm.reserveForm.color);
+    })[0];
+    var body = {
+      schedule_password: state.schedule.password,
+      hash_digest: state.schedule.hashDigest,
+      owner_name: state.reservationForm.reserveForm.owner_name,
+      from: Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(state.reservationForm.reserveForm.from, 'YYYY-MM-DD HH:mm:00'),
+      end: Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(state.reservationForm.reserveForm.end, 'YYYY-MM-DD HH:mm:00'),
+      color: Number(state.reservationForm.reserveForm.color),
+      dummyId: new Date().getMilliseconds()
+    };
+
+    if (!state.schedule.permitRequired) {
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["setReservations"])([_objectSpread(_objectSpread({}, body), {}, {
+        color: {
+          background_color: color.background_color,
+          text_color: color.text_color
+        }
+      })]));
+    }
+
+    Object(_FetchUtil__WEBPACK_IMPORTED_MODULE_2__["fetchFromLaravel"])(csrf, 'POST', "/reservations", body, function (res) {
+      if (state.schedule.permitRequired) return;
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["allReservations"])([].concat(_toConsumableArray(state.reservations.filter(function (reservation) {
+        return !reservation.dummyId || reservation.dummyId !== res.errors.dummyId[0];
+      })), [res.reservation])));
+    }, function (res) {
+      var errors = {};
+
+      for (var error in res.errors) {
+        errors[error] = res.errors[error][0];
+      }
+
+      ;
+      dispatch(Object(_forms_actions__WEBPACK_IMPORTED_MODULE_1__["setReservationError"])(errors));
+      if (state.schedule.permitRequired) return;
+
+      var newReservations = _toConsumableArray(state.reservations.filter(function (reservation) {
+        return !reservation.dummyId || reservation.dummyId !== res.errors.dummyId[0];
+      }));
+
+      if ('date_over' in res.errors) newReservations = [].concat(_toConsumableArray(newReservations), _toConsumableArray(res.errors['date_over'][0]));
+      var sendReservation = [];
+      newReservations.forEach(function (newReservation) {
+        var isExists = false;
+
+        for (var i = 0; i < sendReservation.length; i++) {
+          if (sendReservation[i].from === newReservation.from) {
+            isExists = true;
+            break;
+            ;
+          }
+        }
+
+        if (!isExists) sendReservation.push(newReservation);
+      });
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["allReservations"])(sendReservation));
+    });
+  };
+};
+
+function validate(dispatch, form, reservations) {
+  var validated = true;
+  var errors = {
+    owner_name: '',
+    from: '',
+    end: '',
+    over: '',
+    color: ''
+  };
+  var notOver = reservations.filter(function (reservation) {
+    if (reservation.from < form.from && form.end < reservation.end) {
+      return true;
+    }
+
+    return false;
+  });
+
+  if (form.owner_name.length < 1) {
+    errors.owner_name = '1文字以上を入力';
+    validated = false;
+  }
+
+  if (form.from.getTime() < new Date().getTime()) {
+    errors.from = '予約は現在より先に設定してください';
+    validated = false;
+  }
+
+  if (form.end.getTime() < form.from.getTime()) {
+    errors.end = '予約は開始日時より先に設定してください';
+    validated = false;
+  }
+
+  if (notOver.length !== 0) {
+    errors.over = '重複している予約があります';
+    validated = false;
+  }
+
+  if (!document.querySelector('#reserve-form-color input:checked')) {
+    errors.color = '色を選択して下さい';
+    validated = false;
+  }
+
+  if (!validated) dispatch(Object(_forms_actions__WEBPACK_IMPORTED_MODULE_1__["setReservationError"])(errors));
+  return validated;
+}
+
+var deleteReservation = function deleteReservation(from, end) {
+  return function (dispatch, getState) {
+    var csrf = document.querySelector('meta[name="csrf_token"]').content;
+    var state = getState();
+    dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["allReservations"])(_toConsumableArray(state.reservations.filter(function (reservation) {
+      return reservation.from !== from && reservation.end !== end;
+    }))));
+    Object(_FetchUtil__WEBPACK_IMPORTED_MODULE_2__["fetchFromLaravel"])(csrf, 'DELETE', '/reservations/1', {
+      from: from,
+      end: end,
+      hash_digest: state.schedule.hashDigest
+    }, function (res) {}, function (res) {
+      console.log(res);
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/reservations/reducers.js":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/reservations/reducers.js ***!
+  \********************************************************************************/
+/*! exports provided: ReservationsReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReservationsReducer", function() { return ReservationsReducer; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/components/open_schedule_reducks/reservations/actions.js");
+/* harmony import */ var _store_initialState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/initialState */ "./resources/js/components/open_schedule_reducks/store/initialState.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+var ReservationsReducer = function ReservationsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store_initialState__WEBPACK_IMPORTED_MODULE_1__["default"].reservations;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_RESERVATIONS"]:
+      return [].concat(_toConsumableArray(state), _toConsumableArray(action.reservations));
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["ALL_RESERVATIONS"]:
+      return _toConsumableArray(action.reservations);
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/schedule/actions.js":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/schedule/actions.js ***!
+  \***************************************************************************/
+/*! exports provided: SET_SCHEDULE_CONTEXT, setScheduleContext, SET_PASSWORD, setPasswordAction, SET_SCHEDULE, setSchedule, SET_COLORS, setColors, SET_PASSWORD_ERROR, setPasswordError */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_SCHEDULE_CONTEXT", function() { return SET_SCHEDULE_CONTEXT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setScheduleContext", function() { return setScheduleContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PASSWORD", function() { return SET_PASSWORD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setPasswordAction", function() { return setPasswordAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_SCHEDULE", function() { return SET_SCHEDULE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSchedule", function() { return setSchedule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_COLORS", function() { return SET_COLORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setColors", function() { return setColors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PASSWORD_ERROR", function() { return SET_PASSWORD_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setPasswordError", function() { return setPasswordError; });
+var SET_SCHEDULE_CONTEXT = 'SET_SCHEDULE_CONTEXT';
+var setScheduleContext = function setScheduleContext(scheduleContextState) {
+  return {
+    type: 'SET_SCHEDULE_CONTEXT',
+    payload: {
+      hashDigest: scheduleContextState.hashDigest,
+      passwordRequired: scheduleContextState.passwordRequired
+    }
+  };
+};
+var SET_PASSWORD = 'SET_PASSWORD';
+var setPasswordAction = function setPasswordAction(password) {
+  return {
+    type: 'SET_PASSWORD',
+    payload: {
+      password: password
+    }
+  };
+};
+var SET_SCHEDULE = 'SET_SCHEDULE';
+var setSchedule = function setSchedule(schedule) {
+  return {
+    type: 'SET_SCHEDULE',
+    payload: {
+      name: schedule.name,
+      description: schedule.description,
+      permitRequired: Boolean(schedule.permit_required),
+      owner: schedule.owner
+    }
+  };
+};
+var SET_COLORS = 'SET_COLORS';
+var setColors = function setColors(colors) {
+  return {
+    type: 'SET_COLORS',
+    payload: {
+      colors: colors
+    }
+  };
+};
+var SET_PASSWORD_ERROR = 'SET_PASSWORD_ERROR';
+var setPasswordError = function setPasswordError(error) {
+  return {
+    type: 'SET_PASSWORD_ERROR',
+    payload: {
+      passwordError: error
+    }
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/schedule/operations.js":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/schedule/operations.js ***!
+  \******************************************************************************/
+/*! exports provided: setSchedule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSchedule", function() { return setSchedule; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/components/open_schedule_reducks/schedule/actions.js");
+/* harmony import */ var _reservations_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../reservations/actions */ "./resources/js/components/open_schedule_reducks/reservations/actions.js");
+/* harmony import */ var _loading_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../loading/actions */ "./resources/js/components/open_schedule_reducks/loading/actions.js");
+/* harmony import */ var _FetchUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../FetchUtil */ "./resources/js/components/FetchUtil.js");
+
+
+
+
+var setSchedule = function setSchedule() {
+  return function (dispatch, getState) {
+    var state = getState();
+    var csrf = document.querySelector('meta[name="csrf_token"]').content;
+    Object(_FetchUtil__WEBPACK_IMPORTED_MODULE_3__["fetchFromLaravel"])(csrf, 'POST', "/".concat(state.schedule.hashDigest), {
+      schedule_password: state.schedule.password
+    }, function (res) {
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["setScheduleContext"])({
+        hashDigest: state.schedule.hashDigest,
+        passwordRequired: false
+      }));
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["setSchedule"])(res));
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["setColors"])(res.color_root.colors));
+      dispatch(Object(_reservations_actions__WEBPACK_IMPORTED_MODULE_1__["setReservations"])(res.reservations));
+      dispatch(Object(_loading_actions__WEBPACK_IMPORTED_MODULE_2__["setPasswordLoading"])(true));
+    }, function (res) {
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["setPasswordError"])(res.error));
+      dispatch(Object(_loading_actions__WEBPACK_IMPORTED_MODULE_2__["setPasswordLoading"])(false));
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/schedule/reducers.js":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/schedule/reducers.js ***!
+  \****************************************************************************/
+/*! exports provided: ScheduleReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScheduleReducer", function() { return ScheduleReducer; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/components/open_schedule_reducks/schedule/actions.js");
+/* harmony import */ var _store_initialState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/initialState */ "./resources/js/components/open_schedule_reducks/store/initialState.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var ScheduleReducer = function ScheduleReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store_initialState__WEBPACK_IMPORTED_MODULE_1__["default"].schedule;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_SCHEDULE_CONTEXT"]:
+      return _objectSpread(_objectSpread({}, state), action.payload);
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_PASSWORD"]:
+      return _objectSpread(_objectSpread({}, state), action.payload);
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_SCHEDULE"]:
+      return _objectSpread(_objectSpread({}, state), action.payload);
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_PASSWORD_ERROR"]:
+      return _objectSpread(_objectSpread({}, state), action.payload);
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_COLORS"]:
+      return _objectSpread(_objectSpread({}, state), action.payload);
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/store/initialState.js":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/store/initialState.js ***!
+  \*****************************************************************************/
+/*! exports provided: getVisibleDayCount, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getVisibleDayCount", function() { return getVisibleDayCount; });
+var initialState = {
+  schedule: {
+    hashDigest: document.getElementById('open-schedule-root-redux').dataset.hashDigest,
+    name: '',
+    description: '',
+    password: '',
+    permitRequired: false,
+    passwordError: '',
+    passwordRequired: Boolean(document.getElementById('open-schedule-root-redux').dataset.passwordRequired === '1' ? true : false),
+    colors: [],
+    owner: false
+  },
+  reservations: [],
+  calender: {
+    visibleDayCount: getVisibleDayCount(),
+    from: getNow()
+  },
+  reservationForm: {
+    reserveForm: {
+      owner_name: '',
+      from: getDateForReserveForm()[0],
+      end: getDateForReserveForm()[1],
+      color: -1
+    },
+    reserveFormError: {
+      owner_name: '',
+      from: '',
+      end: '',
+      over: '',
+      color: ''
+    }
+  },
+  loadings: {
+    password: false
+  }
+};
+function getVisibleDayCount() {
+  if (window.innerWidth > 1200) {
+    return 13;
+  } else if (960 < window.innerWidth && window.innerWidth <= 1200) {
+    return 11;
+  }
+
+  if (720 < window.innerWidth && window.innerWidth <= 960) {
+    return 9;
+  }
+
+  if (window.innerWidth <= 720) {
+    return 7;
+  }
+
+  return 7;
+}
+
+function getNow() {
+  var now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+function getDateForReserveForm() {
+  var currentDate = new Date();
+  currentDate.setMinutes(0);
+  return [currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), currentDate.getHours() + 1)];
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (initialState);
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/store/store.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/store/store.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createStore; });
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var _schedule_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../schedule/reducers */ "./resources/js/components/open_schedule_reducks/schedule/reducers.js");
+/* harmony import */ var _reservations_reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reservations/reducers */ "./resources/js/components/open_schedule_reducks/reservations/reducers.js");
+/* harmony import */ var _calenders_reducers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../calenders/reducers */ "./resources/js/components/open_schedule_reducks/calenders/reducers.js");
+/* harmony import */ var _forms_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../forms/reducers */ "./resources/js/components/open_schedule_reducks/forms/reducers.js");
+/* harmony import */ var _loading_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../loading/reducers */ "./resources/js/components/open_schedule_reducks/loading/reducers.js");
+
+
+
+
+
+
+
+function createStore() {
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+    schedule: _schedule_reducers__WEBPACK_IMPORTED_MODULE_2__["ScheduleReducer"],
+    reservations: _reservations_reducers__WEBPACK_IMPORTED_MODULE_3__["ReservationsReducer"],
+    calender: _calenders_reducers__WEBPACK_IMPORTED_MODULE_4__["CalenderReducer"],
+    reservationForm: _forms_reducers__WEBPACK_IMPORTED_MODULE_5__["ReservationFormReducer"],
+    loadings: _loading_reducers__WEBPACK_IMPORTED_MODULE_6__["LoadingReducer"]
+  }), Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/templates/Calender.jsx":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/templates/Calender.jsx ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Calender; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _DateUtil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../DateUtil */ "./resources/js/components/DateUtil.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -69964,27 +74463,352 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+var Calender = /*#__PURE__*/function (_React$Component) {
+  _inherits(Calender, _React$Component);
 
-var CalenderSelectHeader = /*#__PURE__*/function (_React$Component) {
-  _inherits(CalenderSelectHeader, _React$Component);
+  var _super = _createSuper(Calender);
 
-  var _super = _createSuper(CalenderSelectHeader);
+  function Calender(props) {
+    var _this;
 
-  function CalenderSelectHeader(props) {
-    _classCallCheck(this, CalenderSelectHeader);
+    _classCallCheck(this, Calender);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.dayWidth = 5;
+    _this.hourHeight = 2;
+    _this.headHeight = 2;
+    _this.lineInterval = _this.hourHeight / 2;
+    _this.timeRectLong = _this.lineInterval;
+    _this.dayColor = ['#eac5d2', '#f5f5f5', '#f5f5f5', '#f5f5f5', '#f5f5f5', '#f5f5f5', '#cac5ea'];
+    _this.state = {
+      detailDisplay: false,
+      detailData: null
+    };
+    window.addEventListener('resize', _this.props.actions.setVibibleDayCount);
+    window.addEventListener('click', function (ev) {
+      if (_this.state.detailDisplay && ev.target.className.baseVal !== 'reservation-hover') _this.setState({
+        detailDisplay: false
+      });
+    });
+    return _this;
   }
 
-  _createClass(CalenderSelectHeader, [{
+  _createClass(Calender, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          width: '100%',
+          position: 'relative'
+        }
+      }, this.getReservationDetail(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+        viewBox: "0 0 ".concat(this.props.visibleDayCount * this.dayWidth, " ").concat(24 * this.hourHeight + this.headHeight),
+        width: "100%"
+      }, this.getBackGrounds(), this.getHeader(), this.getReservations()));
+    }
+  }, {
+    key: "getHeader",
+    value: function getHeader() {
+      var date = new Date(this.props.selectDate.getFullYear(), this.props.selectDate.getMonth(), this.props.selectDate.getDate());
+      var lastDayOfMonth = new Date(this.props.selectDate.getFullYear(), this.props.selectDate.getMonth() + 1, 0).getDate();
+      var startDay = date.getDate();
+      var daysHead = [];
+      var dayscontent = [];
+      var headText = [];
+
+      for (var i = 0; i < this.props.visibleDayCount; i++) {
+        daysHead.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
+          key: i,
+          x: i * this.dayWidth,
+          y: "0",
+          width: this.dayWidth,
+          height: this.headHeight,
+          stroke: "none",
+          strokeWidth: "1",
+          fill: this.dayColor[date.getDay() + i < 7 ? date.getDay() + i : (date.getDay() + i) % 7]
+        }));
+        headText.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("text", {
+          key: i,
+          x: i * this.dayWidth + 1.5,
+          y: this.headHeight / 2,
+          fontSize: "0.8",
+          fill: "#797979",
+          textAnchor: "middle",
+          dominantBaseline: "central"
+        }, startDay + i <= lastDayOfMonth ? startDay + i : startDay + i - lastDayOfMonth));
+        dayscontent.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+          key: i,
+          d: "M".concat(i * this.dayWidth, ",").concat(this.headHeight, " h").concat(this.dayWidth, " v").concat(24 * this.hourHeight, " h").concat(-this.dayWidth, "z"),
+          stroke: "#767474",
+          strokeWidth: "0",
+          fill: "#fbfbfb66"
+        }));
+      }
+
+      return [daysHead, dayscontent, headText];
+    }
+  }, {
+    key: "getBackGrounds",
+    value: function getBackGrounds() {
+      var backHorizenLines = [];
+      var backVerticalLines = [];
+      var timeRects = [];
+      var timeTexts = [];
+      var verticalCounter = 1;
+
+      for (var i = 0; i <= 24 * this.hourHeight + this.headHeight; i += this.lineInterval) {
+        backHorizenLines.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("line", {
+          key: i,
+          x1: 0,
+          y1: i,
+          x2: this.props.visibleDayCount * this.dayWidth,
+          y2: i,
+          stroke: "#878787",
+          strokeWidth: "0.03"
+        }));
+
+        if (i >= this.headHeight + this.hourHeight && i % this.hourHeight === 0) {
+          if (verticalCounter % 2 === 0 && verticalCounter < 24) {
+            for (var k = 2; k < this.props.visibleDayCount; k += 3) {
+              timeRects.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
+                key: "".concat(i, "-").concat(k),
+                x: k * this.dayWidth - this.timeRectLong / 2,
+                y: i - this.timeRectLong / 2,
+                width: this.timeRectLong,
+                height: this.timeRectLong,
+                stroke: "none",
+                strokeWidth: "0.05",
+                fill: "#615f6f"
+              }));
+              timeTexts.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("text", {
+                key: "".concat(i, "-").concat(k),
+                x: k * this.dayWidth,
+                y: i,
+                fontSize: "0.7",
+                fill: "#ffffff",
+                textAnchor: "middle",
+                dominantBaseline: "central"
+              }, verticalCounter));
+            }
+          }
+
+          verticalCounter++;
+        }
+      }
+
+      for (var _i = 0; _i <= this.props.visibleDayCount * this.dayWidth; _i += this.lineInterval) {
+        backVerticalLines.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("line", {
+          key: _i,
+          x1: _i,
+          y1: this.lineInterval,
+          x2: _i,
+          y2: this.lineInterval * 2 + 24 * this.hourHeight,
+          stroke: "#878787",
+          strokeWidth: _i % this.dayWidth == 0 ? '0.07' : '0.03'
+        }));
+      }
+
+      return [backHorizenLines, backVerticalLines, timeRects, timeTexts];
+    }
+  }, {
+    key: "getReservations",
+    value: function getReservations() {
+      var _this2 = this;
+
+      var reservations = [];
+      var lenth = this.props.reservations.length;
+      var fromDate = new Date(this.props.selectDate.getFullYear(), this.props.selectDate.getMonth(), this.props.selectDate.getDate());
+      var endDate = new Date(this.props.selectDate.getFullYear(), this.props.selectDate.getMonth(), this.props.selectDate.getDate());
+      var endTime = fromDate.getTime() + 86400000 * this.props.visibleDayCount;
+      endDate.setDate(fromDate.getDate() + this.props.visibleDayCount);
+
+      var _loop = function _loop(i) {
+        var reservation = _this2.props.reservations[i];
+        var reservationFrom = Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["parseToDateFromReservation"])(reservation.from.split(/-|\s|:/));
+        var reservationEnd = Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["parseToDateFromReservation"])(reservation.end.split(/-|\s|:/));
+
+        if (reservationEnd.getTime() > fromDate.getTime() && reservationFrom.getTime() < endTime) {
+          var x = function x(n) {
+            return (Math.floor((reservationFrom.getTime() - _this2.props.selectDate.getTime()) / 86400000) + n) * _this2.dayWidth + 0.6;
+          };
+
+          var y = _this2.headHeight + (reservationFrom.getHours() / 24 + reservationFrom.getMinutes() / (60 * 24)) * (_this2.hourHeight * 24);
+
+          var height = (reservationEnd.getHours() - reservationFrom.getHours() + reservationEnd.getMinutes() / 60) * _this2.hourHeight;
+
+          var dateCount = reservationEnd.getDate() - reservationFrom.getDate();
+          var reservationElemts = [];
+
+          for (var k = 0; k <= dateCount; k++) {
+            if (k === 0) {
+              reservationElemts.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
+                key: "".concat(i, "-").concat(k),
+                x: x(k),
+                y: y,
+                width: _this2.dayWidth - 1.2,
+                className: "reservation-hover",
+                onClick: _this2.reservationClick.bind(_this2),
+                height: dateCount === 0 ? height : _this2.hourHeight * 24 + _this2.headHeight - y,
+                rx: "1",
+                ry: "1",
+                strokeWidth: "0",
+                fill: reservation.color.background_color
+              }));
+            } else if (k === dateCount) {
+              reservationElemts.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
+                key: "".concat(i, "-").concat(k),
+                x: x(k),
+                y: _this2.headHeight,
+                width: _this2.dayWidth - 1.2,
+                className: "reservation-hover",
+                onClick: _this2.reservationClick.bind(_this2),
+                height: reservationEnd.getHours() * _this2.hourHeight,
+                rx: "1",
+                ry: "1",
+                strokeWidth: "0",
+                fill: reservation.color.background_color
+              }));
+            } else {
+              reservationElemts.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
+                key: "".concat(i, "-").concat(k),
+                x: x(k),
+                y: _this2.headHeight,
+                width: _this2.dayWidth - 1.2,
+                className: "reservation-hover",
+                onClick: _this2.reservationClick.bind(_this2),
+                height: _this2.hourHeight * 24,
+                rx: "1",
+                ry: "1",
+                strokeWidth: "0",
+                fill: reservation.color.background_color
+              }));
+            }
+          }
+
+          reservations.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("g", {
+            key: i,
+            style: 'dummyId' in reservation ? {
+              opacity: 0.3
+            } : {
+              opacity: 0.8
+            },
+            "data-owner-name": reservation.owner_name,
+            "data-from": reservation.from,
+            "data-end": reservation.end,
+            "data-background-color": reservation.color.background_color,
+            "data-text-color": reservation.color.text_color
+          }, reservationElemts));
+        }
+      };
+
+      for (var i = 0; i < lenth; i++) {
+        _loop(i);
+      }
+
+      return reservations;
+    }
+  }, {
+    key: "getReservationDetail",
+    value: function getReservationDetail() {
+      var _this3 = this;
+
+      return this.state.detailDisplay && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card reservation-detail-card",
+        style: {
+          background: this.state.detailData.backgroundColor,
+          color: this.state.detailData.textColor
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "card-title"
+      }, "\u4E88\u7D04\u30AA\u30FC\u30CA\u30FC:", this.state.detailData.ownerName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "card-title"
+      }, "\u958B\u59CB:", new String(this.state.detailData.from).slice(0, -3)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "card-title"
+      }, "\u7D42\u4E86:", new String(this.state.detailData.end).slice(0, -3)), this.props.owner && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn center-block mx-auto d-block mt-1 reservation-delete-button",
+        onClick: function onClick() {
+          return _this3.props.actions.deleteReservation(_this3.state.detailData.from, _this3.state.detailData.end);
+        }
+      }, "\u524A\u9664")));
+    }
+  }, {
+    key: "reservationClick",
+    value: function reservationClick(ev) {
+      this.setState({
+        detailDisplay: true,
+        detailData: _objectSpread({}, ev.currentTarget.parentElement.dataset)
+      });
+    }
+  }]);
+
+  return Calender;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/templates/CalenderSelect.jsx":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/templates/CalenderSelect.jsx ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CalenderSelect; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var CalenderSelect = /*#__PURE__*/function (_React$Component) {
+  _inherits(CalenderSelect, _React$Component);
+
+  var _super = _createSuper(CalenderSelect);
+
+  function CalenderSelect() {
+    _classCallCheck(this, CalenderSelect);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(CalenderSelect, [{
     key: "render",
     value: function render() {
       var monthItems = [];
       var dateItems = [];
-      var lastDayOfMonth = new Date(this.props.year, this.props.month, 0).getDate();
+      var year = this.props.selectedDate.getFullYear();
+      var month = this.props.selectedDate.getMonth();
+      var lastDayOfMonth = new Date(year, month + 1, 0).getDate();
 
       for (var i = 0; i < 12; i++) {
         monthItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          key: i,
           className: "dropdown-item",
           "data-key": "month",
           "data-value": i
@@ -69993,6 +74817,7 @@ var CalenderSelectHeader = /*#__PURE__*/function (_React$Component) {
 
       for (var _i = 1; _i <= lastDayOfMonth; _i++) {
         dateItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          key: _i,
           className: "dropdown-item",
           "data-key": "date",
           "data-value": _i
@@ -70000,7 +74825,7 @@ var CalenderSelectHeader = /*#__PURE__*/function (_React$Component) {
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        onClick: this.props.selectDate,
+        onClick: this.selectDate.bind(this),
         className: "mb-3 d-flex justify-content-around",
         style: {
           minWidth: '60%'
@@ -70021,7 +74846,7 @@ var CalenderSelectHeader = /*#__PURE__*/function (_React$Component) {
         "data-toggle": "dropdown",
         "aria-haspopup": "true",
         "aria-expanded": "false"
-      }, this.props.year), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, year), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dropdown-menu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "dropdown-item",
@@ -70043,7 +74868,7 @@ var CalenderSelectHeader = /*#__PURE__*/function (_React$Component) {
         "data-toggle": "dropdown",
         "aria-haspopup": "true",
         "aria-expanded": "false"
-      }, this.props.month + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, month + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dropdown-menu"
       }, monthItems)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "btn-group mx-2"
@@ -70053,7 +74878,7 @@ var CalenderSelectHeader = /*#__PURE__*/function (_React$Component) {
         "data-toggle": "dropdown",
         "aria-haspopup": "true",
         "aria-expanded": "false"
-      }, this.props.date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.selectedDate.getDate()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dropdown-menu overflow-auto",
         style: {
           maxHeight: '70vh'
@@ -70066,29 +74891,58 @@ var CalenderSelectHeader = /*#__PURE__*/function (_React$Component) {
         "data-key": "next"
       }, ">>")));
     }
+  }, {
+    key: "selectDate",
+    value: function selectDate(ev) {
+      var date = new Date(this.props.selectedDate.getFullYear(), this.props.selectedDate.getMonth(), this.props.selectedDate.getDate());
+
+      if (ev.target.dataset.key) {
+        switch (ev.target.dataset.key) {
+          case 'date':
+            date.setDate(Number(ev.target.dataset.value));
+            break;
+
+          case 'month':
+            date.setMonth(Number(ev.target.dataset.value));
+            break;
+
+          case 'year':
+            date.setFullYear(Number(ev.target.dataset.value));
+            break;
+
+          case 'next':
+            date.setDate(date.getDate() + 7);
+            break;
+
+          case 'back':
+            date.setDate(date.getDate() - 7);
+            break;
+        }
+      }
+
+      this.props.actions.setCalenderFrom(date);
+    }
   }]);
 
-  return CalenderSelectHeader;
+  return CalenderSelect;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(CalenderSelectHeader));
+
 
 /***/ }),
 
-/***/ "./resources/js/components/open_schedule/PasswordAuth.jsx":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/open_schedule/PasswordAuth.jsx ***!
-  \****************************************************************/
+/***/ "./resources/js/components/open_schedule_reducks/templates/PasswordForm.jsx":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/templates/PasswordForm.jsx ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PasswordForm; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70113,31 +74967,28 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+var PasswordForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(PasswordForm, _React$Component);
 
+  var _super = _createSuper(PasswordForm);
 
-var PasswordAuth = /*#__PURE__*/function (_React$Component) {
-  _inherits(PasswordAuth, _React$Component);
+  function PasswordForm() {
+    _classCallCheck(this, PasswordForm);
 
-  var _super = _createSuper(PasswordAuth);
-
-  function PasswordAuth(props) {
-    var _this;
-
-    _classCallCheck(this, PasswordAuth);
-
-    _this = _super.call(this, props);
-    _this.errorStyle = {
-      width: '100%',
-      marginTop: '0.25rem',
-      fontSize: '80%',
-      color: '#e3342f'
-    };
-    return _this;
+    return _super.apply(this, arguments);
   }
 
-  _createClass(PasswordAuth, [{
+  _createClass(PasswordForm, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
+      var errorStyle = {
+        width: '100%',
+        marginTop: '0.25rem',
+        fontSize: '80%',
+        color: '#e3342f'
+      };
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container mt-5"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -70157,49 +75008,57 @@ var PasswordAuth = /*#__PURE__*/function (_React$Component) {
       }, "\u30D1\u30B9\u30EF\u30FC\u30C9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
         className: "form-control",
-        value: this.props.schedule_password,
+        value: this.props.schedule.password,
         id: "schedule_password",
         placeholder: "Password",
         "aria-describedby": "schedule_passwordHelp",
-        onChange: this.props.changePassword
-      }), this.props.schedule_password_error.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        style: this.errorStyle,
+        onChange: function onChange(ev) {
+          return _this.props.actions.setPassword(ev);
+        }
+      }), this.props.schedule.passwordError.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        style: errorStyle,
         role: "alert"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.schedule_password_error)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.schedule.passwordError)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
         id: "schedule_passwordHelp",
         className: "form-text text-muted"
-      }, "\u95B2\u89A7\u306B\u5FC5\u8981\u306A\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "\u95B2\u89A7\u306B\u5FC5\u8981\u306A\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B"), this.props.loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          height: '5em',
+          width: '5em'
+        },
+        className: "center-block mx-auto d-block password-loading"
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: "sendScheduleButton",
         className: "btn btn-primary center-block mx-auto d-block",
-        onClick: this.props.sendPassword
+        onClick: function onClick() {
+          _this.props.actions.sendPassword();
+
+          _this.props.actions.setLoading(true);
+        }
       }, "\u9001\u4FE1")))))));
     }
   }]);
 
-  return PasswordAuth;
+  return PasswordForm;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(PasswordAuth));
+
 
 /***/ }),
 
-/***/ "./resources/js/components/open_schedule/ReserveForm.jsx":
-/*!***************************************************************!*\
-  !*** ./resources/js/components/open_schedule/ReserveForm.jsx ***!
-  \***************************************************************/
+/***/ "./resources/js/components/open_schedule_reducks/templates/ReservaionForm.jsx":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/templates/ReservaionForm.jsx ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ReservaionForm; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_dom_cjs_react_dom_development__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom/cjs/react-dom.development */ "./node_modules/react-dom/cjs/react-dom.development.js");
-/* harmony import */ var react_dom_cjs_react_dom_development__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom_cjs_react_dom_development__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _DateUtil__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../DateUtil */ "./resources/js/components/DateUtil.js");
+/* harmony import */ var _DateUtil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../DateUtil */ "./resources/js/components/DateUtil.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70225,46 +75084,32 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+var ReservaionForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(ReservaionForm, _React$Component);
 
+  var _super = _createSuper(ReservaionForm);
 
+  function ReservaionForm() {
+    _classCallCheck(this, ReservaionForm);
 
-
-var ReserveForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(ReserveForm, _React$Component);
-
-  var _super = _createSuper(ReserveForm);
-
-  function ReserveForm(props) {
-    var _this;
-
-    _classCallCheck(this, ReserveForm);
-
-    _this = _super.call(this, props);
-    _this.currentDate = new Date();
-
-    _this.currentDate.setMinutes(0);
-
-    _this.state = {
-      from: _this.currentDate,
-      end: new Date(_this.currentDate.getFullYear(), _this.currentDate.getMonth(), _this.currentDate.getDate(), _this.currentDate.getHours() + 1)
-    };
-    _this.errorStyle = {
-      width: '100%',
-      marginTop: '0.25rem',
-      fontSize: '80%',
-      color: '#e3342f'
-    };
-    return _this;
+    return _super.apply(this, arguments);
   }
 
-  _createClass(ReserveForm, [{
+  _createClass(ReservaionForm, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this = this;
 
+      var errorStyle = {
+        width: '100%',
+        marginTop: '0.25rem',
+        fontSize: '80%',
+        color: '#e3342f'
+      };
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "my-3"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "open-form-button",
         className: "btn btn-primary mb-3",
         type: "button",
         "data-toggle": "collapse",
@@ -70289,10 +75134,10 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
         "aria-describedby": "owner_Help",
         placeholder: "\u540D\u524D\u3092\u5165\u529B",
         onChange: function onChange(ev) {
-          return _this2.props.formMethod('owner_name', ev.target.value);
+          return _this.props.actions.setOwnerName(ev.currentTarget.value);
         }
       }), this.props.reserveFormError.owner_name.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        style: this.errorStyle,
+        style: errorStyle,
         role: "alert"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.reserveFormError.owner_name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
         id: "owner_nameHelp",
@@ -70307,8 +75152,10 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-from-year",
-        value: this.state.from.getFullYear(),
-        onChange: this.setFromForm.bind(this)
+        value: this.props.reserveForm.from.getFullYear(),
+        "data-type": "from",
+        "data-layer": "y",
+        onChange: this.setDateForm.bind(this)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: new Date().getFullYear()
       }, new Date().getFullYear()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -70323,9 +75170,11 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-from-month",
-        value: this.state.from.getMonth(),
-        onChange: this.setFromForm.bind(this)
-      }, this.getMonthOptions(this.state.from.getFullYear())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        value: this.props.reserveForm.from.getMonth(),
+        "data-type": "from",
+        "data-layer": "m",
+        onChange: this.setDateForm.bind(this)
+      }, Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["getMonthOptions"])(this.props.reserveForm.from.getFullYear())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "input-group-text",
@@ -70335,9 +75184,11 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-from-date",
-        value: this.state.from.getDate(),
-        onChange: this.setFromForm.bind(this)
-      }, this.getDateOptions(this.state.from.getFullYear(), this.state.from.getMonth())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        value: this.props.reserveForm.from.getDate(),
+        "data-type": "from",
+        "data-layer": "d",
+        onChange: this.setDateForm.bind(this)
+      }, Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["getDateOptions"])(this.props.reserveForm.from.getFullYear(), this.props.reserveForm.from.getMonth())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "input-group-text",
@@ -70347,9 +75198,11 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-from-hour",
-        value: this.state.from.getHours(),
-        onChange: this.setFromForm.bind(this)
-      }, this.getHourOptions()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        value: this.props.reserveForm.from.getHours(),
+        "data-type": "from",
+        "data-layer": "h",
+        onChange: this.setDateForm.bind(this)
+      }, Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["getHourOptions"])()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "input-group-text",
@@ -70359,15 +75212,17 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-from-minute",
-        value: this.state.from.getMinutes(),
-        onChange: this.setFromForm.bind(this)
-      }, this.getMinuteOptions()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        value: this.props.reserveForm.from.getMinutes(),
+        "data-type": "from",
+        "data-layer": "mm",
+        onChange: this.setDateForm.bind(this)
+      }, Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["getMinuteOptions"])()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "input-group-text",
         htmlFor: "reserve-form-from-minute"
       }, "\u5206"))), this.props.reserveFormError.from.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        style: this.errorStyle,
+        style: errorStyle,
         role: "alert"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.reserveFormError.from))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "reserve-form-end"
@@ -70379,8 +75234,10 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-end-year",
-        value: this.state.end.getFullYear(),
-        onChange: this.setEndForm.bind(this)
+        value: this.props.reserveForm.end.getFullYear(),
+        "data-type": "end",
+        "data-layer": "y",
+        onChange: this.setDateForm.bind(this)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: new Date().getFullYear()
       }, new Date().getFullYear()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -70395,9 +75252,11 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-end-month",
-        value: this.state.end.getMonth(),
-        onChange: this.setEndForm.bind(this)
-      }, this.getMonthOptions(this.state.end.getFullYear())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        value: this.props.reserveForm.end.getMonth(),
+        "data-type": "end",
+        "data-layer": "m",
+        onChange: this.setDateForm.bind(this)
+      }, Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["getMonthOptions"])(this.props.reserveForm.end.getFullYear())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "input-group-text",
@@ -70407,9 +75266,11 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-end-date",
-        value: this.state.end.getDate(),
-        onChange: this.setEndForm.bind(this)
-      }, this.getDateOptions(this.state.end.getFullYear(), this.state.end.getMonth())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        value: this.props.reserveForm.end.getDate(),
+        "data-type": "end",
+        "data-layer": "d",
+        onChange: this.setDateForm.bind(this)
+      }, Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["getDateOptions"])(this.props.reserveForm.end.getFullYear(), this.props.reserveForm.end.getMonth())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "input-group-text",
@@ -70419,9 +75280,11 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-end-hour",
-        value: this.state.end.getHours(),
-        onChange: this.setEndForm.bind(this)
-      }, this.getHourOptions()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        value: this.props.reserveForm.end.getHours(),
+        "data-type": "end",
+        "data-layer": "h",
+        onChange: this.setDateForm.bind(this)
+      }, Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["getHourOptions"])()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "input-group-text",
@@ -70431,18 +75294,20 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select custom-select-sm",
         id: "reserve-form-end-minute",
-        value: this.state.end.getMinutes(),
-        onChange: this.setEndForm.bind(this)
-      }, this.getMinuteOptions()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        value: this.props.reserveForm.end.getMinutes(),
+        "data-type": "end",
+        "data-layer": "mm",
+        onChange: this.setDateForm.bind(this)
+      }, Object(_DateUtil__WEBPACK_IMPORTED_MODULE_1__["getMinuteOptions"])()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "input-group-text",
         htmlFor: "reserve-form-end-minute"
       }, "\u5206"))), this.props.reserveFormError.end.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        style: this.errorStyle,
+        style: errorStyle,
         role: "alert"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.reserveFormError.end)), this.props.reserveFormError.over.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        style: this.errorStyle,
+        style: errorStyle,
         role: "alert"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.reserveFormError.over))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "reserve-form-color"
@@ -70454,7 +75319,7 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
           key: color.id,
           "data-id": color.id,
           onClick: function onClick(ev) {
-            return _this2.props.formMethod('color', ev.currentTarget.dataset.id);
+            return _this.props.actions.setColorForm(Number(ev.currentTarget.dataset.id));
           }
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           className: "form-check-input",
@@ -70471,212 +75336,68 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
           }
         }, "\xA0\xA0"));
       })), this.props.reserveFormError.color.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        style: this.errorStyle,
+        style: errorStyle,
         role: "alert"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.reserveFormError.color)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.reserveFormError.color)), this.props.permitRequired && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        style: {
+          width: '100%',
+          marginTop: '0.25rem',
+          fontSize: '80%',
+          color: '#e3342f'
+        },
+        role: "alert",
+        className: "text-center mx-auto d-block mt-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "\u4F5C\u6210\u3057\u305F\u4E88\u7D04\u306F\u3001\u30AA\u30FC\u30CA\u30FC\u306E\u627F\u8A8D\u3092\u30D1\u30B9\u3057\u305F\u5834\u5408\u306B\u8868\u793A\u3055\u308C\u307E\u3059")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: "sendScheduleButton",
-        className: "btn btn-primary center-block mx-auto d-block mt-4",
-        onClick: this.createButtonClick.bind(this)
+        className: "btn btn-primary center-block mx-auto d-block mt-1",
+        onClick: function onClick() {
+          _this.props.actions.sendReservation();
+        }
       }, "\u65B0\u898F\u4F5C\u6210")))));
     }
   }, {
-    key: "getMonthOptions",
-    value: function getMonthOptions(year) {
-      var options = [];
-      var month = year > new Date().getFullYear() ? 0 : new Date().getMonth();
+    key: "setDateForm",
+    value: function setDateForm(ev) {
+      var type = ev.currentTarget.dataset.type;
+      var date = new Date(this.props.reserveForm[type].getFullYear(), this.props.reserveForm[type].getMonth(), this.props.reserveForm[type].getDate(), this.props.reserveForm[type].getHours(), this.props.reserveForm[type].getMinutes());
 
-      while (month < 12) {
-        options.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: month
-        }, month + 1));
-        month++;
-      }
-
-      return options;
-    }
-  }, {
-    key: "getDateOptions",
-    value: function getDateOptions(year, month) {
-      var options = [];
-      var dates = new Date(year, month + 1, 0).getDate();
-
-      for (var i = 1; i <= dates; i++) {
-        options.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: i
-        }, i));
-      }
-
-      return options;
-    }
-  }, {
-    key: "getHourOptions",
-    value: function getHourOptions() {
-      var options = [];
-
-      for (var i = 0; i < 24; i++) {
-        options.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: i
-        }, i));
-      }
-
-      return options;
-    }
-  }, {
-    key: "getMinuteOptions",
-    value: function getMinuteOptions() {
-      var options = [];
-
-      for (var i = 0; i < 60; i += 5) {
-        options.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: i
-        }, i));
-      }
-
-      return options;
-    }
-  }, {
-    key: "getColorDropDownButtonStyle",
-    value: function getColorDropDownButtonStyle() {
-      var _this3 = this;
-
-      var color = this.props.colors.find(function (color) {
-        return color.id === _this3.props.reserveForm.color;
-      });
-      console.log(color);
-      if (color) return {
-        background: color.background_color,
-        color: color.text_color
-      };
-    }
-  }, {
-    key: "setFromForm",
-    value: function setFromForm(ev) {
-      switch (ev.currentTarget.id) {
-        case 'reserve-form-from-year':
-          this.state.from.setFullYear(Number(ev.target.value));
+      switch (ev.currentTarget.dataset.layer) {
+        case 'y':
+          date.setFullYear(Number(ev.target.value));
           break;
 
-        case 'reserve-form-from-month':
-          this.state.from.setMonth(Number(ev.target.value));
+        case 'm':
+          date.setMonth(Number(ev.target.value));
           break;
 
-        case 'reserve-form-from-date':
-          this.state.from.setDate(Number(ev.target.value));
+        case 'd':
+          date.setDate(Number(ev.target.value));
           break;
 
-        case 'reserve-form-from-hour':
-          this.state.from.setHours(Number(ev.target.value));
+        case 'h':
+          date.setHours(Number(ev.target.value));
           break;
 
-        case 'reserve-form-from-minute':
-          this.state.from.setMinutes(Number(ev.target.value));
+        case 'mm':
+          date.setMinutes(Number(ev.target.value));
           break;
       }
 
-      this.setState({
-        from: this.state.from
-      });
-    }
-  }, {
-    key: "setEndForm",
-    value: function setEndForm(ev) {
-      switch (ev.currentTarget.id) {
-        case 'reserve-form-end-year':
-          this.state.end.setFullYear(Number(ev.target.value));
-          break;
-
-        case 'reserve-form-end-month':
-          this.state.end.setMonth(Number(ev.target.value));
-          break;
-
-        case 'reserve-form-end-date':
-          this.state.end.setDate(Number(ev.target.value));
-          break;
-
-        case 'reserve-form-end-hour':
-          this.state.end.setHours(Number(ev.target.value));
-          break;
-
-        case 'reserve-form-end-minute':
-          this.state.end.setMinutes(Number(ev.target.value));
-          break;
-      }
-
-      this.setState({
-        end: this.state.end
-      });
-    }
-  }, {
-    key: "validate",
-    value: function validate() {
-      var _this4 = this;
-
-      var validated = true;
-      this.props.errorMethod('owner_name', '');
-      this.props.errorMethod('from', '');
-      this.props.errorMethod('end', '');
-      this.props.errorMethod('over', '');
-      this.props.errorMethod('color', '');
-
-      if (this.props.reserveForm.owner_name.length < 1) {
-        this.props.errorMethod('owner_name', '1文字以上を入力');
-        validated = false;
-      }
-
-      if (this.state.from.getTime() < new Date().getTime()) {
-        this.props.errorMethod('from', '予約は現在より先に設定してください');
-        validated = false;
-      }
-
-      if (this.state.end.getTime() < this.state.from.getTime()) {
-        this.props.errorMethod('end', '予約は開始日時より先に設定してください');
-        validated = false;
-      }
-
-      var notOver = this.props.reservations.filter(function (reservation) {
-        var formFrom = Object(_DateUtil__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(_this4.state.from, 'YYYY-MM-DD HH:mm:00');
-        var formEnd = Object(_DateUtil__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(_this4.state.end, 'YYYY-MM-DD HH:mm:00');
-
-        if (reservation.from < formEnd && formFrom < reservation.end) {
-          return true;
-        }
-
-        return false;
-      });
-
-      if (notOver.length !== 0) {
-        this.props.errorMethod('over', '重複しています');
-        validated = false;
-      }
-
-      if (!document.querySelector('#reserve-form-color input:checked')) {
-        this.props.errorMethod('color', '色を選択して下さい');
-        validated = false;
-      }
-
-      return validated;
-    }
-  }, {
-    key: "createButtonClick",
-    value: function createButtonClick() {
-      if (!this.validate()) return;
-      this.props.formMethod('from', this.state.from);
-      this.props.formMethod('end', this.state.end);
-      this.props.createReservation(this.props.reserveForm.owner_name, this.state.from, this.state.end, this.props.reserveForm.color);
+      if (type === 'from') this.props.actions.setFromForm(date);else this.props.actions.setEndForm(date);
     }
   }]);
 
-  return ReserveForm;
+  return ReservaionForm;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(ReserveForm));
+
 
 /***/ }),
 
-/***/ "./resources/js/components/open_schedule/ScheduleDetail.jsx":
-/*!******************************************************************!*\
-  !*** ./resources/js/components/open_schedule/ScheduleDetail.jsx ***!
-  \******************************************************************/
+/***/ "./resources/js/components/open_schedule_reducks/templates/Root.jsx":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/templates/Root.jsx ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -70684,11 +75405,81 @@ var ReserveForm = /*#__PURE__*/function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _CalenderSelectHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CalenderSelectHeader */ "./resources/js/components/open_schedule/CalenderSelectHeader.jsx");
-/* harmony import */ var _ReserveForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ReserveForm */ "./resources/js/components/open_schedule/ReserveForm.jsx");
+/* harmony import */ var _containers_PasswordForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/PasswordForm */ "./resources/js/components/open_schedule_reducks/containers/PasswordForm.js");
+/* harmony import */ var _containers_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/Schedule */ "./resources/js/components/open_schedule_reducks/containers/Schedule.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var Root = /*#__PURE__*/function (_React$Component) {
+  _inherits(Root, _React$Component);
+
+  var _super = _createSuper(Root);
+
+  function Root() {
+    _classCallCheck(this, Root);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Root, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (!this.props.schedule.passwordRequired) this.props.actions.setSchedule();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "mb-5"
+      }, this.props.schedule.passwordRequired ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_PasswordForm__WEBPACK_IMPORTED_MODULE_1__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_Schedule__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+    }
+  }]);
+
+  return Root;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Root);
+
+/***/ }),
+
+/***/ "./resources/js/components/open_schedule_reducks/templates/Schedule.jsx":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/open_schedule_reducks/templates/Schedule.jsx ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Schedule; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _containers_CalenderSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/CalenderSelect */ "./resources/js/components/open_schedule_reducks/containers/CalenderSelect.js");
+/* harmony import */ var _containers_Calender__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/Calender */ "./resources/js/components/open_schedule_reducks/containers/Calender.js");
+/* harmony import */ var _containers_ReservationForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/ReservationForm */ "./resources/js/components/open_schedule_reducks/containers/ReservationForm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70716,330 +75507,18 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+var Schedule = /*#__PURE__*/function (_React$Component) {
+  _inherits(Schedule, _React$Component);
 
-var ScheduleDetail = /*#__PURE__*/function (_React$Component) {
-  _inherits(ScheduleDetail, _React$Component);
+  var _super = _createSuper(Schedule);
 
-  var _super = _createSuper(ScheduleDetail);
+  function Schedule() {
+    _classCallCheck(this, Schedule);
 
-  function ScheduleDetail(props) {
-    var _this;
-
-    _classCallCheck(this, ScheduleDetail);
-
-    _this = _super.call(this, props);
-    _this.state = {
-      visibleDayNum: _this.getVisibleDayNum(),
-      year: new Date().getFullYear(),
-      month: new Date().getMonth(),
-      date: new Date().getDate(),
-      reserveForm: {
-        owner_name: '',
-        from: '',
-        end: '',
-        color: ''
-      },
-      reserveFormError: {
-        owner_name: '',
-        from: '',
-        end: '',
-        over: '',
-        color: ''
-      }
-    };
-    _this.dayWidth = 5;
-    _this.hourHeight = 2;
-    _this.headHeight = 2;
-    _this.lineInterval = _this.hourHeight / 2;
-    _this.timeRectLong = _this.lineInterval;
-    _this.dayColor = ['#eac5d2', '#f5f5f5', '#f5f5f5', '#f5f5f5', '#f5f5f5', '#f5f5f5', '#cac5ea'];
-    _this.backHorizenLines = [];
-    _this.backVerticalLines = [];
-    _this.timeRects = [];
-    _this.timeTexts = [];
-    _this.reservations = [];
-    window.addEventListener('resize', function () {
-      _this.setState({
-        visibleDayNum: _this.getVisibleDayNum()
-      });
-    });
-    return _this;
+    return _super.apply(this, arguments);
   }
 
-  _createClass(ScheduleDetail, [{
-    key: "setBackGrounds",
-    value: function setBackGrounds() {
-      var backHorizenLines = [];
-      var backVerticalLines = [];
-      var timeRects = [];
-      var timeTexts = [];
-      var verticalCounter = 1;
-
-      for (var i = 0; i <= 24 * this.hourHeight + this.headHeight; i += this.lineInterval) {
-        backHorizenLines.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("line", {
-          x1: 0,
-          y1: i,
-          x2: this.state.visibleDayNum * this.dayWidth,
-          y2: i,
-          stroke: "#878787",
-          strokeWidth: "0.03"
-        }));
-
-        if (i >= this.headHeight + this.hourHeight && i % this.hourHeight === 0) {
-          if (verticalCounter % 2 === 0 && verticalCounter < 24) {
-            for (var k = 2; k < this.state.visibleDayNum; k += 3) {
-              timeRects.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
-                x: k * this.dayWidth - this.timeRectLong / 2,
-                y: i - this.timeRectLong / 2,
-                width: this.timeRectLong,
-                height: this.timeRectLong,
-                stroke: "none",
-                strokeWidth: "0.05",
-                fill: "#615f6f"
-              }));
-              timeTexts.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("text", {
-                x: k * this.dayWidth,
-                y: i,
-                fontSize: "0.7",
-                fill: "#ffffff",
-                textAnchor: "middle",
-                dominantBaseline: "central"
-              }, verticalCounter));
-            }
-          }
-
-          verticalCounter++;
-        }
-      }
-
-      for (var _i = 0; _i <= this.state.visibleDayNum * this.dayWidth; _i += this.lineInterval) {
-        backVerticalLines.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("line", {
-          x1: _i,
-          y1: this.lineInterval,
-          x2: _i,
-          y2: this.lineInterval * 2 + 24 * this.hourHeight,
-          stroke: "#878787",
-          strokeWidth: _i % this.dayWidth == 0 ? '0.07' : '0.03'
-        }));
-      }
-
-      this.backHorizenLines = backHorizenLines;
-      this.backVerticalLines = backVerticalLines;
-      this.timeRects = timeRects;
-      this.timeTexts = timeTexts;
-    }
-  }, {
-    key: "setReservations",
-    value: function setReservations() {
-      var _this2 = this;
-
-      this.reservations = [];
-      var lenth = this.props.reservations.length;
-      var fromDate = new Date(this.state.year, this.state.month, this.state.date);
-      var endDate = new Date();
-      endDate.setDate(fromDate.getDate() + this.state.visibleDayNum);
-
-      var _loop = function _loop(i) {
-        var reservation = _this2.props.reservations[i];
-
-        var reservationFrom = _this2.parseToDateFromReservation(reservation.from.split(/-|\s|:/));
-
-        var reservationEnd = _this2.parseToDateFromReservation(reservation.end.split(/-|\s|:/));
-
-        if (reservationFrom.getTime() > fromDate.getTime() && reservationFrom.getTime() < endDate.getTime()) {
-          var x = function x(i) {
-            return (reservationFrom.getDate() - _this2.state.date + i) * _this2.dayWidth + 0.6;
-          };
-
-          var y = _this2.headHeight + (reservationFrom.getHours() / 24 + reservationFrom.getMinutes() / (60 * 24)) * (_this2.hourHeight * 24);
-
-          var height = (reservationEnd.getHours() - reservationFrom.getHours()) * _this2.hourHeight;
-
-          var dateCount = reservationEnd.getDate() - reservationFrom.getDate();
-          var reservationElemts = [];
-
-          for (var _i2 = 0; _i2 <= dateCount; _i2++) {
-            if (_i2 === 0) {
-              reservationElemts.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
-                x: x(_i2),
-                y: y,
-                width: _this2.dayWidth - 1.2,
-                height: dateCount === 0 ? height : _this2.hourHeight * 24 + _this2.headHeight - y,
-                rx: "1",
-                ry: "1",
-                strokeWidth: "0",
-                fill: reservation.color.background_color
-              }));
-            } else if (_i2 === dateCount) {
-              reservationElemts.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
-                x: x(_i2),
-                y: _this2.headHeight,
-                width: _this2.dayWidth - 1.2,
-                height: reservationEnd.getHours() * _this2.hourHeight,
-                rx: "1",
-                ry: "1",
-                strokeWidth: "0",
-                fill: reservation.color.background_color
-              }));
-            } else {
-              reservationElemts.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
-                x: x(_i2),
-                y: _this2.headHeight,
-                width: _this2.dayWidth - 1.2,
-                height: _this2.hourHeight * 24,
-                rx: "1",
-                ry: "1",
-                strokeWidth: "0",
-                fill: reservation.color.background_color
-              }));
-            }
-          }
-
-          _this2.reservations.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("g", null, reservationElemts));
-        }
-      };
-
-      for (var i = 0; i < lenth; i++) {
-        _loop(i);
-      }
-    }
-  }, {
-    key: "parseToDateFromReservation",
-    value: function parseToDateFromReservation(array) {
-      var dateArray = array; //2020-08-05 07:25:00
-
-      var reservationDate = new Date(Number(dateArray[0]), dateArray[1][0] === '0' ? Number(dateArray[1][1]) - 1 : Number(dateArray[1]) - 1, dateArray[2][0] === '0' ? Number(dateArray[2][1]) : Number(dateArray[2]), dateArray[3][0] === '0' ? Number(dateArray[3][1]) : Number(dateArray[3]), dateArray[4][0] === '0' ? Number(dateArray[4][1]) : Number(dateArray[4]));
-      return reservationDate;
-    }
-  }, {
-    key: "calender",
-    value: function calender() {
-      this.setBackGrounds();
-      this.setReservations();
-      var date = new Date(this.state.year, this.state.month, this.state.date);
-      var lastDayOfMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
-      var startDay = date.getDate();
-      var daysHead = [];
-      var dayscontent = [];
-      var headText = [];
-
-      for (var i = 0; i < this.state.visibleDayNum; i++) {
-        daysHead.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
-          x: i * this.dayWidth,
-          y: "0",
-          width: this.dayWidth,
-          height: this.headHeight,
-          stroke: "none",
-          strokeWidth: "1",
-          fill: this.dayColor[date.getDay() + i < 7 ? date.getDay() + i : (date.getDay() + i) % 7]
-        }));
-        headText.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("text", {
-          x: i * this.dayWidth + 1.5,
-          y: this.headHeight / 2,
-          fontSize: "0.8",
-          fill: "#797979",
-          textAnchor: "middle",
-          dominantBaseline: "central"
-        }, startDay + i <= lastDayOfMonth ? startDay + i : startDay + i - lastDayOfMonth));
-        dayscontent.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
-          d: "M".concat(i * this.dayWidth, ",").concat(this.headHeight, " h").concat(this.dayWidth, " v").concat(24 * this.hourHeight, " h").concat(-this.dayWidth, "z"),
-          stroke: "#767474",
-          strokeWidth: "0",
-          fill: "#fbfbfb66"
-        }));
-      }
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        style: {
-          width: '100%'
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
-        viewBox: "0 0 ".concat(this.state.visibleDayNum * this.dayWidth, " ").concat(24 * this.hourHeight + this.headHeight),
-        width: "100%"
-      }, this.backHorizenLines, this.backVerticalLines, this.timeRects, this.timeTexts, daysHead, headText, dayscontent, this.reservations));
-    }
-  }, {
-    key: "selectDate",
-    value: function selectDate(ev) {
-      if (ev.target.dataset.key) {
-        switch (ev.target.dataset.key) {
-          case 'date':
-            this.setState({
-              date: Number(ev.target.dataset.value)
-            });
-            break;
-
-          case 'month':
-            this.setState({
-              month: Number(ev.target.dataset.value)
-            });
-            break;
-
-          case 'year':
-            this.setState({
-              year: Number(ev.target.dataset.value)
-            });
-            break;
-
-          case 'next':
-            this.setDate(7);
-            break;
-
-          case 'back':
-            this.setDate(-7);
-            break;
-        }
-      }
-    }
-  }, {
-    key: "setDate",
-    value: function setDate(add) {
-      var date = new Date(this.state.year, this.state.month, this.state.date);
-      date.setDate(date.getDate() + add);
-      this.setState({
-        year: date.getFullYear(),
-        month: date.getMonth(),
-        date: date.getDate()
-      });
-    }
-  }, {
-    key: "formMethod",
-    value: function formMethod(key, value) {
-      var target = this.state.reserveForm;
-      target[key] = value;
-      this.setState({
-        reserveForm: target
-      });
-    }
-  }, {
-    key: "errorMethod",
-    value: function errorMethod(key, value) {
-      var target = this.state.reserveFormError;
-      target[key] = value;
-      this.setState({
-        reserveFormError: target
-      });
-    }
-  }, {
-    key: "getVisibleDayNum",
-    value: function getVisibleDayNum() {
-      if (window.innerWidth > 1200) {
-        return 13;
-      } else if (960 < window.innerWidth && window.innerWidth <= 1200) {
-        return 11;
-      }
-
-      if (720 < window.innerWidth && window.innerWidth <= 960) {
-        return 9;
-      }
-
-      if (window.innerWidth <= 720) {
-        return 7;
-      }
-
-      return 7;
-    }
-  }, {
+  _createClass(Schedule, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -71052,262 +75531,22 @@ var ScheduleDetail = /*#__PURE__*/function (_React$Component) {
         className: "card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
-      }, this.props.schedule_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.schedule.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+      }, this.props.schedule.description !== null && this.props.schedule.description.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
         className: "card-title"
-      }, this.props.schedule_description !== null && this.props.schedule_description.split('\n').map(function (line) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, line);
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ReserveForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        reservations: this.props.reservations,
-        reserveForm: this.state.reserveForm,
-        reserveFormError: this.state.reserveFormError,
-        createReservation: this.props.createReservation,
-        formMethod: this.formMethod.bind(this),
-        errorMethod: this.errorMethod.bind(this),
-        colors: this.props.colors
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CalenderSelectHeader__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        year: this.state.year,
-        month: this.state.month,
-        date: this.state.date,
-        selectDate: this.selectDate.bind(this)
-      }), this.calender()))))));
+      }, this.props.schedule.description.split('\n').map(function (line, i) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          key: i
+        }, line);
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_ReservationForm__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_CalenderSelect__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_Calender__WEBPACK_IMPORTED_MODULE_2__["default"], null)))))));
     }
   }]);
 
-  return ScheduleDetail;
+  return Schedule;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(ScheduleDetail));
 
-/***/ }),
-
-/***/ "./resources/js/components/open_schedule/ScheduleRoot.jsx":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/open_schedule/ScheduleRoot.jsx ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _PasswordAuth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PasswordAuth */ "./resources/js/components/open_schedule/PasswordAuth.jsx");
-/* harmony import */ var _ScheduleDetail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ScheduleDetail */ "./resources/js/components/open_schedule/ScheduleDetail.jsx");
-/* harmony import */ var _DateUtil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../DateUtil */ "./resources/js/components/DateUtil.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-
-
-
-
-var ScheduleRoot = /*#__PURE__*/function (_React$Component) {
-  _inherits(ScheduleRoot, _React$Component);
-
-  var _super = _createSuper(ScheduleRoot);
-
-  function ScheduleRoot(props) {
-    var _this;
-
-    _classCallCheck(this, ScheduleRoot);
-
-    _this = _super.call(this, props);
-    _this.state = {
-      password_required: _this.props.passwordRequired,
-      schedule_password: null,
-      schedule_password_error: '',
-      schedule_name: null,
-      schedule_description: null,
-      colors: [],
-      reservations: []
-    };
-    return _this;
-  }
-
-  _createClass(ScheduleRoot, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (!this.props.passwordRequired) {
-        this.scheduleAuth();
-      }
-    }
-  }, {
-    key: "fetchFromServer",
-    value: function fetchFromServer(method, endPoint, body, callback) {
-      fetch(endPoint, {
-        headers: {
-          'Content-Type': "application/json",
-          "Accept": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-          "X-CSRF-Token": document.querySelector('meta[name="csrf_token"]').content
-        },
-        method: method,
-        credentials: "same-origin",
-        body: JSON.stringify(body)
-      }).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        callback(res);
-      });
-    }
-  }, {
-    key: "scheduleAuth",
-    value: function scheduleAuth() {
-      var _this2 = this;
-
-      this.fetchFromServer('POST', "/".concat(this.props.hashDigest), {
-        schedule_password: this.state.schedule_password
-      }, function (res) {
-        if ('error' in res) {
-          _this2.setState({
-            schedule_password_error: res.error
-          });
-        } else {
-          _this2.setColors(res.color_root.colors);
-
-          _this2.setSchedule(res);
-
-          _this2.setState({
-            password_required: false
-          });
-        }
-      });
-    }
-  }, {
-    key: "createReservation",
-    value: function createReservation(owner_name, from, end, color) {
-      var body = {
-        schedule_password: this.state.schedule_password,
-        hash_digest: this.props.hashDigest,
-        owner_name: owner_name,
-        from: Object(_DateUtil__WEBPACK_IMPORTED_MODULE_5__["formatDate"])(from, 'YYYY-MM-DD HH:mm:00'),
-        end: Object(_DateUtil__WEBPACK_IMPORTED_MODULE_5__["formatDate"])(end, 'YYYY-MM-DD HH:mm:00'),
-        color: Number(color)
-      };
-      this.fetchFromServer('POST', "/reservations", body, function (res) {
-        if ('error' in res) {
-          console.log(res);
-        } else {
-          console.log(res);
-        }
-      });
-    }
-  }, {
-    key: "setColors",
-    value: function setColors(colors) {
-      this.setState({
-        colors: colors.map(function (color) {
-          return {
-            id: color.id,
-            background_color: color.background_color,
-            text_color: color.text_color
-          };
-        })
-      });
-    }
-  }, {
-    key: "setSchedule",
-    value: function setSchedule(schedule) {
-      /*
-          name:,
-          reservations:[
-              {
-                  owner_name:
-                  from:
-                  end:
-              } ......
-          ]
-      */
-      this.setState({
-        schedule_name: schedule.name,
-        schedule_description: schedule.description
-      });
-      this.setState({
-        reservations: schedule.reservations
-      });
-    }
-  }, {
-    key: "changePassword",
-    value: function changePassword(ev) {
-      this.setState({
-        schedule_password: ev.currentTarget.value
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "mb-5"
-      }, this.state.password_required ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/:hash([a-z0-9]{64})",
-        exact: true,
-        render: function render(props) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PasswordAuth__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
-            schedule_password: _this3.state.password,
-            schedule_password_error: _this3.state.schedule_password_error,
-            sendPassword: _this3.scheduleAuth.bind(_this3),
-            changePassword: _this3.changePassword.bind(_this3)
-          }, props));
-        }
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/:hash([a-z0-9]{64})",
-        exact: true,
-        render: function render(props) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ScheduleDetail__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({
-            schedule_name: _this3.state.schedule_name,
-            schedule_description: _this3.state.schedule_description,
-            colors: _this3.state.colors,
-            createReservation: _this3.createReservation.bind(_this3),
-            reservations: _this3.state.reservations
-          }, props));
-        }
-      })));
-    }
-  }]);
-
-  return ScheduleRoot;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(ScheduleRoot));
-
-if (document.getElementById('open-schedule-root')) {
-  var element = document.getElementById('open-schedule-root');
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ScheduleRoot, {
-    passwordRequired: element.dataset.passwordRequired === '1' ? true : false,
-    hashDigest: element.dataset.hashDigest
-  }), document.getElementById('open-schedule-root'));
-}
 
 /***/ }),
 
@@ -71325,7 +75564,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _DateUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../DateUtil */ "./resources/js/components/DateUtil.js");
+/* harmony import */ var _FetchUtil__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../FetchUtil */ "./resources/js/components/FetchUtil.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -71352,20 +75605,33 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var ScheduleDetailCard = /*#__PURE__*/function (_React$Component) {
   _inherits(ScheduleDetailCard, _React$Component);
 
   var _super = _createSuper(ScheduleDetailCard);
 
   function ScheduleDetailCard(props) {
+    var _this;
+
     _classCallCheck(this, ScheduleDetailCard);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      selectedReservationFrom: '',
+      selectedReservationEnd: '',
+      selectedReservationId: -1,
+      loadings: []
+    };
+    return _this;
   }
 
   _createClass(ScheduleDetailCard, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card mx-auto mt-5",
         style: {
@@ -71424,7 +75690,70 @@ var ScheduleDetailCard = /*#__PURE__*/function (_React$Component) {
         href: "/".concat(this.props.schedule.hash_digest)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "display-5"
-      }, "\u78BA\u8A8D"))));
+      }, "\u78BA\u8A8D")), this.props.schedule.not_permit_reservations.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "mt-3 table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "text-center"
+      }, "\u627F\u8A8D\u5F85\u3061\u4E88\u7D04\u4E00\u89A7"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "text-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "badge badge-danger"
+      }, "\u627F\u8A8D\u3068\u540C\u6642\u306B\u3001\u91CD\u8907\u3057\u3066\u308B\u4E88\u7D04\u306F\u524A\u9664\u3055\u308C\u307E\u3059")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-hover"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\u4E88\u7D04\u30AA\u30FC\u30CA\u30FC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\u958B\u59CB\u65E5\u6642"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\u7D42\u4E86\u65E5\u6642"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.props.schedule.not_permit_reservations.map(function (reservation, i) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: i,
+          className: _this2.state.selectedReservationFrom.length > 0 && Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["parseToDateFromReservation"])(reservation.from.split(/-|\s|:/)).getTime() < Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["parseToDateFromReservation"])(_this2.state.selectedReservationEnd.split(/-|\s|:/)).getTime() && Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["parseToDateFromReservation"])(reservation.end.split(/-|\s|:/)).getTime() > Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["parseToDateFromReservation"])(_this2.state.selectedReservationFrom.split(/-|\s|:/)).getTime() ? 'table-success' : '',
+          "data-from": reservation.from,
+          "data-end": reservation.end,
+          onClick: _this2.selectReservation.bind(_this2),
+          "data-id": reservation.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          scope: "row"
+        }, reservation.owner_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, reservation.from), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, reservation.end), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, !_this2.state.loadings.includes(Number(reservation.id)) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          type: "button",
+          className: "btn btn-success btn-sm",
+          onClick: _this2.permitReservation.bind(_this2)
+        }, "\u627F\u8A8D")));
+      }))))));
+    }
+  }, {
+    key: "selectReservation",
+    value: function selectReservation(ev) {
+      this.setState({
+        selectedReservationFrom: ev.currentTarget.dataset.from,
+        selectedReservationEnd: ev.currentTarget.dataset.end,
+        selectedReservationId: Number(ev.currentTarget.dataset.id)
+      });
+    }
+  }, {
+    key: "permitReservation",
+    value: function permitReservation(ev) {
+      var _this3 = this;
+
+      var dataset = ev.currentTarget.parentElement.parentElement.dataset;
+      var loadingsArray = [];
+      this.props.schedule.not_permit_reservations.forEach(function (reservation) {
+        if (Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["parseToDateFromReservation"])(reservation.from.split(/-|\s|:/)).getTime() < Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["parseToDateFromReservation"])(dataset.end.split(/-|\s|:/)).getTime() && Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["parseToDateFromReservation"])(reservation.end.split(/-|\s|:/)).getTime() > Object(_DateUtil__WEBPACK_IMPORTED_MODULE_3__["parseToDateFromReservation"])(dataset.from.split(/-|\s|:/)).getTime()) {
+          loadingsArray.push(Number(reservation.id));
+        }
+      });
+      this.setState({
+        loadings: [].concat(_toConsumableArray(this.state.loadings), loadingsArray)
+      });
+      Object(_FetchUtil__WEBPACK_IMPORTED_MODULE_4__["fetchFromLaravel"])(document.querySelector('meta[name="csrf_token"]').content, 'PUT', "/reservations/".concat(ev.currentTarget.parentElement.parentElement.dataset.id), {
+        hash_digest: this.props.schedule.hash_digest
+      }, function (res) {
+        _this3.props.permitCallBack(res);
+      });
     }
   }]);
 
@@ -71548,6 +75877,7 @@ var ScheduleList = /*#__PURE__*/function (_React$Component) {
         schedule: this.props.schedules.filter(function (schedule) {
           return schedule.name === _this.props.targetName;
         })[0],
+        permitCallBack: this.props.permitCallBack,
         editClick: this.props.editClick
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "table-responsive"
@@ -71595,6 +75925,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _FetchUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../FetchUtil */ "./resources/js/components/FetchUtil.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71616,6 +75947,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -71664,31 +75996,10 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "sendSchedule",
     value: function sendSchedule() {
-      var _this3 = this;
-
+      var csrf = document.querySelector('meta[name="csrf_token"]').content;
       var endPoint = this.props.editTarget.length > 0 ? "/schedules/".concat(this.props.editTarget) : '/schedules';
       var method = this.props.editTarget.length > 0 ? "PUT" : 'POST';
-      fetch(endPoint, {
-        headers: {
-          'Content-Type': "application/json",
-          "Accept": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-          "X-CSRF-Token": document.querySelector('meta[name="csrf_token"]').content
-        },
-        method: method,
-        credentials: "same-origin",
-        body: JSON.stringify(this.props.state)
-      }).then(function (res) {
-        if (res.status !== 200) {
-          throw Error('error');
-        }
-
-        return res.json();
-      }).then(function (json) {
-        _this3.props.addCallback(json);
-      })["catch"](function (e) {
-        return _this3.props.addErrorCallback(e);
-      });
+      Object(_FetchUtil__WEBPACK_IMPORTED_MODULE_3__["fetchFromLaravel"])(csrf, method, endPoint, this.props.state, this.props.addCallback, this.props.addErrorCallback);
     }
   }, {
     key: "buttonStyle",
@@ -71706,7 +76017,7 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "getPasswordForm",
     value: function getPasswordForm() {
-      var _this4 = this;
+      var _this3 = this;
 
       var passwordForms = [];
 
@@ -71721,45 +76032,46 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
           style: {
             cursor: "pointer"
           },
-          onClick: _this4.props.removeSchedulePassword,
+          onClick: _this3.props.removeSchedulePassword,
           "data-index": i
         }, "\u30B0\u30EB\u30FC\u30D7\u3092\u524A\u9664"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
           className: "form-control",
-          value: _this4.props.state.schedule_passwords[i].schedule_password,
+          value: _this3.props.state.schedule_passwords[i].schedule_password,
           "data-index": i,
           id: "schedule_password",
           placeholder: "Password",
           "aria-describedby": "schedule_passwordHelp",
-          disabled: !_this4.props.state.password_required,
+          disabled: !_this3.props.state.password_required,
           onChange: function onChange(ev) {
-            return _this4.props.formMethod(['schedule_password', ev]);
-          }
+            return _this3.props.formMethod(['schedule_password', ev]);
+          },
+          pattern: "^[0-9A-Za-z]+$"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
           id: "schedule_passwordHelp",
           className: "form-text text-muted"
         }, "\u95B2\u89A7\u306B\u5FC5\u8981\u306A\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "d-flex justify-content-around"
-        }, _this4.props.reservationColors.map(function (color) {
+          className: "d-flex overflow-auto my-3"
+        }, _this3.props.reservationColors.map(function (color) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             key: "".concat(i, "-").concat(color.id),
             "data-id": color.id,
             "data-index": i,
             type: "button",
-            className: "btn mt-3",
-            style: _this4.buttonStyle(i, color),
-            onClick: _this4.props.schedulePasswordButtonEvent
+            className: "btn my-1 ml-1",
+            style: _this3.buttonStyle(i, color),
+            onClick: _this3.props.schedulePasswordButtonEvent
           }, "Text");
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
           id: "schedule_passwordHelp",
           className: "form-text text-muted"
         }, "\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u4E88\u7D04\u3067\u4F7F\u7528\u53EF\u80FD\u306A\u8272\u3092\u7D10\u3065\u3051\u307E\u3059")));
 
-        if (i === _this4.props.state.schedule_passwords.length - 1) {
-          passwordForms.push(_this4.props.scheduleFormError.schedule_passwords.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-            style: _this4.errorStyle,
+        if (i === _this3.props.state.schedule_passwords.length - 1) {
+          passwordForms.push(_this3.props.scheduleFormError.schedule_passwords.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            style: _this3.errorStyle,
             role: "alert"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, _this4.props.scheduleFormError.schedule_passwords)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, _this3.props.scheduleFormError.schedule_passwords)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "d-flex justify-content-around",
             key: 'add-password'
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -71767,7 +76079,7 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
             style: {
               cursor: "pointer"
             },
-            onClick: _this4.props.addSchedulePassword
+            onClick: _this3.props.addSchedulePassword
           }, "\u3055\u3089\u306B\u30B0\u30EB\u30FC\u30D7\u3092\u8FFD\u52A0")));
         }
       };
@@ -71781,7 +76093,7 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container mt-5"
@@ -71813,7 +76125,7 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
         "aria-describedby": "nameHelp",
         placeholder: "\u30BF\u30A4\u30C8\u30EB\u3092\u5165\u529B",
         onChange: function onChange(ev) {
-          return _this5.props.formMethod(['name', ev.target.value]);
+          return _this4.props.formMethod(['name', ev.target.value]);
         }
       }), this.props.scheduleFormError.name.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         style: this.errorStyle,
@@ -71833,7 +76145,7 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
         rows: "3",
         "aria-describedby": "descriptionHelp",
         onChange: function onChange(ev) {
-          return _this5.props.formMethod(['description', ev.target.value]);
+          return _this4.props.formMethod(['description', ev.target.value]);
         }
       }), this.props.scheduleFormError.description.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         style: this.errorStyle,
@@ -71851,7 +76163,7 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
         id: "password_required",
         "aria-describedby": "password_requiredHelp",
         onChange: function onChange(ev) {
-          return _this5.props.formMethod(['password_required', ev.target.checked]);
+          return _this4.props.formMethod(['password_required', ev.target.checked]);
         }
       }), this.props.scheduleFormError.password_required.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         style: this.errorStyle,
@@ -71872,7 +76184,7 @@ var ScheduleMake = /*#__PURE__*/function (_React$Component) {
         id: "permit_required",
         "aria-describedby": "permit_required",
         onChange: function onChange(ev) {
-          return _this5.props.formMethod(['permit_required', ev.target.checked]);
+          return _this4.props.formMethod(['permit_required', ev.target.checked]);
         }
       }), this.props.scheduleFormError.permit_required.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         style: this.errorStyle,
@@ -72011,7 +76323,7 @@ var ScheduleRoot = /*#__PURE__*/function (_React$Component) {
       if (object[0] === 'password_required' && this.state.scheduleForm.schedule_passwords.length < 1) {
         target['schedule_passwords'].push({
           schedule_password: '',
-          colors: [1, 2, 3, 4, 5, 6, 7, 8]
+          colors: []
         });
         target[object[0]] = object[1];
       } else if (object[0] === 'schedule_password') {
@@ -72177,29 +76489,37 @@ var ScheduleRoot = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "addCallback",
     value: function addCallback(json) {
-      if (json[0].hash_digest) {
-        //成功
-        this.setState({
-          creatings: this.state.creatings.filter(function (scheduleName) {
-            return scheduleName !== json[0].name;
-          })
-        });
+      this.setState({
+        creatings: this.state.creatings.filter(function (scheduleName) {
+          return scheduleName !== json[0].name;
+        })
+      });
 
-        if (this.state.editTarget.length > 0) {} else {
-          var target = this.state.schedules.map(function (schedule) {
-            if (schedule.name === json[0].name) return json[0];
-            return schedule;
-          });
-          this.setState({
-            schedules: target
-          });
-        }
-      } else {}
+      if (this.state.editTarget.length > 0) {} else {
+        var target = this.state.schedules.map(function (schedule) {
+          if (schedule.name === json[0].name) return json[0];
+          return schedule;
+        });
+        this.setState({
+          schedules: target
+        });
+      }
     }
   }, {
-    key: "addErrorCallBack",
-    value: function addErrorCallBack(error) {
+    key: "addErrorCallback",
+    value: function addErrorCallback(error) {
+      //validation error callback
       location.href = '/myschedule';
+    }
+  }, {
+    key: "permitCallBack",
+    value: function permitCallBack(newSchedule) {
+      this.setState({
+        schedules: _toConsumableArray(this.state.schedules).map(function (schedule) {
+          if (schedule.hash_digest === newSchedule.hash_digest) return newSchedule;
+          return schedule;
+        })
+      });
     }
   }, {
     key: "getSchedules",
@@ -72312,7 +76632,8 @@ var ScheduleRoot = /*#__PURE__*/function (_React$Component) {
           creatings: _this5.state.creatings,
           targetName: _this5.state.targetName,
           targetSelect: _this5.targetSelect.bind(_this5),
-          editClick: _this5.editClick.bind(_this5)
+          editClick: _this5.editClick.bind(_this5),
+          permitCallBack: _this5.permitCallBack.bind(_this5)
         }, props));
       }), _React$createElement)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/myschedule/make/",
@@ -72323,7 +76644,7 @@ var ScheduleRoot = /*#__PURE__*/function (_React$Component) {
             formMethod: _this5.changeFormValues.bind(_this5),
             validate: _this5.validate.bind(_this5),
             addCallback: _this5.addCallback.bind(_this5),
-            addErrorCallBack: _this5.addErrorCallBack.bind(_this5),
+            addErrorCallback: _this5.addErrorCallback.bind(_this5),
             schedulePasswordButtonEvent: _this5.schedulePasswordButtonEvent.bind(_this5),
             addSchedulePassword: _this5.addSchedulePassword.bind(_this5),
             removeSchedulePassword: _this5.removeSchedulePassword.bind(_this5),

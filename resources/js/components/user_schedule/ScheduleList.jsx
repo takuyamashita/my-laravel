@@ -33,7 +33,7 @@ class ScheduleList extends React.Component{
                                     <span className="display-5">新しく予約テーブルを作成</span>
                                 </Link>
                                 {this.props.targetName.length > 0 && 
-                                    <ScheduleDetailCard schedule={this.props.schedules.filter(schedule=>schedule.name === this.props.targetName)[0]} editClick={this.props.editClick}></ScheduleDetailCard>
+                                    <ScheduleDetailCard schedule={this.props.schedules.filter(schedule=>schedule.name === this.props.targetName)[0]} permitCallBack={this.props.permitCallBack} editClick={this.props.editClick}></ScheduleDetailCard>
                                 }
                                 <div className="table-responsive">
                                     <table className="table mt-5 table-hover">

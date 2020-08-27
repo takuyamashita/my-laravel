@@ -10928,3 +10928,61 @@ a.text-dark:focus {
   }
 }
 
+.reservation-hover {
+  position: relative;
+}
+
+.reservation-hover:hover {
+  cursor: pointer;
+}
+
+.password-loading {
+  height: 3em;
+  width: 3em;
+  position: relative;
+  border-radius: 50%;
+  -webkit-animation: rotate 3s linear 0s infinite normal forwards;
+          animation: rotate 3s linear 0s infinite normal forwards;
+  border-top: 0.6em solid whitesmoke;
+  border-right: 0.6em solid whitesmoke;
+  border-bottom: 0.6em solid whitesmoke;
+  border-left: 0.6em solid #5384f0;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.reservation-detail-card {
+  width: 18rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  border: none;
+  box-shadow: 3px 3px 9px #77777777;
+}
+
+.reservation-delete-button {
+  box-shadow: 3px 3px 9px #77777777;
+  color: #6e6e6e;
+  background: #e9e6e6;
+  border-color: #e9e6e6;
+}
+

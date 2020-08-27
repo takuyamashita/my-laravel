@@ -1,0 +1,44 @@
+.reservation-hover{
+    position: relative;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+$loading-back : 0.6em solid rgb(245, 245, 245);
+.password-loading{
+    height:3em;
+    width: 3em;
+    position: relative;
+    border-radius: 50%;
+    animation: rotate 3s linear 0s infinite normal forwards;
+    border-top: $loading-back;
+    border-right: $loading-back;
+    border-bottom: $loading-back;
+    border-left: 0.6em solid #5384f0;
+}
+@keyframes rotate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.reservation-detail-card{
+    width:18rem;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    border: none;
+    box-shadow:3px 3px 9px #77777777;
+}
+
+.reservation-delete-button{
+    box-shadow:3px 3px 9px #77777777;
+    color:rgb(110, 110, 110);
+    background: #e9e6e6;
+    border-color: #e9e6e6;
+}

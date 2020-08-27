@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Rules\Hankaku;
 use App\Models\Schedule;
 
 class ScheduleStoreRequest extends FormRequest
@@ -31,7 +32,7 @@ class ScheduleStoreRequest extends FormRequest
             'password_required' => ['boolean'],
             'permit_required' => ['boolean'],
             'schedule_passwords.*.colors.*' => ['exclude_if:password_required,false','exists:App\Models\ReservationColor,id'],
-            'schedule_passwords.*.schedule_password' => ['exclude_if:password_required,false','required','max:50']
+            'schedule_passwords.*.schedule_password' => ['exclude_if:password_required,false','required','max:50', new Hankaku]
         ];
     }
 

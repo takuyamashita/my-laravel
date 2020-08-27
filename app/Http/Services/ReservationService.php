@@ -61,7 +61,43 @@ class ReservationService{
 
         $reservation->save();
 
-        return $reservation;
+        return $reservation->with('color')->find($reservation->id);
+    }
+
+    public function destroyReservation(){
+        if(!Auth::guard('web')->check()) return response()->json(['status'=>'ok'],422);
+
+        $reservation = Reservation::where('from',$this->request->input('from'))->where('end',$this->request->input('end'))->first();
+        $id = Auth::guard('web')->id();
+
+        if($this->schedule->owner_id === $id){
+            $reservation->delete();
+            return response()->json(['status'=>'ok']);
+        }
+
+        return response()->json(['status'=>'ok'],422);
+    }
+
+    public function permitReservation(Reservation $reservation){
+        if($reservation->schedule == $this->schedule && $this->schedule->owner_id === Auth::guard('web')->id()){
+            return DB::transaction(function() use($reservation){
+                
+                $deleteTarget = $this->schedule->notPermitReservations
+                    ->where('from','<',$reservation->end)
+                    ->where('end','>',$reservation->from)
+                    ->where('id','<>',$reservation->id);
+                    
+                $deleteTarget->each(function(Reservation $deleteReservation){
+                    $deleteReservation->delete();
+                });
+
+                $reservation->status = 1;
+                $reservation->save();
+
+                return $this->schedule;
+
+            });
+        }
     }
 
 }
