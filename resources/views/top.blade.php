@@ -79,9 +79,9 @@
                 </svg>
             </div>
         </div>--}}
-        <div class="row">
-            <div class="col-md-4 text-muted bg-light text-center">
-                <h3 class="display-5 mt-5 mb-3">アカウントを作成</h3>
+        <div class="row bg-light py-md-5">
+            <div class="col-md-4 py-4 text-muted text-center">
+                <h3 class="display-5 mb-3">アカウントを作成</h3>
                 <div class="px-md-5">
                     <ul class="text-left">
                         <li>予約管理を始めるにはアカウントを作成する必要が有ります</li>
@@ -90,8 +90,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-4 text-muted bg-light text-center">
-                <h3 class="display-5 mt-5 mb-3">予約テーブルを作成</h3>
+            <div class="col-md-4 py-4 text-muted text-center">
+                <h3 class="display-5 mb-3">予約テーブルを作成</h3>
                 <div class="px-md-5">
                     <ul class="text-left">
                         <li>アカウント作成後TOPページ左上より「マイ予約テーブル一覧」をクリック</li>
@@ -101,8 +101,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-4 text-muted bg-light text-center">
-                <h3 class="display-5 mt-5 mb-3">予約管理を始める</h3>
+            <div class="col-md-4 py-4 text-muted text-center">
+                <h3 class="display-5 mb-3">予約管理を始める</h3>
                 <div class="px-md-5">
                     <ul class="text-left">
                         <li>予約テーブルが作成されると、ユニークな予約テーブルコードが付与されます</li>
@@ -112,8 +112,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 order-md-2 pt-5 pb-md-5 text-muted bg-light text-center">
+        <div class="row bg-light pb-5 pb-md-5">
+            <div class="col-md-4 order-md-2 text-muted text-center">
                 <div class="d-flex align-items-center h-100">
                     <div class="col-md-12">
                         <h3 class="mt-3">シンプルなUI</h3>
@@ -123,7 +123,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 order-md-1 py-md-5 text-muted bg-light text-center">
+            <div class="col-md-8 order-md-1 text-muted text-center">
                 <div>
                     <img alt="calender" style="max-width:100%;box-shadow:3px 3px 7px #77777777" src="{{ asset('/img/top-calender.png') }}">
                 </div>
