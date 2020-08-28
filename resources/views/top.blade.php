@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row pt-4">
+        {{--<div class="row pt-4">
             <div class="col-md-6 text-white bg-dark text-center">
                 <h1 class="display-5 my-5">よりシンプルな予約管理</h1>
                 <h1 class="display-5 my-5">柔軟な設計</h1>
@@ -39,7 +39,7 @@
                 <h1 class="display-5 my-5"><p>Reser View はこれら全てを実現する予約管理サービスです</p></h1>
             </div>
             <div class="col-md-6 bg-dark">
-                <svg class="center-block mx-auto d-block" viewBox="0 0 100 100" width="80%">
+                <svg class="center-block mx-auto d-block" viewBox="-10 0 110 100" width="80%">
                     <rect x="10" y="10" rx="1" ry="1" width="80" height="80" stroke="#ccc" stroke-width="0.2" fill="none"/>
 
                     <line x1="20" y1="10" x2="20" y2="90" stroke-width="0.08" stroke="#ccc" />
@@ -77,6 +77,56 @@
                     <rect x="82" y="30" rx="1" ry="1" width="6" height="30" stroke="none" stroke-width="0.05" fill="#ffc107"/>
 
                 </svg>
+            </div>
+        </div>--}}
+        <div class="row">
+            <div class="col-md-4 text-muted bg-light text-center">
+                <h3 class="display-5 mt-5 mb-3">アカウントを作成</h3>
+                <div class="px-md-5">
+                    <ul class="text-left">
+                        <li>予約管理を始めるにはアカウントを作成する必要が有ります</li>
+                        <li>アカウント作成、予約管理は無料でお使い頂けます</li>
+                        <li>予約を取るユーザーはアカウント不要です</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 text-muted bg-light text-center">
+                <h3 class="display-5 mt-5 mb-3">予約テーブルを作成</h3>
+                <div class="px-md-5">
+                    <ul class="text-left">
+                        <li>アカウント作成後TOPページ左上より「マイ予約テーブル一覧」をクリック</li>
+                        <li>新規に予約テーブルを作成します</li>
+                        <li>パスワードをグループ毎に設定することで、簡単にグループを作成することが出来ます</li>
+                        <li>予約テーブルに承認制を導入することが出来ます</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 text-muted bg-light text-center">
+                <h3 class="display-5 mt-5 mb-3">予約管理を始める</h3>
+                <div class="px-md-5">
+                    <ul class="text-left">
+                        <li>予約テーブルが作成されると、ユニークな予約テーブルコードが付与されます</li>
+                        <li>コードは予約テーブルの閲覧や予約を取る際に必要になります</li>
+                        <li>ユーザーは開始日時、終了日時、予約カラーを選び、名前を入力するだけで簡単に予約が作成できます</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 order-md-2 pt-5 pb-md-5 text-muted bg-light text-center">
+                <div class="d-flex align-items-center h-100">
+                    <div class="col-md-12">
+                        <h3 class="mt-3">シンプルなUI</h3>
+                        <p>
+                            シンプルでカラフルなUIが、予約管理をより一層簡単にします。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 order-md-1 py-md-5 text-muted bg-light text-center">
+                <div>
+                    <img alt="calender" style="max-width:100%;box-shadow:3px 3px 7px #77777777" src="{{ asset('/img/top-calender.png') }}">
+                </div>
             </div>
         </div>
     </div>
