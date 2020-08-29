@@ -12,11 +12,18 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $user = new \App\Models\Admin([
             'user_name' => 'yamada',
             'password' => bcrypt('1234'),
             'remember_token' => Str::random(10),
         ]);
         $user->save();
+        */
+        factory(App\Models\Admin::class)->create([
+            'id' => 1,
+            'user_name' => 'yamada',
+            'password' => bcrypt('1234'),
+        ]);
     }
 }

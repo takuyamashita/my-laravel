@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Rules\Hankaku;
@@ -16,7 +17,7 @@ class ScheduleStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::guard('web')->check();
     }
 
     /**
