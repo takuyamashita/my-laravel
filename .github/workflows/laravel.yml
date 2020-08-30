@@ -76,6 +76,6 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ID_RSA }}
       - name: rsync deploy
-        run: rsync -rptgDvz --delete -e ”ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no” ./ rsync@reserview.net:/var/www/html/my-laravel
+        run: rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./ rsync@reserview.net:/var/www/html/my-laravel
       - name: migrate database
-        run: ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no rsync@reserview.net ’cd /var/www/html/my-laravel ＆＆ php artisan migrate’
+        run: ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no rsync@reserview.net 'cd /var/www/html/my-laravel && php artisan migrate'
