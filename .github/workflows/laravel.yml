@@ -91,8 +91,7 @@ jobs:
       - name: add permisstion
         run: |
           chmod 0700 ~/.ssh
-          chmod 0600 ~/.ssh/authorized_keys
-          chmod 700 runner
+          chmod 700 home/runner
       - name: rsync deploy
         run: rsync -rptgDvz --delete  ./ reserview:/var/www/html/my-laravel
       - name: migrate database
