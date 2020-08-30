@@ -87,11 +87,7 @@ jobs:
           echo -n -e "Host reserview\n HostName reserview.net\n User rsync\n Port $SSH_PORT\n IdentityFile /home/runner/.ssh/id_rsa\n StrictHostKeyChecking no\n UserKnownHostsFile ~/.ssh/known_hosts" > ~/.ssh/config
       - name: add known hosts
         run: ssh-keyscan reserview.net >> ~/.ssh/known_hosts
-      - name: connection
-        run: ssh reserview 'cd /var/www/html'
-      #- name: rsync deploy
-      #  run: rsync -rptgDvz --delete  ./ reserview:/var/www/html/my-laravel
-      #- name: migrate database
-      #  env:
-      #    SSH_PORT: ${{ secrets.SSH_PORT }}
-      #  run: ssh -i -p $SSH_PORT -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no rsync@reserview.net 'cd /var/www/html/my-laravel && php artisan migrate'
+      - name: rsync deploy
+        run: rsync -rptgDvz --delete  ./ reserview:/var/www/html/my-laravel
+      - name: migrate database
+        run: ssh reserview 'cd /var/www/html/my-laravel && php artisan migrate'
