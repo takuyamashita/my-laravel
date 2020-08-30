@@ -85,7 +85,7 @@ jobs:
       - name: rsync deploy
         env:
           SSH_PORT: ${{ secrets.SSH_PORT }}
-        run: rsync -rptgDvz --delete -e "ssh -i -p $SSH_PORT -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./ rsync@reserview.net:/var/www/html/my-laravel
+        run: rsync -rptgDvz --delete -e "ssh -i -p "$SSH_PORT" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./ rsync@reserview.net:/var/www/html/my-laravel
       - name: migrate database
         env:
           SSH_PORT: ${{ secrets.SSH_PORT }}
