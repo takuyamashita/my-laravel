@@ -87,5 +87,6 @@ jobs:
           echo -n -e "Host reserview\n HostName reserview.net\n User rsync\n Port $SSH_PORT\n IdentityFile /home/runner/.ssh/id_rsa\n StrictHostKeyChecking no\n UserKnownHostsFile ~/.ssh/known_hosts" > ~/.ssh/config
       - name: add known hosts
         run: ssh-keyscan reserview.net >> ~/.ssh/known_hosts
+        
       - name: pull deploy
         run: ssh reserview 'cd /var/www/html/my-laravel && git pull origin master && php artisan migrate'
