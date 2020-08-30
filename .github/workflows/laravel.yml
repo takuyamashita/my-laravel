@@ -79,13 +79,17 @@ jobs:
           touch /home/runner/.ssh/id_rsa
           echo "$SSH_PRIVATE_KEY" > /home/runner/.ssh/id_rsa
           chmod 600 /home/runner/.ssh/id_rsa
+      - name: make ssh_config
+        env:
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          touch ~/.ssh/config
+          echo -n -e "Host reserview\nHostName reserview.net\nUser rsync\nPort $SSH_PORT\nIdentityFile /home/runner/.ssh/id_rsa" > ~/.ssh/config
       - name: add known hosts
         run: 
           ssh-keyscan reserview.net >> ~/.ssh/known_hosts
       - name: rsync deploy
-        env:
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-        run: rsync -rptgDvz --delete -e "ssh -i -p "$SSH_PORT" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./ rsync@reserview.net:/var/www/html/my-laravel
+        run: rsync -rptgDvz --delete  ./ reserview:/var/www/html/my-laravel
       - name: migrate database
         env:
           SSH_PORT: ${{ secrets.SSH_PORT }}
