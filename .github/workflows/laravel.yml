@@ -72,7 +72,7 @@ jobs:
         run: |
           rm -f .env
       - name: ssh key generate
-        run: echo ”$SSH_PRIVATE_KEY” ＞ key ＆＆ chmod 600 key
+        run: echo "$SSH_PRIVATE_KEY" ＞ key && chmod 600 key
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ID_RSA }}
       - name: rsync deploy
