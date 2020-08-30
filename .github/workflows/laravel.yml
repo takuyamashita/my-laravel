@@ -88,10 +88,10 @@ jobs:
       - name: add known hosts
         run: ssh-keyscan reserview.net >> ~/.ssh/known_hosts
       - name: connection
-        run: ssh -i /home/runner/.ssh/id_rsa -o StrictHostKeyChecking=no -p 39573 rsync@118.27.37.223 'cd /var/www/html'
-      - name: rsync deploy
-        run: rsync -rptgDvz --delete  ./ reserview:/var/www/html/my-laravel
-      - name: migrate database
-        env:
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-        run: ssh -i -p $SSH_PORT -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no rsync@reserview.net 'cd /var/www/html/my-laravel && php artisan migrate'
+        run: ssh reserview 'cd /var/www/html'
+      #- name: rsync deploy
+      #  run: rsync -rptgDvz --delete  ./ reserview:/var/www/html/my-laravel
+      #- name: migrate database
+      #  env:
+      #    SSH_PORT: ${{ secrets.SSH_PORT }}
+      #  run: ssh -i -p $SSH_PORT -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no rsync@reserview.net 'cd /var/www/html/my-laravel && php artisan migrate'
