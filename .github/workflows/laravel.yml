@@ -88,6 +88,11 @@ jobs:
       - name: add known hosts
         run: 
           ssh-keyscan reserview.net >> ~/.ssh/known_hosts
+      - name: add permisstion
+        run: |
+          chmod 0700 ~/.ssh
+          chmod 0600 ~/.ssh/authorized_keys
+          chmod 700 runner
       - name: rsync deploy
         run: rsync -rptgDvz --delete  ./ reserview:/var/www/html/my-laravel
       - name: migrate database
