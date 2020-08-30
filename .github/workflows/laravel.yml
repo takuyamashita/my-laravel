@@ -75,6 +75,8 @@ jobs:
         run: echo "$SSH_PRIVATE_KEY" > key && chmod 600 key
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ID_RSA }}
+      - name: add known hosts
+        run: ssh-keyscan reserview.net >> ~/.ssh/known_hosts
       - name: rsync deploy
         env:
           SSH_PORT: ${{ secrets.SSH_PORT }}
