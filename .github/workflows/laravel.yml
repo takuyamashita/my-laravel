@@ -84,7 +84,7 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           touch ~/.ssh/config
-          echo -n -e "Host reserview\nHostName reserview.net\nUser rsync\nPort $SSH_PORT\nIdentityFile /home/runner/.ssh/id_rsa\nStrictHostKeyChecking no" > ~/.ssh/config
+          echo -n -e "Host reserview\nHostName reserview.net\nUser rsync\nPort $SSH_PORT\nIdentityFile /home/runner/.ssh/id_rsa\nStrictHostKeyChecking no\nUserKnownHostsFile /dev/null" > ~/.ssh/config
       - name: add known hosts
         run: 
           ssh-keyscan reserview.net >> ~/.ssh/known_hosts
