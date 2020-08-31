@@ -22,7 +22,7 @@ class CreateReservationsTable extends Migration
             $table->string('schedule_digest');
             $table->bigInteger('schedule_id')->unsigned();
             $table->bigInteger('color_id')->unsigned();
-            $table->foreign('schedule_id')->references('id')->on('schedules');
+            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
             $table->foreign('color_id')->references('id')->on('reservation_colors');
             $table->timestamps();
         });
@@ -35,6 +35,6 @@ class CreateReservationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservation');
+        Schema::dropIfExists('reservations');
     }
 }

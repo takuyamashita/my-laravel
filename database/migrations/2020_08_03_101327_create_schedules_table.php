@@ -21,7 +21,7 @@ class CreateSchedulesTable extends Migration
             $table->string('name',50);
             $table->string('description')->nullable();
             $table->bigInteger('owner_id')->unsigned();
-            $table->foreign('owner_id')->references('id')->on('admins');
+            $table->foreign('owner_id')->references('id')->on('admins')->onDelete('cascade');
             $table->string('hash_digest');
             $table->timestamps();
         });

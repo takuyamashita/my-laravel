@@ -30,6 +30,6 @@ class CreateSchedulePasswordReservationColorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule_password_reservation_color');
+        Schema::dropIfExists('reservation_color_schedule_password');
     }
 }

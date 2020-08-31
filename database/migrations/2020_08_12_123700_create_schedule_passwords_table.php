@@ -17,7 +17,7 @@ class CreateSchedulePasswordsTable extends Migration
             $table->bigIncrements('id');
             $table->string('password');
             $table->bigInteger('schedule_id')->unsigned();
-            $table->foreign('schedule_id')->references('id')->on('schedules');
+            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
             $table->timestamps();
         });
     }

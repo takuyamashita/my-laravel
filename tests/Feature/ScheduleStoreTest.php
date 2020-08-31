@@ -19,6 +19,7 @@ class ScheduleStoreTest extends TestCase
 
     protected $admin;
 
+    
     protected function setUp():void{
         parent::setUp();
 
@@ -31,9 +32,12 @@ class ScheduleStoreTest extends TestCase
     }
 
     protected function tearDown() :void {
-        Artisan::call('migrate:fresh');
+        // /DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Artisan::call('migrate:refresh');
+        
         parent::tearDown();
     }
+    
 
     public function testStoreSchedule(){
 
